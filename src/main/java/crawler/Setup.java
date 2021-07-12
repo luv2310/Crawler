@@ -1,16 +1,16 @@
-package mavenProject.mug;
+package crawler;
 
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class App 
+public class Setup 
 {
 	public static void main( String[] args ) throws InterruptedException
 	{
-		System.out.println( "Hello World!" );
-		App app = new App();
-		app.operaload();
+		System.out.println( "!!!!!!!!!!! Crawler Run!!!!!!!!!!!!!!!!!" );
+		Setup setup = new Setup();
+		setup.operaload();
 	}
 
 	public void operaload() throws InterruptedException 
