@@ -8,6 +8,8 @@ public class Setup
 {
 	public static void main( String[] args ) throws InterruptedException
 	{
+	System.out.println();
+
 		System.out.println( "!!!!!!!!!!! Crawler Run!!!!!!!!!!!!!!!!!" );
 		Setup setup = new Setup();
 		setup.operaload();
@@ -20,7 +22,7 @@ public class Setup
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--user-data-dir="+opera_profile);
 		chromeOptions.setBinary("C:\\Users\\luv.mendiratta\\AppData\\Local\\Programs\\Opera\\77.0.4054.172\\opera.exe");
-		System.setProperty("webdriver.opera.driver", "C:\\Users\\luv.mendiratta\\Desktop\\operadriver_win64\\operadriver_win64\\operadriver.exe");
+		System.setProperty("webdriver.opera.driver",System.getProperty("user.dir")+"\\driver\\operadriver.exe");
 		capablities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 		OperaDriver driver = new OperaDriver(capablities);
 		driver.get("https://whatismyipaddress.com");
