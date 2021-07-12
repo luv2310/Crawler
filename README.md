@@ -1,3 +1,3 @@
 # MyUtilityGenius Repositary
 
-To run crawler use command : mvn clean compile exec:java -Dexec.mainClass=crawler.App
+To run crawler use command : mvn clean compile exec:java -Dexec.mainClass=crawler.App -Dexec.cleanupDaemonThreads=false
