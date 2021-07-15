@@ -34,7 +34,7 @@ public class USwitchGenericScenario extends TestBase {
 	
 	@AfterMethod
 	public void closeTest() {      
-//		driver.close();
+	driver.quit();
 		
 	}
 	
