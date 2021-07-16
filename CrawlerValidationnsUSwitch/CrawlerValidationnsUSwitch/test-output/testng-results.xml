@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-07-16T10:07:14Z" name="TestSuite" finished-at="2021-07-16T10:07:48Z" duration-ms="34389">
+  <suite started-at="2021-07-16T10:09:46Z" name="Test Suite" finished-at="2021-07-16T10:10:17Z" duration-ms="30918">
     <groups>
     </groups>
-    <test started-at="2021-07-16T10:07:14Z" name="electricTC" finished-at="2021-07-16T10:07:48Z" duration-ms="34389">
+    <test started-at="2021-07-16T10:09:46Z" name="electricTC" finished-at="2021-07-16T10:10:17Z" duration-ms="30918">
       <class name="com.muDomastic.qa.TestCases.USwitchGenericScenario">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:07:14Z" name="setup" finished-at="2021-07-16T11:07:27Z" duration-ms="13060" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:09:46Z" name="setup" finished-at="2021-07-16T11:09:56Z" duration-ms="9495" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="executevalue()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:07:27Z" name="executevalue" finished-at="2021-07-16T11:07:47Z" duration-ms="20398" status="FAIL">
+        <test-method signature="executevalue()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:09:56Z" name="executevalue" finished-at="2021-07-16T11:10:16Z" duration-ms="20283" status="FAIL">
           <exception class="org.openqa.selenium.ElementNotVisibleException">
             <message>
               <![CDATA[element not interactable
@@ -21,8 +21,8 @@ Command duration or timeout: 0 milliseconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'WIN-1006', ip: '192.168.100.66', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.1'
 Driver info: org.openqa.selenium.opera.OperaDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:65234}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 0ccbfa27e8c20c1cf0f348cc81c8c1f9]]>
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:58310}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: d420dc8f1771ab2f9b9e9c291e116a66]]>
             </message>
             <full-stacktrace>
               <![CDATA[org.openqa.selenium.ElementNotVisibleException: element not interactable
@@ -32,8 +32,8 @@ Command duration or timeout: 0 milliseconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'WIN-1006', ip: '192.168.100.66', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.1'
 Driver info: org.openqa.selenium.opera.OperaDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:65234}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 0ccbfa27e8c20c1cf0f348cc81c8c1f9
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:58310}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: d420dc8f1771ab2f9b9e9c291e116a66
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -88,11 +88,11 @@ Session ID: 0ccbfa27e8c20c1cf0f348cc81c8c1f9
           <reporter-output>
           </reporter-output>
         </test-method> <!-- executevalue -->
-        <test-method is-config="true" signature="closeTest()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:07:47Z" name="closeTest" finished-at="2021-07-16T11:07:48Z" duration-ms="866" status="PASS">
+        <test-method is-config="true" signature="closeTest()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:10:16Z" name="closeTest" finished-at="2021-07-16T11:10:17Z" duration-ms="1087" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeTest -->
       </class> <!-- com.muDomastic.qa.TestCases.USwitchGenericScenario -->
     </test> <!-- electricTC -->
-  </suite> <!-- TestSuite -->
+  </suite> <!-- Test Suite -->
 </testng-results>
