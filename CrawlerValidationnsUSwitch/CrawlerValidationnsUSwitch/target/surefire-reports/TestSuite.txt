@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 39.576 s <<< FAILURE! - in TestSuite
+executevalue(com.muDomastic.qa.TestCases.USwitchGenericScenario)  Time elapsed: 20.344 s  <<< FAILURE!
+org.openqa.selenium.ElementNotVisibleException: 
+element not interactable
+  (Session info: chrome=91.0.4472.114)
+  (Driver info: operadriver=91.0.4472.77 (1cecd5c8a856bc2a5adda436e7b84d8d21b339b6-refs/branch-heads/4472@{#1246}),platform=Windows NT 10.0.19042 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'WIN-1006', ip: '192.168.100.66', os.name: 'Windows 10', os.arch: 'x86', os.version: '10.0', java.version: '1.8.0_291'
+Driver info: org.openqa.selenium.opera.OperaDriver
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:62188}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 50084c65b1a4bc934df4abe395688e4b
+	at com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue(USwitchGenericScenario.java:30)
+
