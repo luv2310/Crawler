@@ -270,11 +270,11 @@ public class USwitchLandingPage  {
 				//				}
 				//	json_getallthedetails.newOutput(getallthedetails);
 				super_getallthedetails.put("value_"+listnum, getallthedetails);
-				System.out.println("End of first section-----------------------------------------------");
+				System.out.println("---Section Ends---");
 			}
 		}	
 		Yaml yaml = new Yaml();
-		FileWriter writer = new FileWriter(System.getProperty("user.dir")+"CrawlerValidationnsUSwitch/data.yaml");
+		FileWriter writer = new FileWriter(System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
 		yaml.dump(super_getallthedetails, writer);
 
 	}
