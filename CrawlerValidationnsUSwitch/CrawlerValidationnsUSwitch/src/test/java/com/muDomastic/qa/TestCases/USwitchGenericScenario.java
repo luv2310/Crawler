@@ -1,5 +1,7 @@
 package com.muDomastic.qa.TestCases;
 
+import java.io.IOException;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,7 +25,7 @@ public class USwitchGenericScenario extends TestBase {
 	}
 	
 	@Test
-	public void executevalue() {
+	public void executevalue() throws IOException {
 		//create page class objects 
 		USwitchLandingPage UswitchPageObj=new USwitchLandingPage();
 		//call the functions/actions to be performed  

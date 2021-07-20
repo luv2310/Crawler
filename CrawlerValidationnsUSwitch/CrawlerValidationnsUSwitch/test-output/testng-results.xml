@@ -2,38 +2,42 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-07-16T10:09:46Z" name="Test Suite" finished-at="2021-07-16T10:10:17Z" duration-ms="30918">
+  <suite started-at="2021-07-20T18:14:05Z" name="Test Suite" finished-at="2021-07-20T18:14:58Z" duration-ms="52717">
     <groups>
     </groups>
-    <test started-at="2021-07-16T10:09:46Z" name="electricTC" finished-at="2021-07-16T10:10:17Z" duration-ms="30918">
+    <test started-at="2021-07-20T18:14:05Z" name="electricTC" finished-at="2021-07-20T18:14:58Z" duration-ms="52717">
       <class name="com.muDomastic.qa.TestCases.USwitchGenericScenario">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:09:46Z" name="setup" finished-at="2021-07-16T11:09:56Z" duration-ms="9495" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-20T19:14:05Z" name="setup" finished-at="2021-07-20T19:14:15Z" duration-ms="10300" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="executevalue()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:09:56Z" name="executevalue" finished-at="2021-07-16T11:10:16Z" duration-ms="20283" status="FAIL">
-          <exception class="org.openqa.selenium.ElementNotVisibleException">
+        <test-method signature="executevalue()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-20T19:14:15Z" name="executevalue" finished-at="2021-07-20T19:14:57Z" duration-ms="41615" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchElementException">
             <message>
-              <![CDATA[element not interactable
+              <![CDATA[no such element: Unable to locate element: {"method":"xpath","selector":"//button[(contains(text(),'Continue'))]"}
   (Session info: chrome=91.0.4472.114)
   (Driver info: operadriver=91.0.4472.77 (1cecd5c8a856bc2a5adda436e7b84d8d21b339b6-refs/branch-heads/4472@{#1246}),platform=Windows NT 10.0.19042 x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'WIN-1006', ip: '192.168.100.66', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.1'
 Driver info: org.openqa.selenium.opera.OperaDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:58310}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: d420dc8f1771ab2f9b9e9c291e116a66]]>
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:61080}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 975de455fbf12b3115e1023cfbfa1a64
+*** Element info: {Using=xpath, value=//button[(contains(text(),'Continue'))]}]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.ElementNotVisibleException: element not interactable
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//button[(contains(text(),'Continue'))]"}
   (Session info: chrome=91.0.4472.114)
   (Driver info: operadriver=91.0.4472.77 (1cecd5c8a856bc2a5adda436e7b84d8d21b339b6-refs/branch-heads/4472@{#1246}),platform=Windows NT 10.0.19042 x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'WIN-1006', ip: '192.168.100.66', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.1'
 Driver info: org.openqa.selenium.opera.OperaDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:58310}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: d420dc8f1771ab2f9b9e9c291e116a66
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:61080}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 975de455fbf12b3115e1023cfbfa1a64
+*** Element info: {Using=xpath, value=//button[(contains(text(),'Continue'))]}
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -47,16 +51,15 @@ Session ID: d420dc8f1771ab2f9b9e9c291e116a66
 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:84)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
 	at jdk.proxy2/jdk.proxy2.$Proxy12.click(Unknown Source)
-	at com.muDomastic.qa.page.USwitchLandingPage.providePostcode(USwitchLandingPage.java:109)
-	at com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue(USwitchGenericScenario.java:30)
+	at com.muDomastic.qa.page.USwitchLandingPage.providePostcode(USwitchLandingPage.java:149)
+	at com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue(USwitchGenericScenario.java:32)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -84,11 +87,11 @@ Session ID: d420dc8f1771ab2f9b9e9c291e116a66
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.ElementNotVisibleException -->
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- executevalue -->
-        <test-method is-config="true" signature="closeTest()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-16T11:10:16Z" name="closeTest" finished-at="2021-07-16T11:10:17Z" duration-ms="1087" status="PASS">
+        <test-method is-config="true" signature="closeTest()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d]" started-at="2021-07-20T19:14:57Z" name="closeTest" finished-at="2021-07-20T19:14:58Z" duration-ms="737" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeTest -->

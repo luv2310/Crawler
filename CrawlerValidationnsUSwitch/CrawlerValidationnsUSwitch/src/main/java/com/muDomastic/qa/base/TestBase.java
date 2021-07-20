@@ -61,6 +61,7 @@ public class TestBase {
 			String opera_profile = "C:\\Users\\luv.mendiratta\\AppData\\Roaming\\Opera Software\\Opera Stable";
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("--user-data-dir="+opera_profile);
+			chromeOptions.addArguments("private");
 			chromeOptions.setBinary("C:\\Users\\luv.mendiratta\\AppData\\Local\\Programs\\Opera\\77.0.4054.172\\opera.exe");
 			System.setProperty("webdriver.opera.driver",System.getProperty("user.dir")+"\\driver\\operadriver.exe");
 			capablities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);

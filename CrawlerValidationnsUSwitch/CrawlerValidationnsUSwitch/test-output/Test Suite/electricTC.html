@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Fri Jul 16 11:09:46 BST 2021</td>
+<td>Started on:</td><td>Tue Jul 20 19:14:05 BST 2021</td>
 </tr>
-<tr><td>Total time:</td><td>30 seconds (30918 ms)</td>
+<tr><td>Total time:</td><td>52 seconds (52717 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,15 +76,17 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue()'><b>executevalue</b><br>Test class: com.muDomastic.qa.TestCases.USwitchGenericScenario</td>
-<td><div><pre>org.openqa.selenium.ElementNotVisibleException: element not interactable
+<td><div><pre>org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//button[(contains(text(),&apos;Continue&apos;))]&quot;}
   (Session info: chrome=91.0.4472.114)
   (Driver info: operadriver=91.0.4472.77 (1cecd5c8a856bc2a5adda436e7b84d8d21b339b6-refs/branch-heads/4472@{#1246}),platform=Windows NT 10.0.19042 x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
 System info: host: &apos;WIN-1006&apos;, ip: &apos;192.168.100.66&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;16.0.1&apos;
 Driver info: org.openqa.selenium.opera.OperaDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:58310}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: d420dc8f1771ab2f9b9e9c291e116a66
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:61080}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 975de455fbf12b3115e1023cfbfa1a64
+*** Element info: {Using=xpath, value=//button[(contains(text(),&apos;Continue&apos;))]}
 	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
 	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
 	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
@@ -93,22 +95,27 @@ Session ID: d420dc8f1771ab2f9b9e9c291e116a66
 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:84)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
 	at jdk.proxy2/jdk.proxy2.$Proxy12.click(Unknown Source)
-	at com.muDomastic.qa.page.USwitchLandingPage.providePostcode(USwitchLandingPage.java:109)
-	at com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue(USwitchGenericScenario.java:30)
-... Removed 34 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace449338124", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace449338124'><pre>org.openqa.selenium.ElementNotVisibleException: element not interactable
+	at com.muDomastic.qa.page.USwitchLandingPage.providePostcode(USwitchLandingPage.java:149)
+	at com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue(USwitchGenericScenario.java:32)
+... Removed 30 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1041326823", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1041326823'><pre>org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//button[(contains(text(),&apos;Continue&apos;))]&quot;}
   (Session info: chrome=91.0.4472.114)
   (Driver info: operadriver=91.0.4472.77 (1cecd5c8a856bc2a5adda436e7b84d8d21b339b6-refs/branch-heads/4472@{#1246}),platform=Windows NT 10.0.19042 x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
 System info: host: &apos;WIN-1006&apos;, ip: &apos;192.168.100.66&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;16.0.1&apos;
 Driver info: org.openqa.selenium.opera.OperaDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:58310}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: d420dc8f1771ab2f9b9e9c291e116a66
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: opera, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:61080}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, opera: {operadriverVersion: 91.0.4472.77 (1cecd5c8a856b..., userDataDir: C:\Users\luv.mendiratta\App...}, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), rotatable: false, setWindowRect: true, strictFileInteractability: false, takesHeapSnapshot: true, takesScreenshot: true, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unexpectedAlertBehaviour: ignore, unhandledPromptBehavior: ignore, version: 91.0.4472.114, webStorageEnabled: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 975de455fbf12b3115e1023cfbfa1a64
+*** Element info: {Using=xpath, value=//button[(contains(text(),&apos;Continue&apos;))]}
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -122,16 +129,15 @@ Session ID: d420dc8f1771ab2f9b9e9c291e116a66
 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:84)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
 	at jdk.proxy2/jdk.proxy2.$Proxy12.click(Unknown Source)
-	at com.muDomastic.qa.page.USwitchLandingPage.providePostcode(USwitchLandingPage.java:109)
-	at com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue(USwitchGenericScenario.java:30)
+	at com.muDomastic.qa.page.USwitchLandingPage.providePostcode(USwitchLandingPage.java:149)
+	at com.muDomastic.qa.TestCases.USwitchGenericScenario.executevalue(USwitchGenericScenario.java:32)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -158,7 +164,7 @@ Session ID: d420dc8f1771ab2f9b9e9c291e116a66
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 </pre></div></td>
-<td>20</td>
+<td>41</td>
 <td>com.muDomastic.qa.TestCases.USwitchGenericScenario@8c3b9d</td></tr>
 </table><p>
 </body>

@@ -1,17 +1,25 @@
 package com.muDomastic.qa.page;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Driver;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.json.Json;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import org.yaml.snakeyaml.Yaml;
 
 import com.muDomastic.qa.base.TestBase;
 import com.muDomastic.qa.util.TestUtil;
@@ -20,7 +28,7 @@ public class USwitchLandingPage  {
 
 	TestBase testbase =  new TestBase();
 	public static WebDriver driver = TestBase.driver;
-	
+
 	// accept cookies
 	@FindBy(id = "cookie_banner_accept")
 	WebElement acceptcoockies;
@@ -89,11 +97,11 @@ public class USwitchLandingPage  {
 
 	// get the list count
 	// div[@class='css-1juarq1']/ol/li
-	
+
 
 	List<WebElement> listoftable = driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
 
-//	int listoftable= len(driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
+	//	int listoftable= len(driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
 
 	@FindBy(xpath = "//div[@class='css-1juarq1']/ol/li")
 	WebElement totalLI;
@@ -101,7 +109,7 @@ public class USwitchLandingPage  {
 	// initialize the Page objects
 	public USwitchLandingPage() {
 		PageFactory.initElements(driver, this);
- 
+
 	}
 
 	public void providePostcode() {
@@ -143,8 +151,8 @@ public class USwitchLandingPage  {
 		emailaaddress.sendKeys("sddfds@gmail.com");
 
 		try {
-			
-						Thread.sleep(1000);
+
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,24 +172,23 @@ public class USwitchLandingPage  {
 
 	}
 
-	public void storedata() {
-		// total number of tables (listed items present in the screen)
+	public void storedata() throws IOException {
+		// total number of element in a list (listed items present in the screen)
 		List<WebElement> listoftable = driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
 		int xpathlistoftablecount = listoftable.size();
 		System.out.println(xpathlistoftablecount);
-		// fetch the value for each row
+		Map<String, Map> super_getallthedetails = new HashMap<String, Map>();
 
-		// Store
+		for (int listnum = 1; listnum <= xpathlistoftablecount; listnum++) 
+		{
+			Map<String, String> getallthedetails = new HashMap<String, String>();
 
-		for (int listnum = 1; listnum <= xpathlistoftablecount; listnum++) {
 			List<WebElement> findContactlist = driver
 					.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div"));
 			int ContactFindcount = findContactlist.size();
-
+			// checking if the elemet from the list has sub elements or not and if so then creating the xpath for same.
 			if (ContactFindcount > 1) {
 
-//	 int listnum=1;
-				// eg Pure Planet
 				WebElement provider = driver
 						.findElement(By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div/div/div/a/img"));
 				// eg:100% Green Variable
@@ -197,13 +204,11 @@ public class USwitchLandingPage  {
 				WebElement earlyExitFee = driver.findElement(By.xpath(
 						"//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div/div[3]/table/tbody/tr[2]/td[2]/p"));
 
-// find the offers and get the data 
-
+				// find the offers and get the data 
 				List<WebElement> offerliststatement = driver.findElements(
 						By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div/div[3]/div[2]/div"));
 				int CountOfferliststatement = offerliststatement.size();
 
-				Map<String, String> getallthedetails = new HashMap<String, String>();
 				for (int cos = 1; cos <= CountOfferliststatement; cos++) {
 					WebElement OfferStatement = driver.findElement(By.xpath(
 							"//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div/div[3]/div[2]/div[" + cos + "]"));
@@ -215,7 +220,7 @@ public class USwitchLandingPage  {
 				}
 
 				if (ContactFindcount > 5) {
-//rates capture
+					//rates capture
 					WebElement AdditionalAnualCost = driver.findElement(
 							By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div[4]/div/div/p[2]/span[2]"));
 					WebElement MonthlyPayCost = driver.findElement(
@@ -245,26 +250,32 @@ public class USwitchLandingPage  {
 				String contractvalueval = contractvalue.getText();
 				String earlyExitFeeval = earlyExitFee.getText();
 
-//first 2 tables name and contract
+				//first 2 tables name and contract
 				getallthedetails.put("providername", providername);
 				getallthedetails.put("providerdesc", providerdescval);
 				getallthedetails.put("contractval", contractval);
 				getallthedetails.put("contractvalueval", contractvalueval);
 				getallthedetails.put("earlyExitFeeval", earlyExitFeeval);
-//				getallthedetails.put("AdditionalAnualCostval", AdditionalAnualCostval);
-//				getallthedetails.put("MonthlyPayCostval", MonthlyPayCostval);
+				//				getallthedetails.put("AdditionalAnualCostval", AdditionalAnualCostval);
+				//				getallthedetails.put("MonthlyPayCostval", MonthlyPayCostval);
 				//
 
-				// print the values
-				Iterator iter = getallthedetails.entrySet().iterator();
-				while (iter.hasNext()) {
-					Map.Entry entry = (Map.Entry) iter.next();
-					System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
-				}
 
-				System.out.println("End of first data-----------------------------------------------");
+
+				// print the values
+				//				Iterator iter = getallthedetails.entrySet().iterator();
+				//				while (iter.hasNext()) {
+				//					Map.Entry entry = (Map.Entry) iter.next();
+				//					System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
+				//				}
+				//	json_getallthedetails.newOutput(getallthedetails);
+				super_getallthedetails.put("value_"+listnum, getallthedetails);
+				System.out.println("End of first section-----------------------------------------------");
 			}
-		}
+		}	
+		Yaml yaml = new Yaml();
+		FileWriter writer = new FileWriter(System.getProperty("user.dir")+"CrawlerValidationnsUSwitch/data.yaml");
+		yaml.dump(super_getallthedetails, writer);
 
 	}
 
