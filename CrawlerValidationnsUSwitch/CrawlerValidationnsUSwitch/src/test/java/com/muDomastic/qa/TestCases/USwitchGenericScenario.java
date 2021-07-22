@@ -25,7 +25,7 @@ public class USwitchGenericScenario extends TestBase {
 	}
 	
 	@Test
-	public void executevalue() throws IOException {
+	public void executevalue() throws IOException, InterruptedException {
 		//create page class objects 
 		USwitchLandingPage UswitchPageObj=new USwitchLandingPage();
 		//call the functions/actions to be performed  

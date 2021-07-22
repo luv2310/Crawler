@@ -28,6 +28,7 @@ public class USwitchLandingPage  {
 
 	TestBase testbase =  new TestBase();
 	public static WebDriver driver = TestBase.driver;
+	TestUtil action = new TestUtil();
 
 	// accept cookies
 	@FindBy(id = "cookie_banner_accept")
@@ -112,64 +113,28 @@ public class USwitchLandingPage  {
 
 	}
 
-	public void providePostcode() {
-
-		acceptcoockies.click();
-		postcode.sendKeys("LU1 1jj");
-		CompareAndSave.click();
-
-		Select addressdrpDown = new Select(selectaddress);
-		addressdrpDown.selectByVisibleText("Flat 3, Brantwood Court, Brantwood Road, Luton, Bedfordshire, LU1 1JJ");
-
-		continuebtn.click();
-		gascontinuebtn.click();
-		dualfuelcontinuebtn.click();
-		suppliercontinuebtn.click();
-		paycontinuebtn.click();
-
-		Select daydp = new Select(dayendDate);
-		daydp.selectByValue("25");
-
-		Select mondaydp = new Select(MonthendDate);
-		mondaydp.selectByValue("12");
-		Select yeardp = new Select(YearendDate);
-
-		yeardp.selectByValue("2023");
-
-		plancontinuebtn.click();
-
-		spendingcontinuebtn.click();
-
-		sharecontinuebtn.click();
-
-		gasamount.sendKeys("28");
-
-		eleamount.sendKeys("30");
-
-		Amountcontinuebtn.click();
-
-		emailaaddress.sendKeys("sddfds@gmail.com");
-
-		try {
-
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (findcheapbtn.isEnabled()) {
-			findcheapbtn.click();
-		} else {
-			System.out.println("not enabled");
-		}
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public void providePostcode()	{
+		action.clickVerifiedElement(acceptcoockies);
+		action.sendText(postcode, "LU1 1jj");
+		action.clickVerifiedElement(CompareAndSave);
+		action.selectDropDownByVisibleText(selectaddress, "Flat 3, Brantwood Court, Brantwood Road, Luton, Bedfordshire, LU1 1JJ");
+		action.clickVerifiedElement(continuebtn);
+		action.clickVerifiedElement(gascontinuebtn);
+		action.clickVerifiedElement(dualfuelcontinuebtn);
+		action.clickVerifiedElement(suppliercontinuebtn);
+		action.clickVerifiedElement(paycontinuebtn);		
+		action.selectDropDownByValue(dayendDate,"25");
+		action.selectDropDownByValue(MonthendDate,"12");
+		action.selectDropDownByValue(YearendDate,"2023");
+		action.clickVerifiedElement(plancontinuebtn);
+		action.clickVerifiedElement(spendingcontinuebtn);
+		action.clickVerifiedElement(sharecontinuebtn);
+		action.sendText(gasamount, "28");
+		action.sendText(eleamount, "30");
+		action.clickVerifiedElement(Amountcontinuebtn);
+		action.sendText(emailaaddress, "sddfds@gmail.com");
+		action.wait(4);
+		action.clickVerifiedElement(findcheapbtn);
 	}
 
 	public void storedata() throws IOException {
@@ -249,30 +214,16 @@ public class USwitchLandingPage  {
 				String contractval = contract.getText();
 				String contractvalueval = contractvalue.getText();
 				String earlyExitFeeval = earlyExitFee.getText();
-
-				//first 2 tables name and contract
 				getallthedetails.put("providername", providername);
 				getallthedetails.put("providerdesc", providerdescval);
 				getallthedetails.put("contractval", contractval);
 				getallthedetails.put("contractvalueval", contractvalueval);
 				getallthedetails.put("earlyExitFeeval", earlyExitFeeval);
-				//				getallthedetails.put("AdditionalAnualCostval", AdditionalAnualCostval);
-				//				getallthedetails.put("MonthlyPayCostval", MonthlyPayCostval);
-				//
-
-
-
-				// print the values
-				//				Iterator iter = getallthedetails.entrySet().iterator();
-				//				while (iter.hasNext()) {
-				//					Map.Entry entry = (Map.Entry) iter.next();
-				//					System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
-				//				}
-				//	json_getallthedetails.newOutput(getallthedetails);
 				super_getallthedetails.put("value_"+listnum, getallthedetails);
-				System.out.println("---Section Ends---");
+				System.out.println("---Details  Fetched---");
 			}
 		}	
+		System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
 		Yaml yaml = new Yaml();
 		FileWriter writer = new FileWriter(System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
 		yaml.dump(super_getallthedetails, writer);
