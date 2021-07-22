@@ -113,7 +113,7 @@ public class USwitchLandingPage  {
 
 	}
 
-	public void providePostcode()	{
+	public void uSwitchJourney()	{
 		action.clickVerifiedElement(acceptcoockies);
 		action.sendText(postcode, "LU1 1jj");
 		action.clickVerifiedElement(CompareAndSave);

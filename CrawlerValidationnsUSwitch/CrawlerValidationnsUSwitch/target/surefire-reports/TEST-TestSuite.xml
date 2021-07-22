@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="146.188" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="78.333" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -19,7 +19,7 @@
     <property name="user.country" value="GB"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_291\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\LUV~1.MEN\AppData\Local\Temp\surefire3492083191707410276\surefirebooter6654418768321777798.jar C:\Users\luv.mendiratta\AppData\Local\Temp\surefire3492083191707410276 2021-07-21T13-57-44_157-jvmRun1 surefire6374970634784806422tmp surefire_06270173287057523973tmp"/>
+    <property name="sun.java.command" value="C:\Users\LUV~1.MEN\AppData\Local\Temp\surefire4505414892288793546\surefirebooter3236111408147124149.jar C:\Users\luv.mendiratta\AppData\Local\Temp\surefire4505414892288793546 2021-07-22T17-18-10_285-jvmRun1 surefire3773502838942894453tmp surefire_04390084986534886758tmp"/>
     <property name="surefire.test.class.path" value="C:\Users\luv.mendiratta\Desktop\MUG\CrawlerValidationnsUSwitch\CrawlerValidationnsUSwitch\target\test-classes;C:\Users\luv.mendiratta\Desktop\MUG\CrawlerValidationnsUSwitch\CrawlerValidationnsUSwitch\target\classes;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-java\3.141.59\selenium-java-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-api\3.141.59\selenium-api-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\3.141.59\selenium-chrome-driver-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\3.141.59\selenium-edge-driver-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\3.141.59\selenium-firefox-driver-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\3.141.59\selenium-ie-driver-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-opera-driver\3.141.59\selenium-opera-driver-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\3.141.59\selenium-remote-driver-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\3.141.59\selenium-safari-driver-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\org\seleniumhq\selenium\selenium-support\3.141.59\selenium-support-3.141.59.jar;C:\Users\luv.mendiratta\.m2\repository\net\bytebuddy\byte-buddy\1.8.15\byte-buddy-1.8.15.jar;C:\Users\luv.mendiratta\.m2\repository\org\apache\commons\commons-exec\1.3\commons-exec-1.3.jar;C:\Users\luv.mendiratta\.m2\repository\com\google\guava\guava\25.0-jre\guava-25.0-jre.jar;C:\Users\luv.mendiratta\.m2\repository\com\google\code\findbugs\jsr305\1.3.9\jsr305-1.3.9.jar;C:\Users\luv.mendiratta\.m2\repository\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;C:\Users\luv.mendiratta\.m2\repository\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;C:\Users\luv.mendiratta\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;C:\Users\luv.mendiratta\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;C:\Users\luv.mendiratta\.m2\repository\com\squareup\okhttp3\okhttp\3.11.0\okhttp-3.11.0.jar;C:\Users\luv.mendiratta\.m2\repository\com\squareup\okio\okio\1.14.0\okio-1.14.0.jar;C:\Users\luv.mendiratta\.m2\repository\org\testng\testng\6.11\testng-6.11.jar;C:\Users\luv.mendiratta\.m2\repository\com\beust\jcommander\1.64\jcommander-1.64.jar;C:\Users\luv.mendiratta\.m2\repository\org\yaml\snakeyaml\1.17\snakeyaml-1.17.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\luv.mendiratta"/>
@@ -32,7 +32,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\LUV~1.MEN\AppData\Local\Temp\surefire3492083191707410276\surefirebooter6654418768321777798.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\LUV~1.MEN\AppData\Local\Temp\surefire4505414892288793546\surefirebooter3236111408147124149.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files (x86)\Java\jdk1.8.0_291\jre\lib\resources.jar;C:\Program Files (x86)\Java\jdk1.8.0_291\jre\lib\rt.jar;C:\Program Files (x86)\Java\jdk1.8.0_291\jre\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jdk1.8.0_291\jre\lib\jsse.jar;C:\Program Files (x86)\Java\jdk1.8.0_291\jre\lib\jce.jar;C:\Program Files (x86)\Java\jdk1.8.0_291\jre\lib\charsets.jar;C:\Program Files (x86)\Java\jdk1.8.0_291\jre\lib\jfr.jar;C:\Program Files (x86)\Java\jdk1.8.0_291\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
@@ -61,5 +61,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="executevalue" classname="com.muDomastic.qa.TestCases.USwitchGenericScenario" time="131.063"/>
+  <testcase name="executevalue" classname="com.muDomastic.qa.TestCases.USwitchGenericScenario" time="63.093"/>
 </testsuite>

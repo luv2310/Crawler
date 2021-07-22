@@ -29,7 +29,7 @@ public class USwitchGenericScenario extends TestBase {
 		//create page class objects 
 		USwitchLandingPage UswitchPageObj=new USwitchLandingPage();
 		//call the functions/actions to be performed  
-		UswitchPageObj.providePostcode();
+		UswitchPageObj.uSwitchJourney();
 		UswitchPageObj.storedata();
 	}
 	
