@@ -97,13 +97,7 @@ public class USwitchLandingPage  {
 	WebElement headerprin;
 
 	// get the list count
-	// div[@class='css-1juarq1']/ol/li
-
-
 	List<WebElement> listoftable = driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
-
-	//	int listoftable= len(driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
-
 	@FindBy(xpath = "//div[@class='css-1juarq1']/ol/li")
 	WebElement totalLI;
 
