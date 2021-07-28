@@ -37,7 +37,6 @@ public class TestBase {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-
 		}
 
 	}
