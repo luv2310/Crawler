@@ -92,7 +92,13 @@ public class USwitchLandingPage  {
 	@FindBy(xpath = "//button[(contains(text(),'Find cheaper deals'))]")
 	WebElement findcheapbtn;
 
-	// validate
+
+	@FindBy(xpath = "//span[@class=\"css-1o8wgdi\" and  (contains(text(),'Yes'))]")
+	WebElement gasEnabled;
+
+	@FindBy(xpath = "//span[@class=\"css-1o8wgdi\" and  (contains(text(),'No'))]")
+	WebElement gasNotEnabled;
+
 	@FindBy(xpath = "//h6[@class='css-2usss1' and (contains(text(),'100% Green Variable'))]")
 	WebElement headerprin;
 
@@ -107,36 +113,77 @@ public class USwitchLandingPage  {
 
 	}
 
-	public void uSwitchJourney()	{
+	public void uSwitchJourney(
+			String postCode,
+			String partialAddress,
+			String supplierName,
+			String paymentMethod,
+			boolean hasGas,
+			boolean isDualFuel,
+			boolean isEconomy7)
+	{
 		action.clickVerifiedElement(acceptcoockies);
-		action.sendText(postcode, "LU1 1jj");
+
+		//postcode page
+		action.sendText(postcode, postCode);
 		action.clickVerifiedElement(CompareAndSave);
-		action.selectDropDownByVisibleText(selectaddress, "Flat 3, Brantwood Court, Brantwood Road, Luton, Bedfordshire, LU1 1JJ");
+		//	String postcode,selectaddress,suppliername,energySelect,gasamount,eleamount;
+		//address page
+		action.selectDropDownByVisibleText(selectaddress, partialAddress);
 		action.clickVerifiedElement(continuebtn);
-		action.clickVerifiedElement(gascontinuebtn);
-		action.clickVerifiedElement(dualfuelcontinuebtn);
+
+		//econom page
+
+
+		//gas page
+		/*	if(boolean hasGas=True)
+				{
+
+				} */
+		action.clickVerifiedElement(gascontinuebtn); // boolean hasGas
+
+		//dual fuel page
+		/*	if(dualFuelSuppliers=null)
+		{
+
+		} */
+		action.clickVerifiedElement(dualfuelcontinuebtn); //String dualFuelSuppliers
+
+		//supplier name page
 		action.clickVerifiedElement(suppliercontinuebtn);
+
+		//how do you pay energy page
 		action.clickVerifiedElement(paycontinuebtn);		
+
+		//plan name page
 		action.selectDropDownByValue(dayendDate,"25");
 		action.selectDropDownByValue(MonthendDate,"12");
 		action.selectDropDownByValue(YearendDate,"2023");
 		action.clickVerifiedElement(plancontinuebtn);
+
+		// do you know how much you spend page 
 		action.clickVerifiedElement(spendingcontinuebtn);
+
+		//Would you like to share your usage in £ or kWh? page
 		action.clickVerifiedElement(sharecontinuebtn);
+
+		//how much you spend
 		action.sendText(gasamount, "28");
 		action.sendText(eleamount, "30");
 		action.clickVerifiedElement(Amountcontinuebtn);
+
+		//email page
 		action.sendText(emailaaddress, "sddfds@gmail.com");
 		action.wait(4);
 		action.clickVerifiedElement(findcheapbtn);
 	}
 
-	public void storedata() throws IOException {
+	public HashMap<String, Map> storedata() throws IOException {
 		// total number of element in a list (listed items present in the screen)
 		List<WebElement> listoftable = driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
 		int xpathlistoftablecount = listoftable.size();
 		System.out.println(xpathlistoftablecount);
-		Map<String, Map> super_getallthedetails = new HashMap<String, Map>();
+		HashMap<String, Map> super_getallthedetails = new HashMap<String, Map>();
 
 		for (int listnum = 1; listnum <= xpathlistoftablecount; listnum++) 
 		{
@@ -216,11 +263,8 @@ public class USwitchLandingPage  {
 				super_getallthedetails.put("value_"+listnum, getallthedetails);
 				System.out.println("---Details  Fetched---");
 			}
-		}	
-		System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
-		Yaml yaml = new Yaml();
-		FileWriter writer = new FileWriter(System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
-		yaml.dump(super_getallthedetails, writer);
+		}
+		return super_getallthedetails;	
 
 	}
 
