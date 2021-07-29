@@ -16,8 +16,8 @@ import com.muDomastic.qa.base.TestBase;
 
 
 public class TestUtil extends TestBase {
-	public static long PAGE_LOAD_TIME = 30;
-	public static long ImplicitWait = 20;
+	public static long PAGE_LOAD_TIME = 50;
+	public static long ImplicitWait = 30;
 
 
 	public  void clickElement(WebElement webObject) 
@@ -31,16 +31,16 @@ public class TestUtil extends TestBase {
 		}
 	}
 
-	public  void verifyElementPresent(WebElement webObject) 
+	public  boolean verifyElementPresent(WebElement webObject) 
 	{
+		boolean result = false;
 		try {
-
-
-			webObject.isDisplayed();
+			result = webObject.isDisplayed();
 		}
 		catch (Exception e) {
 			System.out.println("error occured" + e);
 		}
+		return result;
 	}
 
 	public  void clickVerifiedElement(WebElement webObject) 
@@ -90,15 +90,19 @@ public class TestUtil extends TestBase {
 			System.out.println("error occured" + e);
 		}
 	}
-	public  void selectDropDownByVisibleText(WebElement webObject, String value) 
+	public  String selectDropDownByVisibleText(WebElement webObject, String value) 
 	{
+		String Result = "Fail";
 		try {
 			Select dropdown = new Select(webObject);
-			dropdown.selectByVisibleText(value);		
+			dropdown.selectByVisibleText(value);	
+			Result = "Pass";
 		}
 		catch (Exception e) {
 			System.out.println("error occured" + e);
-		}	
+			Result = "Fail";
+		}
+		return Result;	
 	}
 
 	/** send get request with timeout param 

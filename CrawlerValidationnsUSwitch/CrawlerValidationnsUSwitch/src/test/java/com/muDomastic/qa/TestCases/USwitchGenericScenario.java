@@ -20,8 +20,7 @@ import com.muDomastic.qa.page.USwitchLandingPage;
 
 
 public class USwitchGenericScenario extends TestBase {
-	public JSONArray arr;
-	USwitchLandingPage UswitchPageObj=new USwitchLandingPage();
+	JSONArray arr = null;
 	HashMap<String,HashMap<String, Map>> super_getallthedetails = new HashMap<>();
 	int count =1;
 
@@ -36,44 +35,61 @@ public class USwitchGenericScenario extends TestBase {
 		try {
 			file = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"\\data.json")), StandardCharsets.UTF_8);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		JSONObject obj = new JSONObject(file);
-		arr = new JSONArray(obj.get("response"));
+		arr = new JSONArray(obj.get("response").toString());
 	}
 
 
 	@Test
 	public void executevalue() throws IOException, InterruptedException {
 
-		String postCode,partialAddress,supplierName,paymentMethod;
+		String postCode,partialAddress,supplierName,paymentMethod = null,plan = null,gasusage,eleusage,nightPercent,
+				gasSpendFrequency,electricitySpendFrequency;
 		boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
 		for (Object a :arr)
 		{
-			count++;
-			JSONObject jsonObj = new JSONObject(a);
+
+			JSONObject jsonObj = new JSONObject(a.toString());
+
 			postCode = jsonObj.get("postCode").toString();
 			partialAddress = jsonObj.get("partialAddress").toString();
 			hasGas = (boolean) jsonObj.get("hasGas");
 			isDualFuel = (boolean) jsonObj.get("isDualFuel");
 			isEconomy7 = (boolean) jsonObj.get("isEconomy7");
 			hasElectricity= (boolean) jsonObj.get("hasElectricity");
+			gasSpendFrequency=jsonObj.get("gasSpendFrequency").toString();
+			gasSpendFrequency = gasSpendFrequency.trim().replaceAll(" +", " ");
+			electricitySpendFrequency=jsonObj.get("electricitySpendFrequency").toString();
+			electricitySpendFrequency = electricitySpendFrequency.trim().replaceAll(" +", " ");
+			gasusage = jsonObj.get("usageForGas").toString();
+			eleusage = jsonObj.get("usageForElectricity").toString();
+			nightPercent = jsonObj.get("electricityNightPercentage").toString();
 
 			//set supplier name
 			if(isDualFuel)
 			{
 				supplierName = jsonObj.get("dualFuelSuppliers").toString();	
+				paymentMethod = jsonObj.get("dualFuelPaymentMethod").toString();	
+				plan = jsonObj.get("dualFuelPlan").toString();
+
 			}
 			else
 			{
 				if(hasGas)
 				{
 					supplierName = jsonObj.get("gasSupplier").toString();	
+					paymentMethod = jsonObj.get("gasPaymentMethod").toString();	
+					plan = jsonObj.get("gasPlan").toString();
+
 				}
 				if(hasElectricity)
 				{
 					supplierName = jsonObj.get("electricitySuppliers").toString();	
+					paymentMethod = jsonObj.get("electricityPaymentMethod").toString();	
+					plan = jsonObj.get("electricityPlan").toString();
+
 				}
 				else
 				{
@@ -81,32 +97,29 @@ public class USwitchGenericScenario extends TestBase {
 				}
 			}
 
-			//set payment method
-			if(isDualFuel)
-			{
-				paymentMethod = jsonObj.get("dualFuelPaymentMethod").toString();	
-			}
-			else
-			{
-				if(hasGas)
-				{
-					paymentMethod = jsonObj.get("gasPaymentMethod").toString();	
-				}
-				if(hasElectricity)
-				{
-					paymentMethod = jsonObj.get("electricityPaymentMethod").toString();	
-				}
-				else
-				{
-					paymentMethod="Not Known";
-				}
-			}
 
-			initialization();		
-			UswitchPageObj.uSwitchJourney(postCode,partialAddress,supplierName,paymentMethod,hasGas,isDualFuel,isEconomy7);
+
+			USwitchLandingPage UswitchPageObj=new USwitchLandingPage();
+			UswitchPageObj.uSwitchJourney(postCode,
+					partialAddress,
+					supplierName,
+					paymentMethod,
+					plan,
+					gasusage,
+					eleusage,
+					gasSpendFrequency,
+					electricitySpendFrequency,
+					nightPercent,
+					hasGas,
+					isDualFuel,
+					isEconomy7);
+
 			HashMap<String, Map> sectionData = UswitchPageObj.storedata();	
 			super_getallthedetails.put(count+"_execution", sectionData);
+			driver.close();
 			driver.quit();
+			Thread.sleep(10000);
+			count++;
 		}
 
 

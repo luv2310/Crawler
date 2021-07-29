@@ -1,5 +1,6 @@
 package com.muDomastic.qa.page;
 
+import java.awt.Desktop.Action;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -26,8 +27,10 @@ import com.muDomastic.qa.util.TestUtil;
 
 public class USwitchLandingPage  {
 
-	TestBase testbase =  new TestBase();
-	public static WebDriver driver = TestBase.driver;
+	TestBase tb = new TestBase();
+
+	WebDriver driver = tb.initialization();
+
 	TestUtil action = new TestUtil();
 
 	// accept cookies
@@ -80,8 +83,12 @@ public class USwitchLandingPage  {
 	@FindBy(id = "gas")
 	WebElement gasamount;
 
-	@FindBy(id = "electricity")
+	@FindBy(xpath = "//*[@id=\"electricity\"] | //*[@id=\"electricityDay\"]")
 	WebElement eleamount;
+	
+	@FindBy(id = "electricityNight")
+	WebElement elenight;
+
 
 	@FindBy(xpath = "//button[(contains(text(),'Continue'))]")
 	WebElement Amountcontinuebtn;
@@ -94,10 +101,10 @@ public class USwitchLandingPage  {
 
 
 	@FindBy(xpath = "//span[@class=\"css-1o8wgdi\" and  (contains(text(),'Yes'))]")
-	WebElement gasEnabled;
+	WebElement Enabled;
 
 	@FindBy(xpath = "//span[@class=\"css-1o8wgdi\" and  (contains(text(),'No'))]")
-	WebElement gasNotEnabled;
+	WebElement NotEnabled;
 
 	@FindBy(xpath = "//h6[@class='css-2usss1' and (contains(text(),'100% Green Variable'))]")
 	WebElement headerprin;
@@ -106,6 +113,55 @@ public class USwitchLandingPage  {
 	List<WebElement> listoftable = driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
 	@FindBy(xpath = "//div[@class='css-1juarq1']/ol/li")
 	WebElement totalLI;
+
+	@FindBy(xpath = "//label[contains(text(),'We think you have an Economy 7 meter. Is this correct?')]")
+	WebElement Economy7;
+
+	@FindBy(xpath = "//label[contains(text(),'Do you know how much you use or spend on your energy?')]")
+	WebElement knowEnergy;
+
+	@FindBy(xpath = "//label[contains(text(),'Would you like to share your usage in £ or kWh?')]")
+	WebElement energyParam;
+
+	@FindBy(xpath = "//button[contains(text(),'Where can you find your gas and electricity usage?')]")
+	WebElement energySpent;
+
+	@FindBy(xpath = "//label[contains(text(),'What is your plan name?')]")
+	WebElement planLabel;
+
+	@FindBy(xpath = "//span[@class='css-1o8wgdi'] |\r\n"
+			+ "//span[(contains(text(),'Other'))]")
+	WebElement Other;
+
+	@FindBy(xpath = "//Select[@class=\"css-1mesbj6\"]")
+	WebElement energyDropdown;
+
+	@FindBy(xpath = "//span[@class=\"css-1o8wgdi\" ] [(contains(text(),'Other'))]")
+	WebElement planOther;
+
+	@FindBy(xpath = "//Select[@id=\"gas.frequency\"]")
+	WebElement gasfreq;
+
+	@FindBy(xpath = "//Select[@id=\"electricity.frequency\"]")
+	WebElement elecfreq;
+
+
+	@FindBy(xpath = "//Select[@class=\"css-1mesbj6\"]")
+	WebElement planSelect;
+
+	@FindBy(xpath = "//Select[@id=\"spendNightPercentage\"]")
+	WebElement nightPercent;
+
+
+	@FindBy(xpath = "	//span[@class='css-1o8wgdi'][(contains(text(),'Share in kWh'))]\r\n"
+			+ "")
+	WebElement selectkwh;
+
+
+	@FindBy(xpath = "	//h1[contains(text(),'Make switching faster and easier')]\r\n"
+			+ "")
+	WebElement emailPageHeading;
+
 
 	// initialize the Page objects
 	public USwitchLandingPage() {
@@ -118,64 +174,228 @@ public class USwitchLandingPage  {
 			String partialAddress,
 			String supplierName,
 			String paymentMethod,
+			String plan,
+			String gasusage,
+			String eleusage,
+			String gasSpendFrequency,
+			String electricitySpendFrequency,
+			String nightPercentage,
 			boolean hasGas,
 			boolean isDualFuel,
 			boolean isEconomy7)
 	{
+		System.out.println(""+postCode+""+partialAddress+""+supplierName+""+paymentMethod+""+hasGas+
+				""+isDualFuel+""+isEconomy7);
+
+		//accept cookies banner handling
+		System.out.println("accept cookie button");
 		action.clickVerifiedElement(acceptcoockies);
 
 		//postcode page
-		action.sendText(postcode, postCode);
+		System.out.println("enter post code");
+		action.sendText(postcode,postCode);
 		action.clickVerifiedElement(CompareAndSave);
+		action.wait(2);
+
 		//	String postcode,selectaddress,suppliername,energySelect,gasamount,eleamount;
 		//address page
-		action.selectDropDownByVisibleText(selectaddress, partialAddress);
+		System.out.println("select address");
+		String output = action.selectDropDownByVisibleText(selectaddress,partialAddress);
+		if(output.contains("F"))
+		{
+			action.selectDropDownByVisibleText(selectaddress,"My address is not listed");
+		}
 		action.clickVerifiedElement(continuebtn);
+		action.wait(2);
 
-		//econom page
+		//economy page
+
+		if(isEconomy7);
+		{
+			System.out.println("economy 7 approval page");
+			action.clickVerifiedElement(Enabled);
+			action.clickVerifiedElement(continuebtn);
+			action.wait(2);
+		}
+
 
 
 		//gas page
-		/*	if(boolean hasGas=True)
-				{
-
-				} */
-		action.clickVerifiedElement(gascontinuebtn); // boolean hasGas
-
-		//dual fuel page
-		/*	if(dualFuelSuppliers=null)
+		if(hasGas)
 		{
+			System.out.println("gas enabled page");
+			action.clickVerifiedElement(Enabled);
+			action.clickVerifiedElement(gascontinuebtn); 
+			action.wait(2);
 
-		} */
-		action.clickVerifiedElement(dualfuelcontinuebtn); //String dualFuelSuppliers
+			//if gas is enabled than only we can select dual fuel option dual fuel page	
+			if(isDualFuel)
+			{
+				System.out.println("dual gas enabled page");
+
+				action.clickVerifiedElement(Enabled);
+				action.clickVerifiedElement(dualfuelcontinuebtn); 
+				action.wait(2);
+			}
+			else
+			{			
+				System.out.println("dual gas disabled page");
+				action.clickVerifiedElement(NotEnabled);
+				action.clickVerifiedElement(gascontinuebtn); 
+				action.wait(2);
+			}
+
+		}
+		else
+		{
+			System.out.println("gas disabled page");
+			action.clickVerifiedElement(NotEnabled);
+			action.clickVerifiedElement(gascontinuebtn); 
+		}
+
+
+
+
 
 		//supplier name page
-		action.clickVerifiedElement(suppliercontinuebtn);
+
+		try {
+			System.out.println("supplier name page");
+			WebElement suppliername = driver.findElement(By.xpath("//span[@class=\"css-164qf7q\" and  (contains(text(),'"+supplierName+"'))]"));
+			action.clickVerifiedElement(suppliername);
+			action.wait(1);
+			action.clickVerifiedElement(suppliercontinuebtn);
+		}
+		catch(Exception e)
+		{
+			action.clickVerifiedElement(Other);
+			action.selectDropDownByVisibleText(energyDropdown,supplierName);
+			action.wait(1);
+			action.clickVerifiedElement(suppliercontinuebtn);
+		}
 
 		//how do you pay energy page
-		action.clickVerifiedElement(paycontinuebtn);		
+		try {	
+			System.out.println("how to pay energy page");
+			WebElement payment = driver.findElement(By.xpath("//span[@class=\"css-1o8wgdi\" and  (contains(text(),'"+paymentMethod+"'))]"));
+			action.clickVerifiedElement(payment);		
+			action.clickVerifiedElement(paycontinuebtn);		
+		}
+		catch (Exception e) {
+			System.out.println("exception occured while clicking on payment method page" + e);
 
-		//plan name page
-		action.selectDropDownByValue(dayendDate,"25");
-		action.selectDropDownByValue(MonthendDate,"12");
-		action.selectDropDownByValue(YearendDate,"2023");
-		action.clickVerifiedElement(plancontinuebtn);
+		}
+
+		//plan value select page
+		System.out.println("plan label page");
+		if(action.verifyElementPresent(planLabel))
+		{
+			try {
+				WebElement planvalue = driver.findElement(By.xpath("//span[@class=\"css-1o8wgdi\" and  (contains(text(),'"+plan+"'))]"));
+				action.clickVerifiedElement(planvalue);
+				action.wait(1);
+				action.clickVerifiedElement(plancontinuebtn);
+			}
+			catch(Exception e)
+			{
+				try {
+					action.clickVerifiedElement(planOther);
+					action.selectDropDownByVisibleText(planSelect,plan);
+					action.wait(1);
+					action.clickVerifiedElement(plancontinuebtn);
+				}catch (Exception c) {
+					System.out.println("error ocuured while selecting the plan");
+				}
+			}
+		}
 
 		// do you know how much you spend page 
-		action.clickVerifiedElement(spendingcontinuebtn);
+		if(action.verifyElementPresent(knowEnergy))
+		{
+			action.clickVerifiedElement(spendingcontinuebtn);
+			if(action.verifyElementPresent(energyParam))
+			{
+				action.clickVerifiedElement(selectkwh);
+				action.clickVerifiedElement(spendingcontinuebtn);
+			}
+		}
 
-		//Would you like to share your usage in £ or kWh? page
-		action.clickVerifiedElement(sharecontinuebtn);
 
-		//how much you spend
-		action.sendText(gasamount, "28");
-		action.sendText(eleamount, "30");
-		action.clickVerifiedElement(Amountcontinuebtn);
+		//plan price detail page
+		if (action.verifyElementPresent(energySpent))
+		{
+			//			action.selectDropDownByVisibleText(gasfreq, gasSpendFrequency.toLowerCase());
+			//			if(Integer.parseInt(gasusage)>3000)
+			//			{
+			//
+			//				gasusage=Integer.toString((Integer.parseInt(gasusage)/10));
+			//
+			//			}
+			if(action.verifyElementPresent(gasamount))
+			{
+				action.sendText(gasamount, gasusage);
+
+			}
+			//	action.selectDropDownByVisibleText(elecfreq, electricitySpendFrequency.toLowerCase());
+			if(action.verifyElementPresent(eleamount))
+			{			
+				action.sendText(eleamount, eleusage);
+			}
+			if(action.verifyElementPresent(elenight))
+			{
+				action.sendText(elenight, nightPercentage);
+			}
+			action.wait(2);
+			//			float val = Float.parseFloat(nightPercentage);
+			//			if(val < (float) 0.42)
+			//			{
+			//				action.selectDropDownByValue(nightPercent, "5");
+			//
+			//			}
+			//			if(val> (float) 0.42)
+			//			{
+			//				action.selectDropDownByValue(nightPercent, "90");
+			//
+			//			}
+			//			if(val == (float) 0.42)
+			//			{
+			//				action.selectDropDownByValue(nightPercent, "42");
+			//
+			//			}
+			action.clickVerifiedElement(Amountcontinuebtn);
+
+		}
+
+		//		action.selectDropDownByValue(dayendDate,"25");
+		//		action.selectDropDownByValue(MonthendDate,"12");
+		//		action.selectDropDownByValue(YearendDate,"2023");
+		//		action.clickVerifiedElement(plancontinuebtn);
+		//		action.wait(4);
+		//
+
+
+		//		// do you know how much you spend page 
+		//		action.clickVerifiedElement(spendingcontinuebtn);
+		//		action.wait(4);
+		//
+		//
+		//		//Would you like to share your usage in £ or kWh? page
+		//		action.clickVerifiedElement(sharecontinuebtn);
+		//		action.wait(4);
+		//
+		//
+		//		//how much you spend
+		//
+
 
 		//email page
-		action.sendText(emailaaddress, "sddfds@gmail.com");
-		action.wait(4);
-		action.clickVerifiedElement(findcheapbtn);
+		if(action.verifyElementPresent(emailPageHeading))
+		{
+			action.sendText(emailaaddress, "sddfds@gmail.com");
+			action.wait(4);
+			action.clickVerifiedElement(findcheapbtn);
+		}
+
 	}
 
 	public HashMap<String, Map> storedata() throws IOException {
@@ -230,7 +450,7 @@ public class USwitchLandingPage  {
 					WebElement AdditionalAnualCost = driver.findElement(
 							By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div[4]/div/div/p[2]/span[2]"));
 					WebElement MonthlyPayCost = driver.findElement(
-							By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div[4]/div/div/p[3]"));
+							By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div[4]/div/div/p[2]"));
 
 					String AdditionalAnualCostval = AdditionalAnualCost.getText();
 					String MonthlyPayCostval = MonthlyPayCost.getText();
@@ -242,7 +462,7 @@ public class USwitchLandingPage  {
 					WebElement AdditionalAnualCost = driver.findElement(
 							By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div[2]/div/div/p[2]/span[2]"));
 					WebElement MonthlyPayCost = driver.findElement(
-							By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div[2]/div/div/p[3]"));
+							By.xpath("//div[@class='css-1juarq1']/ol/li[" + listnum + "]/div[2]/div/div/p[2]"));
 					String AdditionalAnualCostval1 = AdditionalAnualCost.getText();
 					String MonthlyPayCostval1 = MonthlyPayCost.getText();
 

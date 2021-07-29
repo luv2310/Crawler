@@ -15,17 +15,22 @@ import org.json.JSONObject;
 public class httpgetrequest {
 
 	public static void main(String[] args) throws IOException 
-	{System.out.println();
-		 String file = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"\\data.json")), StandardCharsets.UTF_8);
-         JSONObject obj = new JSONObject(file);
-         JSONArray arr = new JSONArray(obj.get("response"));
-     
-         for (Object s : arr)
-         {
-        	 
-         }
+	
+	{
+		String S= "0.42";
+		Float x= Float.parseFloat(S);
+		if (x==(float) 0.42) {
+			System.out.println("i");
+		}
+		
+		
+//		float val = Float.parseFloat(nightPercentage);
+//		if(val < .42)
+//		{
+//			action.selectDropDownByValue(nightPercent, "5");
+//
+//		}
+//		
 	}
-
-}
-
+	}
 

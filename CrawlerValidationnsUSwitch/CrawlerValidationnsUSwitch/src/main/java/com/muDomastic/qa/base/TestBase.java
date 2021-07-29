@@ -41,7 +41,7 @@ public class TestBase {
 
 	}
 
-	public static void initialization() {
+	public static WebDriver initialization() {
 		String browserName = propt.getProperty("browser");
 		if (browserName.equals("chrome"))
 		{
@@ -71,6 +71,7 @@ public class TestBase {
 			driver.manage().timeouts().implicitlyWait(TestUtil.ImplicitWait, TimeUnit.SECONDS);
 			driver.get(propt.getProperty("url"));
 		}
+		return driver;
 	}
 
 }
