@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.swing.ActionMap;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -85,7 +87,7 @@ public class USwitchLandingPage  {
 
 	@FindBy(xpath = "//*[@id=\"electricity\"] | //*[@id=\"electricityDay\"]")
 	WebElement eleamount;
-	
+
 	@FindBy(id = "electricityNight")
 	WebElement elenight;
 
@@ -100,10 +102,10 @@ public class USwitchLandingPage  {
 	WebElement findcheapbtn;
 
 
-	@FindBy(xpath = "//span[@class=\"css-1o8wgdi\" and  (contains(text(),'Yes'))]")
+	@FindBy(xpath = "//span[contains(text(),'Yes')]")
 	WebElement Enabled;
 
-	@FindBy(xpath = "//span[@class=\"css-1o8wgdi\" and  (contains(text(),'No'))]")
+	@FindBy(xpath = "//span[contains(text(),'No')]")
 	WebElement NotEnabled;
 
 	@FindBy(xpath = "//h6[@class='css-2usss1' and (contains(text(),'100% Green Variable'))]")
@@ -129,6 +131,9 @@ public class USwitchLandingPage  {
 	@FindBy(xpath = "//label[contains(text(),'What is your plan name?')]")
 	WebElement planLabel;
 
+	@FindBy(xpath = "//label[contains(text(),'Which supplier are you with?')]")
+	WebElement supplierLabel;
+
 	@FindBy(xpath = "//span[@class='css-1o8wgdi'] |\r\n"
 			+ "//span[(contains(text(),'Other'))]")
 	WebElement Other;
@@ -145,23 +150,32 @@ public class USwitchLandingPage  {
 	@FindBy(xpath = "//Select[@id=\"electricity.frequency\"]")
 	WebElement elecfreq;
 
-
 	@FindBy(xpath = "//Select[@class=\"css-1mesbj6\"]")
 	WebElement planSelect;
 
 	@FindBy(xpath = "//Select[@id=\"spendNightPercentage\"]")
 	WebElement nightPercent;
 
-
-	@FindBy(xpath = "	//span[@class='css-1o8wgdi'][(contains(text(),'Share in kWh'))]\r\n"
-			+ "")
+	@FindBy(xpath = "//span[@class='css-1o8wgdi'][(contains(text(),'Share in kWh'))]")
 	WebElement selectkwh;
 
-
-	@FindBy(xpath = "	//h1[contains(text(),'Make switching faster and easier')]\r\n"
-			+ "")
+	@FindBy(xpath = "//h1[contains(text(),'Make switching faster and easier')]")
 	WebElement emailPageHeading;
 
+	@FindBy(xpath = "//button[@class=\"css-17rbu5b\" and contains(text(),'Create account')]")
+	WebElement createAccountPopup;
+
+	@FindBy(id = "email-address")
+	WebElement  createAccountemailaaddress;
+
+	@FindBy(xpath = "//label[contains(text(),'No')]")
+	WebElement createAccount2ndpopup;
+
+	@FindBy(xpath = "//button[@class=\"css-17za0yq\"]")
+	WebElement seeMoreResult;
+
+	@FindBy(id = "us-nav-btn-account-menu")
+	WebElement  accountTab;
 
 	// initialize the Page objects
 	public USwitchLandingPage() {
@@ -180,12 +194,14 @@ public class USwitchLandingPage  {
 			String gasSpendFrequency,
 			String electricitySpendFrequency,
 			String nightPercentage,
+			String requestId,
 			boolean hasGas,
 			boolean isDualFuel,
 			boolean isEconomy7)
 	{
-		System.out.println(""+postCode+""+partialAddress+""+supplierName+""+paymentMethod+""+hasGas+
-				""+isDualFuel+""+isEconomy7);
+		System.out.println("psotcode: "+postCode+", partial adress: "+partialAddress+
+				", supplier name: "+supplierName+", payment method: "+paymentMethod+", has gas: "+hasGas+
+				",is dual: "+isDualFuel+". is Economy: "+isEconomy7);
 
 		//accept cookies banner handling
 		System.out.println("accept cookie button");
@@ -197,28 +213,27 @@ public class USwitchLandingPage  {
 		action.clickVerifiedElement(CompareAndSave);
 		action.wait(2);
 
-		//	String postcode,selectaddress,suppliername,energySelect,gasamount,eleamount;
 		//address page
 		System.out.println("select address");
 		String output = action.selectDropDownByVisibleText(selectaddress,partialAddress);
 		if(output.contains("F"))
 		{
-			action.selectDropDownByVisibleText(selectaddress,"My address is not listed");
+
+			Select Dropdown = new Select(selectaddress);
+			Dropdown.selectByIndex(2);
+			//action.selectDropDownByVisibleText(selectaddress,"My address is not listed");
 		}
 		action.clickVerifiedElement(continuebtn);
 		action.wait(2);
 
 		//economy page
-
-		if(isEconomy7);
+		if(isEconomy7)
 		{
 			System.out.println("economy 7 approval page");
 			action.clickVerifiedElement(Enabled);
 			action.clickVerifiedElement(continuebtn);
 			action.wait(2);
 		}
-
-
 
 		//gas page
 		if(hasGas)
@@ -232,7 +247,7 @@ public class USwitchLandingPage  {
 			if(isDualFuel)
 			{
 				System.out.println("dual gas enabled page");
-
+				action.wait(2);
 				action.clickVerifiedElement(Enabled);
 				action.clickVerifiedElement(dualfuelcontinuebtn); 
 				action.wait(2);
@@ -253,25 +268,26 @@ public class USwitchLandingPage  {
 			action.clickVerifiedElement(gascontinuebtn); 
 		}
 
-
-
-
-
 		//supplier name page
-
 		try {
-			System.out.println("supplier name page");
-			WebElement suppliername = driver.findElement(By.xpath("//span[@class=\"css-164qf7q\" and  (contains(text(),'"+supplierName+"'))]"));
-			action.clickVerifiedElement(suppliername);
-			action.wait(1);
-			action.clickVerifiedElement(suppliercontinuebtn);
+
+			action.wait(3);
+			if(action.verifyElementPresent(supplierLabel))
+				System.out.println("supplier name page");
+			if(supplierName.equalsIgnoreCase("Utility Warehouse"))
+			{
+				action.clickVerifiedElement(Other);
+				action.selectDropDownByVisibleText(energyDropdown,supplierName);
+				action.clickVerifiedElement(suppliercontinuebtn);
+			}
+			else 
+			{
+				System.out.println("supplier name value different !!!!!!!!!!!!!!!!");
+			}			
 		}
 		catch(Exception e)
 		{
-			action.clickVerifiedElement(Other);
-			action.selectDropDownByVisibleText(energyDropdown,supplierName);
-			action.wait(1);
-			action.clickVerifiedElement(suppliercontinuebtn);
+			System.out.println("exception occured while entering supplier name" + e);
 		}
 
 		//how do you pay energy page
@@ -312,6 +328,7 @@ public class USwitchLandingPage  {
 		// do you know how much you spend page 
 		if(action.verifyElementPresent(knowEnergy))
 		{
+			System.out.println(" do you know how much you spend page ");
 			action.clickVerifiedElement(spendingcontinuebtn);
 			if(action.verifyElementPresent(energyParam))
 			{
@@ -324,77 +341,71 @@ public class USwitchLandingPage  {
 		//plan price detail page
 		if (action.verifyElementPresent(energySpent))
 		{
-			//			action.selectDropDownByVisibleText(gasfreq, gasSpendFrequency.toLowerCase());
-			//			if(Integer.parseInt(gasusage)>3000)
-			//			{
-			//
-			//				gasusage=Integer.toString((Integer.parseInt(gasusage)/10));
-			//
-			//			}
+			System.out.println("energy spent details page");
 			if(action.verifyElementPresent(gasamount))
 			{
 				action.sendText(gasamount, gasusage);
 
 			}
-			//	action.selectDropDownByVisibleText(elecfreq, electricitySpendFrequency.toLowerCase());
 			if(action.verifyElementPresent(eleamount))
 			{			
 				action.sendText(eleamount, eleusage);
 			}
 			if(action.verifyElementPresent(elenight))
-			{
-				action.sendText(elenight, nightPercentage);
+			{	
+				if(Float.parseFloat(nightPercentage) < (float) 0.05)
+				{
+					action.sendText(elenight, "5");
+				}
+				else 
+				{
+					action.sendText(elenight, nightPercentage);
+
+				}
 			}
 			action.wait(2);
-			//			float val = Float.parseFloat(nightPercentage);
-			//			if(val < (float) 0.42)
-			//			{
-			//				action.selectDropDownByValue(nightPercent, "5");
-			//
-			//			}
-			//			if(val> (float) 0.42)
-			//			{
-			//				action.selectDropDownByValue(nightPercent, "90");
-			//
-			//			}
-			//			if(val == (float) 0.42)
-			//			{
-			//				action.selectDropDownByValue(nightPercent, "42");
-			//
-			//			}
-			action.clickVerifiedElement(Amountcontinuebtn);
-
+			if(action.verifyElementPresent(Amountcontinuebtn))
+			{
+				action.clickVerifiedElement(Amountcontinuebtn);
+				//email page
+				if(action.verifyElementPresent(emailPageHeading))
+				{
+					String Email = action.randomEmailGenerator();
+					action.sendText(emailaaddress,Email);
+					action.wait(1);
+					action.clickVerifiedElement(findcheapbtn);
+				}
+			}
+			else if (action.verifyElementPresent(findcheapbtn)) 
+			{
+				action.clickVerifiedElement(findcheapbtn);
+				if(action.verifyElementPresent(createAccountPopup))
+				{							
+					String Email = action.randomEmailGenerator();
+					System.out.println("handling create account popup email id is : "+ Email);
+					action.wait(2);
+					action.sendText(createAccountemailaaddress, Email);
+					action.clickVerifiedElement(createAccountPopup);
+					if(action.verifyElementPresent(createAccount2ndpopup))
+					{
+						action.clickVerifiedElement(createAccount2ndpopup);
+						action.clickVerifiedElement(continuebtn);
+					}
+				}
+			}
 		}
 
-		//		action.selectDropDownByValue(dayendDate,"25");
-		//		action.selectDropDownByValue(MonthendDate,"12");
-		//		action.selectDropDownByValue(YearendDate,"2023");
-		//		action.clickVerifiedElement(plancontinuebtn);
-		//		action.wait(4);
-		//
-
-
-		//		// do you know how much you spend page 
-		//		action.clickVerifiedElement(spendingcontinuebtn);
-		//		action.wait(4);
-		//
-		//
-		//		//Would you like to share your usage in £ or kWh? page
-		//		action.clickVerifiedElement(sharecontinuebtn);
-		//		action.wait(4);
-		//
-		//
-		//		//how much you spend
-		//
-
-
-		//email page
-		if(action.verifyElementPresent(emailPageHeading))
+		if(action.retryingFindClick(By.id("us-nav-btn-account-menu")))
 		{
-			action.sendText(emailaaddress, "sddfds@gmail.com");
-			action.wait(4);
-			action.clickVerifiedElement(findcheapbtn);
+			while(action.verifyElementPresent(seeMoreResult))
+			{
+				System.out.println("click on see more result page to load all tariff's");
+				action.clickVerifiedElement(seeMoreResult);
+				action.wait(3);
+			}
+
 		}
+
 
 	}
 

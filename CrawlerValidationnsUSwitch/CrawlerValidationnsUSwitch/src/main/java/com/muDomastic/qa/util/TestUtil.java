@@ -3,12 +3,16 @@ package com.muDomastic.qa.util;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -16,8 +20,8 @@ import com.muDomastic.qa.base.TestBase;
 
 
 public class TestUtil extends TestBase {
-	public static long PAGE_LOAD_TIME = 50;
-	public static long ImplicitWait = 30;
+	public static long PAGE_LOAD_TIME = 30;
+	public static long ImplicitWait = 20;
 
 
 	public  void clickElement(WebElement webObject) 
@@ -54,7 +58,7 @@ public class TestUtil extends TestBase {
 			}
 		}
 		catch (Exception e) {
-			System.out.println("error occured" + e);
+			System.out.println("error occured : " + e);
 		}
 	}
 	public void sendText(WebElement webObject, String data) 
@@ -159,4 +163,35 @@ public class TestUtil extends TestBase {
 
 		return responseMap;
 	}
+
+	public  String randomEmailGenerator() 
+	{  
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		StringBuilder salt = new StringBuilder();
+		Random rnd = new Random();
+		while (salt.length() < 10) 
+		{ 
+			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+			salt.append(SALTCHARS.charAt(index));
+		}
+		String saltStr = salt.toString();
+		return saltStr+"@gmail.com";
+	}
+	
+	public boolean retryingFindClick(By by) {
+	    boolean result = false;
+	    int attempts = 0;
+	    while(attempts < 2) {
+	        try {
+	            driver.findElement(by);
+	            result = true;
+	            break;
+	        } catch(StaleElementReferenceException e) {
+	        }
+	        attempts++;
+	    }
+	    return result;
+	}
+
+	
 }

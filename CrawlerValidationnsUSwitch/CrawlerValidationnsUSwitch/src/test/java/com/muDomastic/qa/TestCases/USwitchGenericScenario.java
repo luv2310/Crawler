@@ -46,10 +46,13 @@ public class USwitchGenericScenario extends TestBase {
 	public void executevalue() throws IOException, InterruptedException {
 
 		String postCode,partialAddress,supplierName,paymentMethod = null,plan = null,gasusage,eleusage,nightPercent,
-				gasSpendFrequency,electricitySpendFrequency;
+				gasSpendFrequency,electricitySpendFrequency,requestId;
 		boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
+
 		for (Object a :arr)
 		{
+			System.out.println("runnning test case number : "+ count + " out of " +
+					arr.length() + " Test Cases"); 
 
 			JSONObject jsonObj = new JSONObject(a.toString());
 
@@ -66,6 +69,8 @@ public class USwitchGenericScenario extends TestBase {
 			gasusage = jsonObj.get("usageForGas").toString();
 			eleusage = jsonObj.get("usageForElectricity").toString();
 			nightPercent = jsonObj.get("electricityNightPercentage").toString();
+			requestId =  jsonObj.get("requestId").toString();
+			
 
 			//set supplier name
 			if(isDualFuel)
@@ -73,7 +78,6 @@ public class USwitchGenericScenario extends TestBase {
 				supplierName = jsonObj.get("dualFuelSuppliers").toString();	
 				paymentMethod = jsonObj.get("dualFuelPaymentMethod").toString();	
 				plan = jsonObj.get("dualFuelPlan").toString();
-
 			}
 			else
 			{
@@ -82,22 +86,18 @@ public class USwitchGenericScenario extends TestBase {
 					supplierName = jsonObj.get("gasSupplier").toString();	
 					paymentMethod = jsonObj.get("gasPaymentMethod").toString();	
 					plan = jsonObj.get("gasPlan").toString();
-
 				}
 				if(hasElectricity)
 				{
 					supplierName = jsonObj.get("electricitySuppliers").toString();	
 					paymentMethod = jsonObj.get("electricityPaymentMethod").toString();	
 					plan = jsonObj.get("electricityPlan").toString();
-
 				}
 				else
 				{
 					supplierName="Not Known";
 				}
 			}
-
-
 
 			USwitchLandingPage UswitchPageObj=new USwitchLandingPage();
 			UswitchPageObj.uSwitchJourney(postCode,
@@ -110,16 +110,24 @@ public class USwitchGenericScenario extends TestBase {
 					gasSpendFrequency,
 					electricitySpendFrequency,
 					nightPercent,
+					requestId,
 					hasGas,
 					isDualFuel,
 					isEconomy7);
 
 			HashMap<String, Map> sectionData = UswitchPageObj.storedata();	
-			super_getallthedetails.put(count+"_execution", sectionData);
+			super_getallthedetails.put("Execution-"+requestId, sectionData);
 			driver.close();
 			driver.quit();
 			Thread.sleep(10000);
 			count++;
+			if (!driver.toString().toLowerCase().contains("null"))
+			{
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+driver.toString());
+				Thread.sleep(20000);
+				driver.quit();
+			}
+
 		}
 
 
