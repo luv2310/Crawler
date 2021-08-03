@@ -177,6 +177,12 @@ public class USwitchLandingPage  {
 	@FindBy(id = "us-nav-btn-account-menu")
 	WebElement  accountTab;
 
+	@FindBy(xpath="//a[@class=\"us-nav-contact-number\"]")
+	WebElement collOnUKPage;
+
+	@FindBy(xpath="//div[@class=\"css-1juarq1\"]")
+	WebElement elementList;
+	
 	// initialize the Page objects
 	public USwitchLandingPage() {
 		PageFactory.initElements(driver, this);
@@ -218,10 +224,17 @@ public class USwitchLandingPage  {
 		String output = action.selectDropDownByVisibleText(selectaddress,partialAddress);
 		if(output.contains("F"))
 		{
-
 			Select Dropdown = new Select(selectaddress);
-			Dropdown.selectByIndex(2);
-			//action.selectDropDownByVisibleText(selectaddress,"My address is not listed");
+			List<WebElement> items = Dropdown.getOptions();
+			for(WebElement e: items)
+			{
+				if(!e.getText().contains("address"))
+				{
+					action.selectDropDownByVisibleText(selectaddress,e.getText());
+					break ;
+				}
+			}
+			
 		}
 		action.clickVerifiedElement(continuebtn);
 		action.wait(2);
@@ -395,18 +408,20 @@ public class USwitchLandingPage  {
 			}
 		}
 
-		if(action.retryingFindClick(By.id("us-nav-btn-account-menu")))
+		action.wait(5);
+		action.verifyElementPresent(collOnUKPage);
+		while(action.verifyElementPresent(seeMoreResult))
 		{
-			while(action.verifyElementPresent(seeMoreResult))
-			{
-				System.out.println("click on see more result page to load all tariff's");
-				action.clickVerifiedElement(seeMoreResult);
-				action.wait(3);
-			}
-
+			System.out.println("click on see more result page to load all tariff's");
+			action.clickVerifiedElement(seeMoreResult);
+			action.wait(3);
 		}
-
-
+		//div[@class=\"css-1juarq1\"]
+		List<WebElement> items = driver.findElements(By.xpath("//div[@class=\"css-1juarq1\"]/ol/li"));
+		for(WebElement e: items)
+		{
+		    System.out.print("element text ::: :: :"+e.getText());
+		}
 	}
 
 	public HashMap<String, Map> storedata() throws IOException {

@@ -180,18 +180,32 @@ public class TestUtil extends TestBase {
 	
 	public boolean retryingFindClick(By by) {
 	    boolean result = false;
-	    int attempts = 0;
-	    while(attempts < 2) {
+	    int attempts = 1;
+	    while(attempts < 3) {
 	        try {
+	        	System.out.println("attempt number for stale exception : "+attempts);
 	            driver.findElement(by);
 	            result = true;
 	            break;
 	        } catch(StaleElementReferenceException e) {
+		        attempts++;
 	        }
-	        attempts++;
 	    }
 	    return result;
 	}
+	public  List<WebElement> listext(WebElement webObject) 
+	{
+		String Result = "Fail";
 
+
+		// Below will return a list of all elements inside element
+		List<WebElement> webEleList = webObject.findElements(By.xpath(".//*"));
+
+		//For above given HTML it will print 5. As there are 5 elements inside div
+		System.out.println(webEleList.size());
+		return webEleList;	
+	}
+
+	
 	
 }
