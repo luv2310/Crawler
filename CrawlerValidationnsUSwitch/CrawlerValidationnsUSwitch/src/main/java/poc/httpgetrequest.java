@@ -17,10 +17,9 @@ public class httpgetrequest {
 	public static void main(String[] args) throws IOException 
 	
 	{
-		String S= "0.42";
-		Float x= Float.parseFloat(S);
-		if (x==(float) 0.42) {
-			System.out.println("i");
+		for (int i=1; i<=3;i++)
+		{
+			System.out.println(i);
 		}
 		
 		

@@ -7,9 +7,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.Driver;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -181,6 +186,13 @@ public class USwitchLandingPage  {
 
 	@FindBy(xpath="//div[@class=\"css-1juarq1\"]")
 	WebElement elementList;
+
+	@FindBy(xpath="//button[@class=\"css-7litt4\"]")
+	WebElement buttonCancel;
+
+
+
+
 
 	// initialize the Page objects
 	public USwitchLandingPage() {
@@ -429,6 +441,124 @@ public class USwitchLandingPage  {
 			System.out.print("element text ::: :: :"+e.getText());
 		}
 	}
+
+
+	public HashMap<String, Map> storedataNew() 
+	{
+		String isGreen="None",Extras="None",comparisonSiteExclusive="None";
+		HashMap<String, Map> super_getallthedetails = new HashMap<String, Map>();
+		String planFeatureXpath="//div[@class=\"css-17o3d8d\"]";
+		List<WebElement> listoftable = driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
+		int listSize = listoftable.size();
+		for (int i=1; i<=listSize; i++)
+		{		
+			boolean flagContractLength=false; 
+			HashMap<String, String> rankValue = new HashMap<String, String>();
+			String planFeatureListXpath ="//li["+i+"]//div[@class=\"css-1bd1op\"]";
+			WebElement ele = null;
+			try {
+				ele = driver.findElement(By.xpath(planFeatureListXpath));
+			}catch (Exception e) {
+				System.out.println("element not found but still continue");
+				i=i-1;
+			}
+
+			if(action.verifyElementPresent(ele))
+			{   
+				int tablecount = 0;
+				action.clickElement(ele);
+				action.verifyElementPresent(buttonCancel);
+				List<WebElement> tableLength =  driver.findElements(By.xpath("//tr[@class=\"css-1owsb5q\"]//p[@class=\"css-1i44vdy\"]"));
+				for (WebElement tableElement : tableLength)
+				{
+					tablecount++;
+					String variable_name=driver.findElement(By.xpath("//tr["+tablecount+"]//p[@class=\"css-1i44vdy\"]/../..//p[@class=\"css-zkjwo2\"]")).getText().toLowerCase();
+					switch (variable_name) 		
+					{
+					case "supplier":
+						variable_name ="supplierName" ;
+						break;
+					case "plan name":
+						variable_name ="tariffName" ;
+						break;
+					case "early exit fee":
+						variable_name ="earlyExitFee" ;
+						break;
+					case "estimated annual cost":
+						variable_name ="personalProjection" ;
+						break;
+					case "monthly direct debit":
+						variable_name ="monthlyDirectDebit" ;
+						break;
+					case "contract ends":
+						flagContractLength=true;
+						variable_name ="contractEnd";
+						break;	
+					case "contract length":
+						variable_name ="contractTerm";
+						break;												
+					default:
+						System.out.println("error occured");
+						variable_name ="not set" ;
+					}
+					String	variable_value=driver.findElement(By.xpath("//tr["+tablecount+"]//p[@class=\"css-1i44vdy\"]")).getText().toLowerCase();
+					rankValue.put(variable_name,variable_value);
+				}
+
+				if(tablecount<=5)
+				{
+					rankValue.put("ContractTerm","variable");
+				}
+
+				List<WebElement> planFeaturesXpath = driver.findElements(By.xpath(planFeatureXpath));
+				for (WebElement element : planFeaturesXpath)
+				{
+					String elementValue = element.getText();
+
+					if(elementValue.toLowerCase().contains("green tariff"))
+					{
+						isGreen = "True";
+					}
+					if(elementValue.toLowerCase().contains("extras"))
+					{
+						Extras = "True";
+					}
+					if(elementValue.toLowerCase().contains("comparison"))
+					{
+						comparisonSiteExclusive = "True";
+					}
+				}
+				rankValue.put("isGreen",isGreen);
+				rankValue.put("comparisonSiteExclusive",comparisonSiteExclusive);
+				rankValue.put("Extras",Extras);
+
+
+
+
+				rankValue.put("rank",String.valueOf(i));
+				rankValue.put("paymentMethod","PaymentMethod");	
+				action.clickVerifiedElement(buttonCancel);
+				if(flagContractLength)
+				{
+					String variable_value = null;
+					action.verifyElementPresent(ele);
+					List<WebElement> element = driver.findElements(By.xpath("//li[2]//p[@class=\"css-1x40lsu\"]"));
+					for(WebElement ele1 : element)
+					{
+						variable_value	= ele1.getText();
+						break;
+					}
+					rankValue.put("contractTerm", variable_value);
+				}
+			}
+			super_getallthedetails.put("Rank_"+i,rankValue);
+		}
+		return super_getallthedetails;
+	}
+
+
+
+
 
 	public HashMap<String, Map> storedata() throws IOException {
 		// total number of element in a list (listed items present in the screen)
