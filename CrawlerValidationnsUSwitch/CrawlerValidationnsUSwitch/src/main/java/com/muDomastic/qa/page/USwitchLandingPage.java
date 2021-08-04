@@ -125,17 +125,16 @@ public class USwitchLandingPage  {
 	@FindBy(xpath = "//label[contains(text(),'Would you like to share your usage in £ or kWh?')]")
 	WebElement energyParam;
 
-	@FindBy(xpath = "//button[contains(text(),'Where can you find your gas and electricity usage?')]")
+	@FindBy(xpath = "//button[contains(text(),'Where can you find your gas and electricity usage?')] | //button[contains(text(),'Where can you find your electricity usage?')]")
 	WebElement energySpent;
 
-	@FindBy(xpath = "//label[contains(text(),'What is your plan name?')]")
+	@FindBy(xpath = "//label[contains(text(),'What is your plan name?')] | //label[contains(text(),'What is your electricity plan name?')]")
 	WebElement planLabel;
 
-	@FindBy(xpath = "//label[contains(text(),'Which supplier are you with?')]")
+	@FindBy(xpath = "//label[contains(text(),'Which supplier are you with?')] | //label[contains(text(),'Which electricity supplier are you with?')]")	
 	WebElement supplierLabel;
 
-	@FindBy(xpath = "//span[@class='css-1o8wgdi'] |\r\n"
-			+ "//span[(contains(text(),'Other'))]")
+	@FindBy(xpath = "//span[@class='css-1o8wgdi'] | //span[(contains(text(),'Other'))]")
 	WebElement Other;
 
 	@FindBy(xpath = "//Select[@class=\"css-1mesbj6\"]")
@@ -182,7 +181,7 @@ public class USwitchLandingPage  {
 
 	@FindBy(xpath="//div[@class=\"css-1juarq1\"]")
 	WebElement elementList;
-	
+
 	// initialize the Page objects
 	public USwitchLandingPage() {
 		PageFactory.initElements(driver, this);
@@ -234,7 +233,7 @@ public class USwitchLandingPage  {
 					break ;
 				}
 			}
-			
+
 		}
 		action.clickVerifiedElement(continuebtn);
 		action.wait(2);
@@ -284,7 +283,7 @@ public class USwitchLandingPage  {
 		//supplier name page
 		try {
 
-			action.wait(3);
+			action.verifyElementPresent(supplierLabel);
 			if(action.verifyElementPresent(supplierLabel))
 				System.out.println("supplier name page");
 			if(supplierName.equalsIgnoreCase("Utility Warehouse"))
@@ -317,6 +316,7 @@ public class USwitchLandingPage  {
 
 		//plan value select page
 		System.out.println("plan label page");
+		action.verifyElementPresent(planLabel);
 		if(action.verifyElementPresent(planLabel))
 		{
 			try {
@@ -339,10 +339,12 @@ public class USwitchLandingPage  {
 		}
 
 		// do you know how much you spend page 
+		action.verifyElementPresent(knowEnergy);
 		if(action.verifyElementPresent(knowEnergy))
 		{
 			System.out.println(" do you know how much you spend page ");
 			action.clickVerifiedElement(spendingcontinuebtn);
+			action.verifyElementPresent(energyParam);
 			if(action.verifyElementPresent(energyParam))
 			{
 				action.clickVerifiedElement(selectkwh);
@@ -352,13 +354,17 @@ public class USwitchLandingPage  {
 
 
 		//plan price detail page
+		action.verifyElementPresent(energySpent);
 		if (action.verifyElementPresent(energySpent))
 		{
 			System.out.println("energy spent details page");
-			if(action.verifyElementPresent(gasamount))
+			if(hasGas)
 			{
-				action.sendText(gasamount, gasusage);
+				if(action.verifyElementPresent(gasamount))
+				{
+					action.sendText(gasamount, gasusage);
 
+				}
 			}
 			if(action.verifyElementPresent(eleamount))
 			{			
@@ -420,7 +426,7 @@ public class USwitchLandingPage  {
 		List<WebElement> items = driver.findElements(By.xpath("//div[@class=\"css-1juarq1\"]/ol/li"));
 		for(WebElement e: items)
 		{
-		    System.out.print("element text ::: :: :"+e.getText());
+			System.out.print("element text ::: :: :"+e.getText());
 		}
 	}
 

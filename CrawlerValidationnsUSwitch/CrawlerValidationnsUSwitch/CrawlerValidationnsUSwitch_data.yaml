@@ -1,1 +1,85 @@
-{}
+Execution-4221:
+  value_15: {MonthlyPayCostval: £74.90, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 23 Months, AdditionalAnualCostval: '74.90', providername: Shell Energy,
+    OfferStatemet2: Reward, providerdesc: Go Further July 2023 v3, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_16: {MonthlyPayCostval: £71.53, contractval: Fixed rate contract, earlyExitFeeval: £50.00,
+    contractvalueval: 36 Months, AdditionalAnualCostval: '71.53', OfferStatemet3: Reward,
+    providername: Shell Energy, OfferStatemet2: Bronze Standard - Green Tariff, providerdesc: Energy August 2024 plus Shell Energy Shop Vouchers v2,
+    OfferStatemet1: Extras}
+  value_13: {MonthlyPayCostval: £96.21, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '96.21', providername: Octopus Energy,
+    OfferStatemet2: Supplier of the Year, providerdesc: Octopus 24M Fixed July 2021 v4,
+    OfferStatemet1: Bronze Standard - Green Tariff}
+  value_14: {MonthlyPayCostval: £96.21, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '96.21', providername: Octopus Energy,
+    OfferStatemet2: Supplier of the Year, providerdesc: Super Green Octopus 24M Fixed July 2021 v4,
+    OfferStatemet1: Silver Standard - Green Tariff}
+  value_19: {MonthlyPayCostval: £23.95, contractval: Fixed rate contract, earlyExitFeeval: £40.00,
+    contractvalueval: 26 Months, AdditionalAnualCostval: '23.95', providername: British Gas,
+    providerdesc: HomeEnergy Secure Oct 2023v2, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_17: {MonthlyPayCostval: £70.13, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '70.13', providername: E.ON Next,
+    providerdesc: Next Exclusive 2 Year v2, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_18: {MonthlyPayCostval: £56.19, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 13 Months, AdditionalAnualCostval: '56.19', providername: Shell Energy,
+    OfferStatemet2: Reward, providerdesc: Energy September 2022, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_11: {MonthlyPayCostval: £146.80, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '146.80', providername: SSE,
+    providerdesc: SSE 2 Year Fix v7, OfferStatemet1: Reward}
+  value_12: {MonthlyPayCostval: £124.67, contractval: Fixed rate contract, earlyExitFeeval: £35.00,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '124.67', OfferStatemet3: Large Supplier of the Year,
+    providername: EDF Energy, OfferStatemet2: Extras, providerdesc: Simply Online 2 Year Fix Aug23v4,
+    OfferStatemet1: Comparison site exclusive}
+  value_10: {MonthlyPayCostval: £146.80, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '146.80', providername: OVO Energy,
+    OfferStatemet2: Bronze Standard - Green Tariff, providerdesc: 2 Year Fixed Energy,
+    OfferStatemet1: Extras}
+  value_26: {MonthlyPayCostval: + £41.95, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 28 Months, AdditionalAnualCostval: '41.95', providername: ScottishPower,
+    OfferStatemet2: Silver Standard - Green Tariff, providerdesc: Help Beat Cancer Green Fixed December 2023 CH1,
+    OfferStatemet1: Charity}
+  value_27: {MonthlyPayCostval: + £41.95, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 28 Months, AdditionalAnualCostval: '41.95', providername: ScottishPower,
+    OfferStatemet2: Silver Standard - Green Tariff, providerdesc: Help Beat Cancer Green Fixed December 2023 CH1 Online,
+    OfferStatemet1: Charity}
+  value_24: {MonthlyPayCostval: £0.20, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 28 Months, AdditionalAnualCostval: '0.20', providername: ScottishPower,
+    OfferStatemet2: Silver Standard - Green Tariff, providerdesc: Help Beat Cancer Green Fixed December 2023 CM1 Online,
+    OfferStatemet1: Charity}
+  value_25: {MonthlyPayCostval: + £35.97, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 16 Months, AdditionalAnualCostval: '35.97', providername: ScottishPower,
+    providerdesc: Fixed Price December 2022 H1, OfferStatemet1: Extras}
+  value_8: {MonthlyPayCostval: £161.07, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 12 Months, AdditionalAnualCostval: '161.07', providername: OVO Energy,
+    OfferStatemet2: Bronze Standard - Green Tariff, providerdesc: Better Smart, OfferStatemet1: Extras}
+  value_9: {MonthlyPayCostval: £150.55, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 22 Months, AdditionalAnualCostval: '150.55', providername: Good Energy,
+    providerdesc: Good to Fix June 2023, OfferStatemet1: Gold Standard - Green Tariff}
+  value_7: {MonthlyPayCostval: £167.54, contractval: No contract, earlyExitFeeval: None,
+    contractvalueval: Variable, AdditionalAnualCostval: '167.54', providername: Good Energy,
+    providerdesc: Good Energy Standard, OfferStatemet1: Gold Standard - Green Tariff}
+  value_4: {MonthlyPayCostval: £188.35, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '188.35', providername: ESB Energy,
+    providerdesc: Brighter Future 24 v18, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_5: {MonthlyPayCostval: £188.35, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 12 Months, AdditionalAnualCostval: '188.35', providername: ESB Energy,
+    providerdesc: Brighter Future 12 v19, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_2: {MonthlyPayCostval: £228.73, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '228.73', providername: Pure Planet,
+    providerdesc: 100% Green 24m Fixed Jul21 v1, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_3: {MonthlyPayCostval: £197.93, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 24 Months, AdditionalAnualCostval: '197.93', providername: Shell Energy,
+    OfferStatemet2: Reward, providerdesc: Energy August 2023 v2, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_1: {MonthlyPayCostval: £255.74, contractval: No contract, earlyExitFeeval: None,
+    contractvalueval: Variable, AdditionalAnualCostval: '255.74', providername: Pure Planet,
+    providerdesc: 100% Green Variable, OfferStatemet1: Bronze Standard - Green Tariff}
+  value_23: {MonthlyPayCostval: £0.20, contractval: Fixed rate contract, earlyExitFeeval: None,
+    contractvalueval: 28 Months, AdditionalAnualCostval: '0.20', providername: ScottishPower,
+    OfferStatemet2: Silver Standard - Green Tariff, providerdesc: Help Beat Cancer Green Fixed December 2023 CM1,
+    OfferStatemet1: Charity}
+  value_20: {MonthlyPayCostval: £6.18, contractval: Fixed rate contract, earlyExitFeeval: £30.00,
+    contractvalueval: 16 Months, AdditionalAnualCostval: '6.18', providername: ScottishPower,
+    providerdesc: Fixed Price December 2022 M1, OfferStatemet1: Extras}
+  value_21: {MonthlyPayCostval: £5.95, contractval: Fixed rate contract, earlyExitFeeval: £40.00,
+    contractvalueval: 26 Months, AdditionalAnualCostval: '5.95', providername: British Gas,
+    providerdesc: Green Future Oct 2023, OfferStatemet1: Gold Standard - Green Tariff}
