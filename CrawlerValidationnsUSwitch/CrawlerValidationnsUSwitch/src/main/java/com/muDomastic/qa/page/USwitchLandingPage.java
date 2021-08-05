@@ -190,6 +190,8 @@ public class USwitchLandingPage  {
 	@FindBy(xpath="//button[@class=\"css-7litt4\"]")
 	WebElement buttonCancel;
 
+	@FindBy(xpath="	//a[contains(text(),\"View standing charges and rates\")]")
+	WebElement standingCharges;
 
 
 
@@ -443,27 +445,29 @@ public class USwitchLandingPage  {
 	}
 
 
-	public HashMap<String, Map> storedataNew() 
+	public HashMap<String, Map> storedataNew(boolean hasGas) 
 	{
-		String isGreen="None",Extras="None",comparisonSiteExclusive="None";
 		HashMap<String, Map> super_getallthedetails = new HashMap<String, Map>();
 		String planFeatureXpath="//div[@class=\"css-17o3d8d\"]";
 		List<WebElement> listoftable = driver.findElements(By.xpath("//div[@class='css-1juarq1']/ol/li"));
 		int listSize = listoftable.size();
 		for (int i=1; i<=listSize; i++)
-		{		
-			boolean flagContractLength=false; 
-			HashMap<String, String> rankValue = new HashMap<String, String>();
+		{					
+			HashMap<Object, Object> rankValue = null;
+			HashMap<String, String> comparisondetails = new HashMap<String, String>();
+			String isGreen="None",Extras="None",comparisonSiteExclusive="None",savePerYear="None";
+			boolean isSaving = true;
+			boolean flagContractLength = false,flagcomparison=false; 
+
 			String planFeatureListXpath ="//li["+i+"]//div[@class=\"css-1bd1op\"]";
 			WebElement ele = null;
 			try {
 				ele = driver.findElement(By.xpath(planFeatureListXpath));
 			}catch (Exception e) {
 				System.out.println("element not found but still continue");
-				i=i-1;
 			}
 
-			if(action.verifyElementPresent(ele))
+			if(ele!=null)
 			{   
 				int tablecount = 0;
 				action.clickElement(ele);
@@ -526,15 +530,12 @@ public class USwitchLandingPage  {
 					if(elementValue.toLowerCase().contains("comparison"))
 					{
 						comparisonSiteExclusive = "True";
+						flagcomparison=true;
 					}
 				}
 				rankValue.put("isGreen",isGreen);
 				rankValue.put("comparisonSiteExclusive",comparisonSiteExclusive);
 				rankValue.put("Extras",Extras);
-
-
-
-
 				rankValue.put("rank",String.valueOf(i));
 				rankValue.put("paymentMethod","PaymentMethod");	
 				action.clickVerifiedElement(buttonCancel);
@@ -542,7 +543,7 @@ public class USwitchLandingPage  {
 				{
 					String variable_value = null;
 					action.verifyElementPresent(ele);
-					List<WebElement> element = driver.findElements(By.xpath("//li[2]//p[@class=\"css-1x40lsu\"]"));
+					List<WebElement> element = driver.findElements(By.xpath("//li["+i+"]//p[@class=\"css-1x40lsu\"]"));
 					for(WebElement ele1 : element)
 					{
 						variable_value	= ele1.getText();
@@ -550,8 +551,155 @@ public class USwitchLandingPage  {
 					}
 					rankValue.put("contractTerm", variable_value);
 				}
+
+				try
+				{
+					String iconElement =  driver.findElement(By.xpath("//li["+i+"]//span[@class=\"css-1a48qmz\"]")).getText();
+					String savingElement =  driver.findElement(By.xpath("//li["+i+"]//span[@class=\"css-jbkn09\"]")).getText();
+
+					if(iconElement.contains("+"))
+					{
+						isSaving = false ;
+						savePerYear = "-"+savingElement;
+					}
+				}
+				catch (Exception e) 
+				{
+					System.out.println("Exception while getting the additional annual cost");
+				}
+
+				rankValue.put("isSaving", isSaving);
+				rankValue.put("savePerYear",savePerYear);	
+				if(flagcomparison)
+				{
+					action.clickVerifiedElement(standingCharges);
+					List<WebElement> comparisonlist = driver.findElements(By.xpath("//h3[@class=\"css-g5tok7\"]/..//table[1]//p"));
+					String variable_name = null;
+					String variable_value = null;
+
+					for (int x=0;x<comparisonlist.size();x++)
+					{
+						String comparisonElement = comparisonlist.get(x).toString();
+						if(x % 2 == 0 )
+						{
+							switch (comparisonElement.toLowerCase()) 		
+							{
+							case "supplier":
+								variable_name ="supplierName" ;
+								break;
+							case "tariff name":
+								variable_name ="tariffName" ;
+								break;
+							case "tariff type":
+								variable_name ="tariffType" ;
+								break;
+							case "payment method":
+								variable_name ="paymentMethod" ;
+								break;
+							case "unit ratet":
+								variable_name ="unitRate" ;
+								break;
+							case "standing charge":
+								variable_name ="standingCharge";
+								break;	
+							case "tariff ends on":
+								variable_name ="tariffEndson";
+								break;		
+							case "price guaranteed":
+								variable_name ="priceGuaranteedUntil" ;
+								break;
+							case "exit fees":
+								variable_name ="exitfees" ;
+								break;
+							case "discounts":
+								variable_name ="discounts";
+								break;	
+							case "additional":
+								variable_name ="additionalproductsorservices";
+								break;
+							default:
+								System.out.println("error occured at landing page line 622");
+								variable_name ="not set" ;
+							}	
+						}
+						else
+						{
+							variable_value=comparisonElement;
+							if(!hasGas) 
+							{							
+								comparisondetails.put(variable_name, variable_value);
+							}
+						}
+					}
+					rankValue.put("electricity", comparisondetails);
+				}
+				if(hasGas)
+				{
+					List<WebElement> gas_comparisonlist = driver.findElements(By.xpath("//h3[@class=\"css-g5tok7\"]/..//table[1]//p"));
+					String gas_variable_name = null;
+					String gas_variable_value = null;
+
+					for (int x=0;x<gas_comparisonlist.size();x++)
+					{
+						String comparisonElement = gas_comparisonlist.get(x).toString();
+						if(x % 2 == 0 )
+						{
+							switch (comparisonElement.toLowerCase()) 		
+							{
+							case "supplier":
+								gas_variable_name ="supplierName" ;
+								break;
+							case "tariff name":
+								gas_variable_name ="tariffName" ;
+								break;
+							case "tariff type":
+								gas_variable_name ="tariffType" ;
+								break;
+							case "payment method":
+								gas_variable_name ="paymentMethod" ;
+								break;
+							case "unit ratet":
+								gas_variable_name ="unitRate" ;
+								break;
+							case "standing charge":
+								gas_variable_name ="standingCharge";
+								break;	
+							case "tariff ends on":
+								gas_variable_name ="tariffEndson";
+								break;		
+							case "price guaranteed":
+								gas_variable_name ="priceGuaranteedUntil" ;
+								break;
+							case "exit fees":
+								gas_variable_name ="exitfees" ;
+								break;
+							case "discounts":
+								gas_variable_name ="discounts";
+								break;	
+							case "additional":
+								gas_variable_name ="additionalproductsorservices";
+								break;
+							default:
+								System.out.println("error occured at landing page line 622");
+								gas_variable_name ="not set" ;
+							}	
+						}
+						else
+						{
+							gas_variable_value=comparisonElement;
+							comparisondetails.put(gas_variable_name, gas_variable_value);
+						}
+						rankValue.put("gas", comparisondetails);
+					}
+
+				}
+				super_getallthedetails.put("Rank_"+i,rankValue);
+
+
+
+
+
 			}
-			super_getallthedetails.put("Rank_"+i,rankValue);
 		}
 		return super_getallthedetails;
 	}

@@ -115,7 +115,7 @@ public class USwitchGenericScenario extends TestBase {
 					isDualFuel,
 					isEconomy7);
 
-			HashMap<String, Map> sectionData = UswitchPageObj.storedataNew();	
+			HashMap<String, Map> sectionData = UswitchPageObj.storedataNew(hasGas);	
 			super_getallthedetails.put("Execution-"+requestId, sectionData);
 			driver.close();
 			driver.quit();
