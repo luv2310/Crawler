@@ -177,21 +177,21 @@ public class TestUtil extends TestBase {
 		String saltStr = salt.toString();
 		return saltStr+"@gmail.com";
 	}
-	
+
 	public boolean retryingFindClick(By by) {
-	    boolean result = false;
-	    int attempts = 1;
-	    while(attempts < 3) {
-	        try {
-	        	System.out.println("attempt number for stale exception : "+attempts);
-	            driver.findElement(by);
-	            result = true;
-	            break;
-	        } catch(StaleElementReferenceException e) {
-		        attempts++;
-	        }
-	    }
-	    return result;
+		boolean result = false;
+		int attempts = 1;
+		while(attempts < 3) {
+			try {
+				System.out.println("attempt number for stale exception : "+attempts);
+				driver.findElement(by);
+				result = true;
+				break;
+			} catch(StaleElementReferenceException e) {
+				attempts++;
+			}
+		}
+		return result;
 	}
 	public  List<WebElement> listext(WebElement webObject) 
 	{
@@ -206,6 +206,25 @@ public class TestUtil extends TestBase {
 		return webEleList;	
 	}
 
-	
-	
+	public void clickWithAttempt(WebElement webObject) 
+	{
+		int attempt = 5; 
+		while(attempt>1) 
+		{
+			wait(1);
+			System.out.println("clicking with attempt method , left attempt  :: " + attempt);
+			if(webObject.isEnabled())
+			{
+				clickElement(webObject);
+				break;
+			}
+			attempt--;
+		}
+
+
+
+	}
+
+
+
 }
