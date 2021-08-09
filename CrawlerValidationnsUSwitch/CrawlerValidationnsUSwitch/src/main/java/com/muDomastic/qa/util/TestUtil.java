@@ -12,8 +12,10 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import com.muDomastic.qa.base.TestBase;
@@ -208,21 +210,71 @@ public class TestUtil extends TestBase {
 
 	public void clickWithAttempt(WebElement webObject) 
 	{
-		int attempt = 5; 
-		while(attempt>1) 
+		try
 		{
-			wait(1);
-			System.out.println("clicking with attempt method , left attempt  :: " + attempt);
-			if(webObject.isEnabled())
+			int attempt = 5; 
+			while(attempt>1) 
 			{
-				clickElement(webObject);
-				break;
+				wait(1);
+				System.out.println("clicking with attempt method , left attempt  :: " + attempt);
+				if(webObject.isEnabled())
+				{
+					clickElement(webObject);
+					break;
+				}
+				attempt--;
 			}
-			attempt--;
+
 		}
+		catch (Exception e) {
+			System.out.println("exception occured at line 230 testutils :: " + e);
+		}
+	}
+	public void clickWithAttemptActions(WebElement webObject) 
+	{
+		try
+		{
+			int attempt = 5; 
+			while(attempt>1) 
+			{
+				wait(1);
+				System.out.println("clicking with attempt using actions method , left attempt  :: " + attempt);
+				if(webObject.isEnabled())
+				{
+					Actions actions = new Actions(driver);
+					actions.moveToElement(webObject).click().perform();	
+					break;
+				}
+				attempt--;
+			}
 
+		}
+		catch (Exception e) {
+			System.out.println("exception occured at line 230 testutils :: " + e);
+		}
+	}
+	public void clickWithjavascriptattempt(WebElement webObject) 
+	{
+		try
+		{
+			int attempt = 5; 
+			while(attempt>1) 
+			{
+				wait(1);
+				System.out.println("clicking with attempt using actions method , left attempt  :: " + attempt);
+				if(webObject.isEnabled())
+				{
+					JavascriptExecutor jse = (JavascriptExecutor)driver;
+					jse.executeScript("arguments[0].click();", webObject);
+					break;
+				}
+				attempt--;
+			}
 
-
+		}
+		catch (Exception e) {
+			System.out.println("exception occured at line 256 clickWithjavascriptattempt testutils :: " + e);
+		}
 	}
 
 

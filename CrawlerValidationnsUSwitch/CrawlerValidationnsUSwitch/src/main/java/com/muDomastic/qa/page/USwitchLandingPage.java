@@ -199,10 +199,12 @@ public class USwitchLandingPage  {
 
 	@FindBy(xpath = "//h3[@class=\"css-g5tok7\"][1]")
 	WebElement aboutThisPlantable; 
-	
+
 	@FindBy(xpath = "//button[@class=\"css-rvpwdk\"]")
 	WebElement alertCancelButton;
 
+	@FindBy(xpath = "//a[contains(text(),'No, use current rates')]")
+	WebElement alertCancelButton_2;
 
 	// initialize the Page objects
 	public USwitchLandingPage() {
@@ -441,14 +443,30 @@ public class USwitchLandingPage  {
 			action.clickVerifiedElement(alertCancelButton);
 		}	
 
+		if(action.verifyElementPresent(alertCancelButton_2))
+		{
+			action.clickVerifiedElement(alertCancelButton_2);
+		}
+
 		action.verifyElementPresent(collOnUKPage);
-		System.out.println("click on see more result page to load all tariff's");
-		action.clickWithAttempt(seeMoreResult);
-		action.wait(3);
+		try {
+			while(action.verifyElementPresent(seeMoreResult))
+			{		
+				System.out.println("click on see more result page to load all tariff's");
+				action.clickWithAttempt(seeMoreResult);
+				action.wait(3);
+
+			}
+		}
+		catch (Exception e) 
+		{
+			System.out.println("Alert !!! Exception occurred while clicking on see more result of final page.. ");
+		}
+
 	}
 
 
-	public HashMap<String, Map> storedataNew(boolean hasGas) 
+	public HashMap<String, Map> storedataNew(boolean hasGas,String paymentMethod) 
 	{
 		Actions actions = new Actions(driver);
 		HashMap<String, Map> super_getallthedetails = new HashMap<String, Map>();
@@ -464,7 +482,7 @@ public class USwitchLandingPage  {
 			boolean isSaving = true;
 			boolean flagContractLength = false,flagcomparison=false; 
 
-			String planFeatureListXpath ="//li["+i+"]//div[@class=\"css-1bd1op\"]";
+			String planFeatureListXpath ="//li["+i+"]//div[@class=\"css-1bd1op\"]//a[@class=\"css-v38h9u\"]";
 			WebElement ele = null;
 			try {
 				ele = driver.findElement(By.xpath(planFeatureListXpath)); // planinfo clickable button
@@ -475,8 +493,7 @@ public class USwitchLandingPage  {
 			if(ele!=null)
 			{   
 				int tablecount = 0;
-
-				action.clickWithAttempt(ele);
+				action.clickWithjavascriptattempt(ele);
 				action.wait(2);
 				action.verifyElementPresent(buttonCancel);
 				List<WebElement> tableLength =  driver.findElements(By.xpath("//tr[@class=\"css-1owsb5q\"]//p[@class=\"css-1i44vdy\"]"));
@@ -544,7 +561,7 @@ public class USwitchLandingPage  {
 				rankValue.put("comparisonSiteExclusive",comparisonSiteExclusive);
 				rankValue.put("Extras",Extras);
 				rankValue.put("rank",String.valueOf(i));
-				rankValue.put("paymentMethod","PaymentMethod");			
+				rankValue.put("paymentMethod",paymentMethod);			
 
 				if(flagcomparison)
 				{
@@ -753,7 +770,7 @@ public class USwitchLandingPage  {
 					if(iconElement.contains("+"))
 					{
 						isSaving = false ;
-						savePerYear = "-"+savingElement;
+						savePerYear = "-"+savePerYear;
 					}
 				}
 				catch (Exception e) 
@@ -765,7 +782,7 @@ public class USwitchLandingPage  {
 				System.out.println("completed for rank +++ "+i);
 
 				super_getallthedetails.put("Rank_"+i,rankValue);
-				if(i==11)
+				if(i==21)
 				{
 					System.out.println();
 				}
