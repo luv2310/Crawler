@@ -14,7 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -94,31 +96,34 @@ public class httpgetrequest {
 		gas_additionalCharges = "static value entered",
 		gas_additionalproductsorservices = "static value entered" ;
 
-		String filePath = "C:\\Users\\luv.mendiratta\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
+		String filePath = "C:\\Users\\Luv\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		mapper.findAndRegisterModules();
 		try {
-			Map file = mapper.readValue(new File(filePath), Map.class);
-			Iterator executions = file.entrySet().iterator();
-			
-			while (executions.hasNext()) 
-			{
-				
-			Object valle = 	executions.next();
-			System.out.println(valle.toString());
-				
-				
-			
-			}
-		
 
-		}
+			LinkedHashMap file = (LinkedHashMap) mapper.readValue(new File(filePath), Map.class);	
+			Set fileKeySet = file.keySet();
+			for(Object fileKeyValue : fileKeySet)
+			{
+
+				LinkedHashMap executions = (LinkedHashMap) file.get(fileKeyValue.toString());
+				Set executionKeySet = executions.keySet();	
+				for (Object ranksKeyValue : executionKeySet)
+				{
+					LinkedHashMap ranks =  (LinkedHashMap) executions.get(ranksKeyValue.toString());
+					System.out.println(ranks.get("rank"));
+				}
+				
+
+
+			}
+					}
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		
-	
+
+
 
 		JSONObject firstJsonOnject = new  JSONObject();
 		JSONArray firstJsonArray = new JSONArray();
