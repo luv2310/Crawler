@@ -26,8 +26,8 @@ public class apiFetchedData
 //	rank, 
 //	paymentMethod , 
 //	comparisonSiteExclusive ,
-//	
-//	//electricity variables
+	
+	//electricity variables
 //	electricity_supplierName ,
 //	electricity_tariffName ,
 //	electricity_tariffType , 

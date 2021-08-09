@@ -41,60 +41,69 @@ import com.muDomastic.qa.base.apiFetchedData;
 
 public class httpgetrequest {
 
+	String  
+	supplierName = null ,
+	tariffName = "static value entered",
+	contractTerm = "static value entered", 
+	earlyExitFee = "static value entered", 
+	savePerYear = "static value entered", 
+	isGreen = "static value entered", 
+	extras = "static value entered", 
+	isSaving = "static value entered", 
+	personalProjection = "static value entered", 
+	contractType = "static value entered", 
+	rank = "static value entered", 
+	paymentMethod = "static value entered", 
+	comparisonSiteExclusive = "static value entered",
+
+	//electricity variables
+	electricity_supplierName = "static value entered",
+	electricity_tariffName = "static value entered",
+	electricity_tariffType = "static value entered", 
+	electricity_paymentMethod = "static value entered", 
+	electricity_unitRate = "static value entered", 
+	electricity_nightUnitRate = "static value entered", 
+	electricity_standingCharge = "static value entered",
+	electricity_tariffEndson = "static value entered", 
+	electricity_priceGuaranteedUntil = "static value entered", 
+	electricity_exitfees = "static value entered", 
+	electricity_additionalCharges = "static value entered",
+	electricity_additionalproductsorservices = "static value entered",
+
+	//gas variables
+	gas_supplierName = "static value entered",
+	gas_tariffName = "static value entered",
+	gas_tariffType = "static value entered",
+	gas_paymentMethod = "static value entered",
+	gas_unitRate = "static value entered",
+	gas_nightUnitRate = "static value entered",
+	gas_standingCharge = "static value entered",
+	gas_tariffEndson = "static value entered",
+	gas_priceGuaranteedUntil = "static value entered",
+	gas_exitfees = "static value entered",
+	gas_additionalCharges = "static value entered",
+	gas_additionalproductsorservices = "static value entered" ;
+	static JSONObject firstJsonOnject = new  JSONObject();
+	static JSONArray rankJsonArray = new JSONArray();
+
+
 	public static void main(String[] args) throws IOException 
 
 	{
 
 		new httpgetrequest().jsonVariables();
 
+		firstJsonOnject.put("uswitchresults", rankJsonArray);
+		firstJsonOnject.put("source", "USwitch");
+
+		System.out.println(firstJsonOnject.toString());
+		System.out.println("Done");
 
 	}	
 
 	public void jsonVariables()
 	{
 
-		String  
-		supplierName = null ,
-		tariffName = "static value entered",
-		contractTerm = "static value entered", 
-		earlyExitFee = "static value entered", 
-		savePerYear = "static value entered", 
-		isGreen = "static value entered", 
-		extras = "static value entered", 
-		isSaving = "static value entered", 
-		personalProjection = "static value entered", 
-		contractType = "static value entered", 
-		rank = "static value entered", 
-		paymentMethod = "static value entered", 
-		comparisonSiteExclusive = "static value entered",
-
-		//electricity variables
-		electricity_supplierName = "static value entered",
-		electricity_tariffName = "static value entered",
-		electricity_tariffType = "static value entered", 
-		electricity_paymentMethod = "static value entered", 
-		electricity_unitRate = "static value entered", 
-		electricity_nightUnitRate = "static value entered", 
-		electricity_standingCharge = "static value entered",
-		electricity_tariffEndson = "static value entered", 
-		electricity_priceGuaranteedUntil = "static value entered", 
-		electricity_exitfees = "static value entered", 
-		electricity_additionalCharges = "static value entered",
-		electricity_additionalproductsorservices = "static value entered",
-
-		//gas variables
-		gas_supplierName = "static value entered",
-		gas_tariffName = "static value entered",
-		gas_tariffType = "static value entered",
-		gas_paymentMethod = "static value entered",
-		gas_unitRate = "static value entered",
-		gas_nightUnitRate = "static value entered",
-		gas_standingCharge = "static value entered",
-		gas_tariffEndson = "static value entered",
-		gas_priceGuaranteedUntil = "static value entered",
-		gas_exitfees = "static value entered",
-		gas_additionalCharges = "static value entered",
-		gas_additionalproductsorservices = "static value entered" ;
 
 		String filePath = "C:\\Users\\Luv\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -111,13 +120,71 @@ public class httpgetrequest {
 				for (Object ranksKeyValue : executionKeySet)
 				{
 					LinkedHashMap ranks =  (LinkedHashMap) executions.get(ranksKeyValue.toString());
-					System.out.println(ranks.get("rank"));
+					supplierName = ranks.get("supplierName").toString();
+					rank = ranks.get("rank").toString();
+					paymentMethod = ranks.get("paymentMethod").toString();
+					contractTerm = ranks.get("contractTerm").toString();
+					//contractType = ranks.get("contractType").toString();
+					personalProjection = ranks.get("personalProjection").toString();
+					extras = ranks.get("Extras").toString();
+					isGreen = ranks.get("isGreen").toString();
+					savePerYear = ranks.get("savePerYear").toString();
+					tariffName = ranks.get("tariffName").toString();
+					earlyExitFee = ranks.get("earlyExitFee").toString();
+					isSaving = ranks.get("isSaving").toString();
+					comparisonSiteExclusive = ranks.get("comparisonSiteExclusive").toString();
+					if(comparisonSiteExclusive.toLowerCase().contains("T"))
+					{
+						if(ranks.containsKey("electricity")) 
+						{
+							LinkedHashMap electricity = (LinkedHashMap) ranks.get("electricity");
+							electricity_supplierName = electricity.get("supplierName").toString();
+							electricity_tariffName = electricity.get("tariffName").toString();
+							electricity_tariffType = electricity.get("tariffType").toString();
+							electricity_paymentMethod = electricity.get("paymentMethod").toString();  
+							electricity_unitRate = electricity.get("unitRate").toString(); 
+							electricity_nightUnitRate = electricity.get("unitRate").toString();  
+							electricity_standingCharge = electricity.get("standingCharge").toString(); 
+							electricity_tariffEndson = electricity.get("tariffEndson").toString();  
+							electricity_priceGuaranteedUntil = electricity.get("priceGuaranteedUntil").toString(); 
+							electricity_exitfees = electricity.get("exitfees").toString();  
+							electricity_additionalCharges = electricity.get("discounts").toString(); 
+							electricity_additionalproductsorservices = electricity.get("additionalproductsorservices").toString(); 		
+						}
+						else {
+							System.out.println("there is no electricity key in rank");
+						}
+
+						if(ranks.containsKey("gas"))
+						{
+
+							LinkedHashMap gas = (LinkedHashMap) ranks.get("gas");
+							gas_supplierName = gas.get("supplierName").toString();
+							gas_tariffName = gas.get("tariffName").toString();
+							gas_tariffType = gas.get("tariffType").toString();
+							gas_paymentMethod = gas.get("paymentMethod").toString();  
+							gas_unitRate = gas.get("unitRate").toString(); 
+							gas_nightUnitRate = gas.get("unitRate").toString();  
+							gas_standingCharge = gas.get("standingCharge").toString(); 
+							gas_tariffEndson = gas.get("tariffEndson").toString();  
+							gas_priceGuaranteedUntil = gas.get("priceGuaranteedUntil").toString(); 
+							gas_exitfees = gas.get("exitfees").toString();  
+							gas_additionalCharges = gas.get("discounts").toString(); 
+							gas_additionalproductsorservices = gas.get("additionalproductsorservices").toString(); 		
+
+						}
+						else {
+							System.out.println("there is no gas key in rank");
+						}
+					}
+
+
+					createJsonBody();
 				}
-				
 
 
 			}
-					}
+		}
 		catch (Exception e) 
 		{
 			e.printStackTrace();
@@ -125,68 +192,61 @@ public class httpgetrequest {
 
 
 
-		JSONObject firstJsonOnject = new  JSONObject();
-		JSONArray firstJsonArray = new JSONArray();
-		HashMap<String, Object> insideData =new  HashMap<String,Object>();
-		HashMap<String, String> electricityinsideData = new HashMap<String, String>();
-		HashMap<String, String> gasinsideData =new  HashMap<String, String>();
-
-		insideData.put("supplierName", supplierName);
-		insideData.put("tariffName", tariffName);
-		insideData.put("contractTerm", contractTerm);
-		insideData.put("earlyExitFee", earlyExitFee);
-		insideData.put("savePerYear", savePerYear);
-		insideData.put("isGreen", isGreen);
-		insideData.put("extras", extras);
-		insideData.put("comparisonSiteExclusive", comparisonSiteExclusive);
-		insideData.put("isSaving", isSaving);
-		insideData.put("personalProjection", personalProjection);
-		insideData.put("contractType", contractType);
-		insideData.put("paymentMethod", paymentMethod);
-		insideData.put("rank", rank);
-
-		//electricity data
-		electricityinsideData.put("electricity_supplierName", electricity_supplierName);
-		electricityinsideData.put("electricity_tariffName", electricity_tariffName);
-		electricityinsideData.put("electricity_tariffType", electricity_tariffType);
-		electricityinsideData.put("electricity_paymentMethod", electricity_paymentMethod);
-		electricityinsideData.put("electricity_unitRate", electricity_unitRate);
-		electricityinsideData.put("electricity_nightUnitRate", electricity_nightUnitRate);
-		electricityinsideData.put("electricity_standingCharge", electricity_standingCharge);
-		electricityinsideData.put("electricity_tariffEndson", electricity_tariffEndson);
-		electricityinsideData.put("electricity_priceGuaranteedUntil", electricity_priceGuaranteedUntil);
-		electricityinsideData.put("electricity_exitfees", electricity_exitfees);
-		electricityinsideData.put("electricity_additionalCharges", electricity_additionalCharges);
-		electricityinsideData.put("electricity_additionalproductsorservices", electricity_additionalproductsorservices);
-		insideData.put("electricity", electricityinsideData);
-
-		// gasinsideData data
-		gasinsideData.put("gas_supplierName", gas_supplierName);
-		gasinsideData.put("gas_tariffName", gas_tariffName);
-		gasinsideData.put("gas_tariffType", gas_tariffType);
-		gasinsideData.put("gas_paymentMethod", gas_paymentMethod);
-		gasinsideData.put("gas_unitRate", gas_unitRate);
-		gasinsideData.put("gas_nightUnitRate", gas_nightUnitRate);
-		gasinsideData.put("gas_standingCharge", gas_standingCharge);
-		gasinsideData.put("gas_tariffEndson", gas_tariffEndson);
-		gasinsideData.put("gas_priceGuaranteedUntil", gas_priceGuaranteedUntil);
-		gasinsideData.put("gas_exitfees", gas_exitfees);
-		gasinsideData.put("gas_additionalCharges", gas_additionalCharges);
-		gasinsideData.put("gas_additionalproductsorservices", gas_additionalproductsorservices);
-		insideData.put("gas", gasinsideData);
-
-		firstJsonArray.put(insideData);
-
-		firstJsonOnject.put("uswitchresults", firstJsonArray);
-		firstJsonOnject.put("source", "USwitch");
-
-		System.out.println(firstJsonOnject.toString());
-		System.out.println("Done");
 	}
 
 	public void createJsonBody() 
 
 	{
+
+		HashMap<String, Object> rankData =new  HashMap<String,Object>();
+		HashMap<String, String> electricityinsideData = new HashMap<String, String>();
+		HashMap<String, String> gasinsideData =new  HashMap<String, String>();
+
+		rankData.put("supplierName", supplierName);
+		rankData.put("tariffName", tariffName);
+		rankData.put("contractTerm", contractTerm);
+		rankData.put("earlyExitFee", earlyExitFee);
+		rankData.put("savePerYear", savePerYear);
+		rankData.put("isGreen", isGreen);
+		rankData.put("extras", extras);
+		rankData.put("comparisonSiteExclusive", comparisonSiteExclusive);
+		rankData.put("isSaving", isSaving);
+		rankData.put("personalProjection", personalProjection);
+		rankData.put("contractType", contractType);
+		rankData.put("paymentMethod", paymentMethod);
+		rankData.put("rank", rank);
+
+		//electricity data
+		electricityinsideData.put("supplierName", electricity_supplierName);
+		electricityinsideData.put("tariffName", electricity_tariffName);
+		electricityinsideData.put("tariffType", electricity_tariffType);
+		electricityinsideData.put("paymentMethod", electricity_paymentMethod);
+		electricityinsideData.put("unitRate", electricity_unitRate);
+		electricityinsideData.put("nightUnitRate", electricity_nightUnitRate);
+		electricityinsideData.put("standingCharge", electricity_standingCharge);
+		electricityinsideData.put("tariffEndson", electricity_tariffEndson);
+		electricityinsideData.put("priceGuaranteedUntil", electricity_priceGuaranteedUntil);
+		electricityinsideData.put("exitfees", electricity_exitfees);
+		electricityinsideData.put("additionalCharges", electricity_additionalCharges);
+		electricityinsideData.put("additionalproductsorservices", electricity_additionalproductsorservices);
+		rankData.put("electricity", electricityinsideData);
+
+		// gasinsideData data
+		gasinsideData.put("supplierName", gas_supplierName);
+		gasinsideData.put("tariffName", gas_tariffName);
+		gasinsideData.put("tariffType", gas_tariffType);
+		gasinsideData.put("paymentMethod", gas_paymentMethod);
+		gasinsideData.put("unitRate", gas_unitRate);
+		gasinsideData.put("nightUnitRate", gas_nightUnitRate);
+		gasinsideData.put("standingCharge", gas_standingCharge);
+		gasinsideData.put("tariffEndson", gas_tariffEndson);
+		gasinsideData.put("priceGuaranteedUntil", gas_priceGuaranteedUntil);
+		gasinsideData.put("exitfees", gas_exitfees);
+		gasinsideData.put("additionalCharges", gas_additionalCharges);
+		gasinsideData.put("additionalproductsorservices", gas_additionalproductsorservices);
+		rankData.put("gas", gasinsideData);
+
+		rankJsonArray.put(rankData);
 
 
 	}
