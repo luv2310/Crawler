@@ -1,0 +1,29 @@
+Execution:
+  Rank_1: {supplierName: esb energy, comparisonSiteExclusive: None, personalProjection: '£1,462.34',
+    Extras: None, isGreen: 'True', savePerYear: '123.88', tariffName: brighter future 24 v18,
+    earlyExitFee: £60.00, contractTerm: 24 months, rank: '3', paymentMethod: PaymentMethod,
+    monthlyDirectDebit: £121.86, isSaving: true}
+  Rank_2:
+    supplierName: edf energy
+    comparisonSiteExclusive: 'True'
+    contractEnd: 31 march 2024
+    personalProjection: £1,520.58
+    electricity: {supplierName: edf energy, tariffEndson: 31 march 2024, additionalproductsorservices: not applicable,
+      tariffType: fixed price, discounts: not applicable, tariffName: simply online mar24v2,
+      standingCharge: 26.912p per day, paymentMethod: monthly direct debit, unitRate: 21.000p per kwh (day) && 12.023p per kwh (night),
+      exitfees: £35.00, priceGuaranteedUntil: 31 march 2024}
+    Extras: 'True'
+    isGreen: None
+    savePerYear: '65.63'
+    tariffName: simply online mar24v2
+    earlyExitFee: £70.00
+    contractTerm: 31 Months
+    gas: {supplierName: edf energy, tariffEndson: 31 march 2024, additionalproductsorservices: not applicable,
+      tariffType: fixed price, discounts: not applicable, tariffName: simply online mar24v2,
+      standingCharge: 26.912p per day, paymentMethod: monthly direct debit, unitRate: 21.000p per kwh (day) && 12.023p per kwh (night),
+      exitfees: £35.00, priceGuaranteedUntil: 31 march 2024}
+    rank: '10'
+    paymentMethod: PaymentMethod
+    monthlyDirectDebit: £126.72
+    isSaving: true
+  
