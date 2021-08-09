@@ -35,14 +35,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.muDomastic.qa.base.apiFetchedData;
 
-
-
-
-
 public class httpgetrequest {
-
 	String  
-	supplierName = null ,
+	supplierName = "static value entered" ,
 	tariffName = "static value entered",
 	contractTerm = "static value entered", 
 	earlyExitFee = "static value entered", 
@@ -83,115 +78,156 @@ public class httpgetrequest {
 	gas_exitfees = "static value entered",
 	gas_additionalCharges = "static value entered",
 	gas_additionalproductsorservices = "static value entered" ;
-	static JSONObject firstJsonOnject = new  JSONObject();
-	static JSONArray rankJsonArray = new JSONArray();
+	JSONObject firstJsonOnject ;
+	JSONArray rankJsonArray ;
 
 
 	public static void main(String[] args) throws IOException 
 
 	{
-
 		new httpgetrequest().jsonVariables();
-
-		firstJsonOnject.put("uswitchresults", rankJsonArray);
-		firstJsonOnject.put("source", "USwitch");
-
-		System.out.println(firstJsonOnject.toString());
-		System.out.println("Done");
 
 	}	
 
 	public void jsonVariables()
 	{
-
-
 		String filePath = "C:\\Users\\Luv\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		mapper.findAndRegisterModules();
 		try {
-
 			LinkedHashMap file = (LinkedHashMap) mapper.readValue(new File(filePath), Map.class);	
 			Set fileKeySet = file.keySet();
 			for(Object fileKeyValue : fileKeySet)
-			{
-
+			{    
+				firstJsonOnject = new JSONObject();
+				rankJsonArray= new JSONArray();
 				LinkedHashMap executions = (LinkedHashMap) file.get(fileKeyValue.toString());
 				Set executionKeySet = executions.keySet();	
 				for (Object ranksKeyValue : executionKeySet)
 				{
-					LinkedHashMap ranks =  (LinkedHashMap) executions.get(ranksKeyValue.toString());
-					supplierName = ranks.get("supplierName").toString();
-					rank = ranks.get("rank").toString();
-					paymentMethod = ranks.get("paymentMethod").toString();
-					contractTerm = ranks.get("contractTerm").toString();
-					//contractType = ranks.get("contractType").toString();
-					personalProjection = ranks.get("personalProjection").toString();
-					extras = ranks.get("Extras").toString();
-					isGreen = ranks.get("isGreen").toString();
-					savePerYear = ranks.get("savePerYear").toString();
-					tariffName = ranks.get("tariffName").toString();
-					earlyExitFee = ranks.get("earlyExitFee").toString();
-					isSaving = ranks.get("isSaving").toString();
-					comparisonSiteExclusive = ranks.get("comparisonSiteExclusive").toString();
-					if(comparisonSiteExclusive.toLowerCase().contains("T"))
+					LinkedHashMap ranks = setMainElements(ranksKeyValue,executions);
+					if(comparisonSiteExclusive.toLowerCase().contains("t"))
 					{
-						if(ranks.containsKey("electricity")) 
-						{
-							LinkedHashMap electricity = (LinkedHashMap) ranks.get("electricity");
-							electricity_supplierName = electricity.get("supplierName").toString();
-							electricity_tariffName = electricity.get("tariffName").toString();
-							electricity_tariffType = electricity.get("tariffType").toString();
-							electricity_paymentMethod = electricity.get("paymentMethod").toString();  
-							electricity_unitRate = electricity.get("unitRate").toString(); 
-							electricity_nightUnitRate = electricity.get("unitRate").toString();  
-							electricity_standingCharge = electricity.get("standingCharge").toString(); 
-							electricity_tariffEndson = electricity.get("tariffEndson").toString();  
-							electricity_priceGuaranteedUntil = electricity.get("priceGuaranteedUntil").toString(); 
-							electricity_exitfees = electricity.get("exitfees").toString();  
-							electricity_additionalCharges = electricity.get("discounts").toString(); 
-							electricity_additionalproductsorservices = electricity.get("additionalproductsorservices").toString(); 		
-						}
-						else {
-							System.out.println("there is no electricity key in rank");
-						}
-
-						if(ranks.containsKey("gas"))
-						{
-
-							LinkedHashMap gas = (LinkedHashMap) ranks.get("gas");
-							gas_supplierName = gas.get("supplierName").toString();
-							gas_tariffName = gas.get("tariffName").toString();
-							gas_tariffType = gas.get("tariffType").toString();
-							gas_paymentMethod = gas.get("paymentMethod").toString();  
-							gas_unitRate = gas.get("unitRate").toString(); 
-							gas_nightUnitRate = gas.get("unitRate").toString();  
-							gas_standingCharge = gas.get("standingCharge").toString(); 
-							gas_tariffEndson = gas.get("tariffEndson").toString();  
-							gas_priceGuaranteedUntil = gas.get("priceGuaranteedUntil").toString(); 
-							gas_exitfees = gas.get("exitfees").toString();  
-							gas_additionalCharges = gas.get("discounts").toString(); 
-							gas_additionalproductsorservices = gas.get("additionalproductsorservices").toString(); 		
-
-						}
-						else {
-							System.out.println("there is no gas key in rank");
-						}
+						setComparisonElements(ranks);
 					}
-
-
+					else
+					{
+						setNoValuecomparison();
+					}
 					createJsonBody();
 				}
-
-
+				firstJsonOnject.put("uswitchresults", rankJsonArray);
+				firstJsonOnject.put("source", "USwitch");
+				//post request to be used here
 			}
+			System.out.println(firstJsonOnject.toString());
+			System.out.println("Done");
 		}
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
+	}
 
+	public void setVariables() {
 
+	}
 
+	public LinkedHashMap setMainElements(Object ranksKeyValue,LinkedHashMap executions)
+	{
+		LinkedHashMap ranks =  (LinkedHashMap) executions.get(ranksKeyValue.toString());
+		supplierName = ranks.get("supplierName").toString();
+		rank = ranks.get("rank").toString();
+		paymentMethod = ranks.get("paymentMethod").toString();
+		contractTerm = ranks.get("contractTerm").toString();
+		//contractType = ranks.get("contractType").toString();
+		personalProjection = ranks.get("personalProjection").toString();
+		extras = ranks.get("Extras").toString();
+		isGreen = ranks.get("isGreen").toString();
+		savePerYear = ranks.get("savePerYear").toString();
+		tariffName = ranks.get("tariffName").toString();
+		earlyExitFee = ranks.get("earlyExitFee").toString();
+		isSaving = ranks.get("isSaving").toString();
+		comparisonSiteExclusive = ranks.get("comparisonSiteExclusive").toString();
+		return ranks;
+	}
+
+	public void setComparisonElements(LinkedHashMap ranks) 
+	{
+
+		if(ranks.containsKey("electricity")) 
+		{
+			LinkedHashMap electricity = (LinkedHashMap) ranks.get("electricity");
+			electricity_supplierName = electricity.get("supplierName").toString();
+			electricity_tariffName = electricity.get("tariffName").toString();
+			electricity_tariffType = electricity.get("tariffType").toString();
+			electricity_paymentMethod = electricity.get("paymentMethod").toString();  
+			electricity_unitRate = electricity.get("unitRate").toString(); 
+			electricity_nightUnitRate = electricity.get("unitRate").toString();  
+			electricity_standingCharge = electricity.get("standingCharge").toString(); 
+			electricity_tariffEndson = electricity.get("tariffEndson").toString();  
+			electricity_priceGuaranteedUntil = electricity.get("priceGuaranteedUntil").toString(); 
+			electricity_exitfees = electricity.get("exitfees").toString();  
+			electricity_additionalCharges = electricity.get("discounts").toString(); 
+			electricity_additionalproductsorservices = electricity.get("additionalproductsorservices").toString(); 		
+		}
+		else {
+			System.out.println("there is no electricity key in rank");
+		}
+
+		if(ranks.containsKey("gas"))
+		{
+
+			LinkedHashMap gas = (LinkedHashMap) ranks.get("gas");
+			gas_supplierName = gas.get("supplierName").toString();
+			gas_tariffName = gas.get("tariffName").toString();
+			gas_tariffType = gas.get("tariffType").toString();
+			gas_paymentMethod = gas.get("paymentMethod").toString();  
+			gas_unitRate = gas.get("unitRate").toString(); 
+			gas_nightUnitRate = gas.get("unitRate").toString();  
+			gas_standingCharge = gas.get("standingCharge").toString(); 
+			gas_tariffEndson = gas.get("tariffEndson").toString();  
+			gas_priceGuaranteedUntil = gas.get("priceGuaranteedUntil").toString(); 
+			gas_exitfees = gas.get("exitfees").toString();  
+			gas_additionalCharges = gas.get("discounts").toString(); 
+			gas_additionalproductsorservices = gas.get("additionalproductsorservices").toString(); 		
+
+		}
+		else {
+			System.out.println("there is no gas key in rank");
+		}
+
+	}
+
+	public void setNoValuecomparison()
+	{
+		//electricity variables
+		electricity_supplierName = "none";
+		electricity_tariffName = "none";
+		electricity_tariffType = "none"; 
+		electricity_paymentMethod = "none"; 
+		electricity_unitRate = "none"; 
+		electricity_nightUnitRate = "none"; 
+		electricity_standingCharge = "none";
+		electricity_tariffEndson = "none"; 
+		electricity_priceGuaranteedUntil = "none"; 
+		electricity_exitfees = "none"; 
+		electricity_additionalCharges = "none";
+		electricity_additionalproductsorservices = "none";
+
+		//gas variables
+		gas_supplierName = "none";
+		gas_tariffName = "none";
+		gas_tariffType = "none";
+		gas_paymentMethod = "none";
+		gas_unitRate = "none";
+		gas_nightUnitRate = "none";
+		gas_standingCharge = "none";
+		gas_tariffEndson = "none";
+		gas_priceGuaranteedUntil = "none";
+		gas_exitfees = "none";
+		gas_additionalCharges = "none";
+		gas_additionalproductsorservices = "none" ;
 	}
 
 	public void createJsonBody() 
@@ -230,7 +266,6 @@ public class httpgetrequest {
 		electricityinsideData.put("additionalCharges", electricity_additionalCharges);
 		electricityinsideData.put("additionalproductsorservices", electricity_additionalproductsorservices);
 		rankData.put("electricity", electricityinsideData);
-
 		// gasinsideData data
 		gasinsideData.put("supplierName", gas_supplierName);
 		gasinsideData.put("tariffName", gas_tariffName);
@@ -247,8 +282,6 @@ public class httpgetrequest {
 		rankData.put("gas", gasinsideData);
 
 		rankJsonArray.put(rankData);
-
-
 	}
 
 	public HashMap<Object, Object> sendPostRequestWithParams(String url, String postData)
