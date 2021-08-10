@@ -70,7 +70,7 @@ public class USwitchGenericScenario extends TestBase {
 			eleusage = jsonObj.get("usageForElectricity").toString();
 			nightPercent = jsonObj.get("electricityNightPercentage").toString();
 			requestId =  jsonObj.get("requestId").toString();
-			
+
 
 			//set supplier name
 			if(isDualFuel)
@@ -140,8 +140,8 @@ public class USwitchGenericScenario extends TestBase {
 		System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
 		Yaml yaml = new Yaml();
 		FileWriter writer = null;
-		try {
-			writer = new FileWriter(System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
+		try {	
+			writer = new FileWriter(System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml", StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
