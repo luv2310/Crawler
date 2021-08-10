@@ -9,6 +9,9 @@ import java.io.FileReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,7 +24,9 @@ import java.util.Set;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
@@ -77,7 +82,8 @@ public class httpgetrequest {
 	gas_priceGuaranteedUntil = "static value entered",
 	gas_exitfees = "static value entered",
 	gas_additionalCharges = "static value entered",
-	gas_additionalproductsorservices = "static value entered" ;
+	gas_additionalproductsorservices = "static value entered",
+	execution_ID="0000";
 	JSONObject firstJsonOnject ;
 	JSONArray rankJsonArray ;
 
@@ -91,7 +97,7 @@ public class httpgetrequest {
 
 	public void jsonVariables()
 	{
-		String filePath = "C:\\Users\\Luv\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
+		String filePath = "C:\\Users\\luv.mendiratta\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		mapper.findAndRegisterModules();
 		try {
@@ -101,6 +107,8 @@ public class httpgetrequest {
 			{    
 				firstJsonOnject = new JSONObject();
 				rankJsonArray= new JSONArray();
+				String[] executionidarr =fileKeyValue.toString().split("-");
+				execution_ID=executionidarr[1];
 				LinkedHashMap executions = (LinkedHashMap) file.get(fileKeyValue.toString());
 				Set executionKeySet = executions.keySet();	
 				for (Object ranksKeyValue : executionKeySet)
@@ -118,10 +126,14 @@ public class httpgetrequest {
 				}
 				firstJsonOnject.put("uswitchresults", rankJsonArray);
 				firstJsonOnject.put("source", "USwitch");
-				//post request to be used here
 			}
 			System.out.println(firstJsonOnject.toString());
+			String url = "https://api-home-staging.myutilitygenius.co.uk/request/compare/uswitch/request/"+execution_ID;
+			postMethd(url,  firstJsonOnject.toString());
+		//	HashMap<Object, Object> result = sendPostRequestWithParams(url, firstJsonOnject.toString());
+		//	System.out.println(result.get("statuscode"));
 			System.out.println("Done");
+			
 		}
 		catch (Exception e) 
 		{
@@ -140,7 +152,18 @@ public class httpgetrequest {
 		rank = ranks.get("rank").toString();
 		paymentMethod = ranks.get("paymentMethod").toString();
 		contractTerm = ranks.get("contractTerm").toString();
-		//contractType = ranks.get("contractType").toString();
+		contractType = ranks.get("contractType").toString();
+		if(contractType.isEmpty())
+		{
+			if(contractTerm.toLowerCase().contains("var"))
+			{
+				contractType = "No contract";
+			}
+			else
+			{
+				contractType = "Fixed rate contract";
+			}
+		}
 		personalProjection = ranks.get("personalProjection").toString();
 		extras = ranks.get("Extras").toString();
 		isGreen = ranks.get("isGreen").toString();
@@ -298,6 +321,7 @@ public class httpgetrequest {
 
 			HttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
 			HttpPost httppost = new HttpPost(url);
+			httppost.addHeader("content-type", "application/x-www-form-urlencoded");
 			httppost.setEntity(new StringEntity(postData));
 			HttpResponse httpResponse = null;
 			try {
@@ -326,6 +350,21 @@ public class httpgetrequest {
 		}
 		return responseMap;
 	} 
+	public void postMethd(String passurl, String jsonInputString) 
+	{
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		try {
+			HttpPost request = new HttpPost(passurl);
+			StringEntity params = new StringEntity(jsonInputString);
+			request.addHeader("content-type", "application/x-www-form-urlencoded");
+			request.setEntity(params);
+			HttpResponse response = httpClient.execute(request);
+			
+			System.out.println(response.toString());
+		} catch (Exception ex) {
+		}}
 }
+
+
 
 

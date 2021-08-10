@@ -206,6 +206,13 @@ public class USwitchLandingPage  {
 	@FindBy(xpath = "//a[contains(text(),'No, use current rates')]")
 	WebElement alertCancelButton_2;
 
+	@FindBy(xpath = "//div[@class=\"css-jhrqka\"]//span[@class=\"css-jbkn09\"]")
+	WebElement savePerYearValue;
+
+	@FindBy(xpath = "//div[@class=\"css-jhrqka\"]//span[@class=\"css-1a48qmz\"]")
+	WebElement isSavingSymbol;
+
+
 	// initialize the Page objects
 	public USwitchLandingPage() {
 		PageFactory.initElements(driver, this);
@@ -480,9 +487,9 @@ public class USwitchLandingPage  {
 			HashMap<String, String> gasComparisondetails = new HashMap<String, String>();
 			String isGreen="None",Extras="None",comparisonSiteExclusive="None",savePerYear="None";
 			boolean isSaving = true;
-			boolean flagContractLength = false,flagcomparison=false; 
+			boolean flagcomparison=false; 
 
-			String planFeatureListXpath ="//li["+i+"]//div[@class=\"css-1bd1op\"]//a[@class=\"css-v38h9u\"]";
+			String planFeatureListXpath ="//ol//li["+i+"]//div[@class=\"css-1bd1op\"]//a[@class=\"css-v38h9u\"]";
 			WebElement ele = null;
 			try {
 				ele = driver.findElement(By.xpath(planFeatureListXpath)); // planinfo clickable button
@@ -492,6 +499,7 @@ public class USwitchLandingPage  {
 
 			if(ele!=null)
 			{   
+
 				int tablecount = 0;
 				action.clickWithjavascriptattempt(ele);
 				action.wait(2);
@@ -519,8 +527,7 @@ public class USwitchLandingPage  {
 						variable_name ="monthlyDirectDebit" ;
 						break;
 					case "contract ends":
-						flagContractLength=true;
-						variable_name ="contractEnd";
+						variable_name ="contractTerm";
 						break;	
 					case "contract length":
 						variable_name ="contractTerm";
@@ -535,7 +542,16 @@ public class USwitchLandingPage  {
 
 				if(tablecount<=5)
 				{
-					rankValue.put("ContractTerm","variable");
+					rankValue.put("contractTerm","variable");
+				}
+
+
+				if(!rankValue.get("contractTerm").toString().equalsIgnoreCase("variable"))
+				{
+					rankValue.put("contractType","Fixed rate contract");
+				}
+				else {
+					rankValue.put("contractType","No Contract");
 				}
 
 				List<WebElement> planFeaturesXpath = driver.findElements(By.xpath(planFeatureXpath));
@@ -561,7 +577,24 @@ public class USwitchLandingPage  {
 				rankValue.put("comparisonSiteExclusive",comparisonSiteExclusive);
 				rankValue.put("Extras",Extras);
 				rankValue.put("rank",String.valueOf(i));
-				rankValue.put("paymentMethod",paymentMethod);			
+				rankValue.put("paymentMethod",paymentMethod);		
+
+				try				
+				{
+					String iconElement = isSavingSymbol.getText();
+					savePerYear=savePerYearValue.getText();
+					if(iconElement.contains("+"))
+					{
+						isSaving = false ;
+						savePerYear = "-"+savePerYear;
+					}
+				}
+				catch (Exception e) 
+				{
+					System.out.println("Exception while getting the additional annual cost");
+				}
+				rankValue.put("isSaving", isSaving);
+				rankValue.put("savePerYear",savePerYear);			
 
 				if(flagcomparison)
 				{
@@ -609,6 +642,10 @@ public class USwitchLandingPage  {
 							variable_name ="unitRate" ;
 							flagvariablvalueupdated= false;
 							break;
+						case "unit rate":
+							variable_name ="unitRate" ;
+							flagvariablvalueupdated= false;
+							break;	
 						case "standing charge":
 							variable_name ="standingCharge";
 							flagvariablvalueupdated= false;
@@ -740,49 +777,14 @@ public class USwitchLandingPage  {
 						rankValue.put("gas",gasComparisondetails);
 					}
 					actions.moveToElement(buttonCancel).click().perform();
-					action.wait(2);
-					actions.moveToElement(buttonCancel).click().perform();
 				}
+				action.wait(2);
+				actions.moveToElement(buttonCancel).click().perform();
 
-				if(flagContractLength)
-				{
-					if(!flagcomparison) 
-					{
-						action.wait(3);
-						actions.moveToElement(buttonCancel).click().perform();
-					}
-					String variable_value = null;
-					WebElement savingElement = driver.findElement(By.xpath("//li["+i+"]//div[@class=\"css-ppu0ks\"]//p[@class=\"css-1x40lsu\"]"));
-					variable_value	= savingElement.getText();
-					rankValue.put("contractTerm", variable_value);
-				}	
-
-				if(!flagContractLength && !flagcomparison)
-				{
-					action.wait(2);
-					actions.moveToElement(buttonCancel).click().perform();
-				}
-				try
-				{
-					String iconElement = driver.findElement(By.xpath("//li["+i+"]//span[@class=\"css-1a48qmz\"]")).getText();
-					WebElement savingElement = driver.findElement(By.xpath("//li["+i+"]//span[@class=\"css-jbkn09\"]"));
-					savePerYear=savingElement.getText();
-					if(iconElement.contains("+"))
-					{
-						isSaving = false ;
-						savePerYear = "-"+savePerYear;
-					}
-				}
-				catch (Exception e) 
-				{
-					System.out.println("Exception while getting the additional annual cost");
-				}
-				rankValue.put("isSaving", isSaving);
-				rankValue.put("savePerYear",savePerYear);					
 				System.out.println("completed for rank +++ "+i);
 
 				super_getallthedetails.put("Rank_"+i,rankValue);
-				if(i==21)
+				if(i==4)
 				{
 					System.out.println();
 				}
