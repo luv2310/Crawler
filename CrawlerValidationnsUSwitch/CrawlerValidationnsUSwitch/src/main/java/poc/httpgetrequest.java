@@ -97,7 +97,7 @@ public class httpgetrequest {
 
 	public void jsonVariables()
 	{
-		String filePath = "C:\\Users\\luv.mendiratta\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
+		String filePath = "C:\\Users\\\\Luv\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		mapper.findAndRegisterModules();
 		try {
@@ -130,10 +130,10 @@ public class httpgetrequest {
 			System.out.println(firstJsonOnject.toString());
 			String url = "https://api-home-staging.myutilitygenius.co.uk/request/compare/uswitch/request/"+execution_ID;
 			postMethd(url,  firstJsonOnject.toString());
-		//	HashMap<Object, Object> result = sendPostRequestWithParams(url, firstJsonOnject.toString());
-		//	System.out.println(result.get("statuscode"));
+			//	HashMap<Object, Object> result = sendPostRequestWithParams(url, firstJsonOnject.toString());
+			//	System.out.println(result.get("statuscode"));
 			System.out.println("Done");
-			
+
 		}
 		catch (Exception e) 
 		{
@@ -177,7 +177,6 @@ public class httpgetrequest {
 
 	public void setComparisonElements(LinkedHashMap ranks) 
 	{
-
 		if(ranks.containsKey("electricity")) 
 		{
 			LinkedHashMap electricity = (LinkedHashMap) ranks.get("electricity");
@@ -354,13 +353,26 @@ public class httpgetrequest {
 	{
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		try {
-			HttpPost request = new HttpPost(passurl);
-			StringEntity params = new StringEntity(jsonInputString);
-			request.addHeader("content-type", "application/x-www-form-urlencoded");
-			request.setEntity(params);
-			HttpResponse response = httpClient.execute(request);
-			
-			System.out.println(response.toString());
+			URL url = new URL (passurl);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Content-Type", "application/json; utf-8");
+			con.setRequestProperty("Accept", "application/json");
+			con.setDoOutput(true);
+
+			try(OutputStream os = con.getOutputStream()) {
+				byte[] input = jsonInputString.getBytes("utf-8");
+				os.write(input, 0, input.length);			
+			}
+			try(BufferedReader br = new BufferedReader(
+					new InputStreamReader(con.getInputStream(), "utf-8"))) {
+				StringBuilder response = new StringBuilder();
+				String responseLine = null;
+				while ((responseLine = br.readLine()) != null) {
+					response.append(responseLine.trim());
+				}
+				System.out.println(response.toString());
+			}
 		} catch (Exception ex) {
 		}}
 }
