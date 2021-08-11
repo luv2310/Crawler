@@ -1,7 +1,9 @@
 package com.muDomastic.qa.TestCases;
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -139,9 +141,9 @@ public class USwitchGenericScenario extends TestBase {
 	public void closeTest() {      
 		System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml");
 		Yaml yaml = new Yaml();
-		FileWriter writer = null;
+		OutputStreamWriter writer = null;
 		try {	
-			writer = new FileWriter(System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml", StandardCharsets.UTF_8);
+			writer	= new OutputStreamWriter(new FileOutputStream(System.getProperty("user.dir")+"\\CrawlerValidationnsUSwitch_data.yaml"), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

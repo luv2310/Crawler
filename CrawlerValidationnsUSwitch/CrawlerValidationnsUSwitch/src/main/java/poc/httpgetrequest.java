@@ -97,7 +97,7 @@ public class httpgetrequest {
 
 	public void jsonVariables()
 	{
-		String filePath = "C:\\Users\\\\Luv\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
+		String filePath = "C:\\Users\\luv.mendiratta\\Desktop\\CrawlerValidationnsUSwitch_data.yaml";
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		mapper.findAndRegisterModules();
 		try {
@@ -224,32 +224,32 @@ public class httpgetrequest {
 	public void setNoValuecomparison()
 	{
 		//electricity variables
-		electricity_supplierName = "none";
-		electricity_tariffName = "none";
-		electricity_tariffType = "none"; 
-		electricity_paymentMethod = "none"; 
-		electricity_unitRate = "none"; 
-		electricity_nightUnitRate = "none"; 
-		electricity_standingCharge = "none";
-		electricity_tariffEndson = "none"; 
-		electricity_priceGuaranteedUntil = "none"; 
-		electricity_exitfees = "none"; 
-		electricity_additionalCharges = "none";
-		electricity_additionalproductsorservices = "none";
+		electricity_supplierName = null;
+		electricity_tariffName = null;
+		electricity_tariffType = null; 
+		electricity_paymentMethod = null; 
+		electricity_unitRate = null; 
+		electricity_nightUnitRate = null; 
+		electricity_standingCharge = null;
+		electricity_tariffEndson = null; 
+		electricity_priceGuaranteedUntil = null; 
+		electricity_exitfees = null; 
+		electricity_additionalCharges = null;
+		electricity_additionalproductsorservices = null;
 
 		//gas variables
-		gas_supplierName = "none";
-		gas_tariffName = "none";
-		gas_tariffType = "none";
-		gas_paymentMethod = "none";
-		gas_unitRate = "none";
-		gas_nightUnitRate = "none";
-		gas_standingCharge = "none";
-		gas_tariffEndson = "none";
-		gas_priceGuaranteedUntil = "none";
-		gas_exitfees = "none";
-		gas_additionalCharges = "none";
-		gas_additionalproductsorservices = "none" ;
+		gas_supplierName = null;
+		gas_tariffName = null;
+		gas_tariffType = null;
+		gas_paymentMethod = null;
+		gas_unitRate = null;
+		gas_nightUnitRate = null;
+		gas_standingCharge = null;
+		gas_tariffEndson = null;
+		gas_priceGuaranteedUntil = null;
+		gas_exitfees = null;
+		gas_additionalCharges = null;
+		gas_additionalproductsorservices = null ;
 	}
 
 	public void createJsonBody() 
