@@ -1,0 +1,172 @@
+Execution-6209:
+  Rank_2: {supplierName: esb energy, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,358.96', Extras: None, isGreen: 'True',
+    savePerYear: '-64.13', tariffName: brighter future 24 v18, earlyExitFee: £60.00,
+    contractTerm: 24 months, rank: '2', paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £113.25,
+    isSaving: false}
+  Rank_1:
+    supplierName: edf energy
+    comparisonSiteExclusive: 'True'
+    contractType: Fixed rate contract
+    personalProjection: £1,357.17
+    electricity: {supplierName: edf energy, tariffEndson: 31 march 2024, additionalproductsorservices: not
+        applicable, tariffType: fixed price, discounts: not applicable, tariffName: simply
+        online mar24v2, standingCharge: 26.912p per day, paymentMethod: monthly direct
+        debit, unitRate: 21.000p per kwh (day) && 12.023p per kwh (night), exitfees: £35.00,
+      priceGuaranteedUntil: 31 march 2024}
+    Extras: 'True'
+    isGreen: None
+    savePerYear: '-62.34'
+    tariffName: simply online mar24v2
+    earlyExitFee: £70.00
+    contractTerm: 31 march 2024
+    gas: {supplierName: edf energy, tariffEndson: 31 march 2024, additionalproductsorservices: not
+        applicable, tariffType: fixed price, discounts: not applicable, tariffName: simply
+        online mar24v2, standingCharge: 26.596p per day, paymentMethod: monthly direct
+        debit, unitRate: 3.652p per kwh, exitfees: £35.00, priceGuaranteedUntil: 31
+        march 2024}
+    rank: '1'
+    paymentMethod: Monthly Direct Debit
+    monthlyDirectDebit: £113.10
+    isSaving: false
+  Rank_13: {supplierName: shell energy, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,536.46', Extras: None, isGreen: 'True',
+    savePerYear: '-241.63', tariffName: go further july 2023 v3, earlyExitFee: £60.00,
+    contractTerm: 31 july 2023, rank: '13', paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £128.04,
+    isSaving: false}
+  Rank_9: {supplierName: shell energy, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,520.45', Extras: 'True', isGreen: 'True',
+    savePerYear: '-225.62', tariffName: energy august 2024 plus shell energy shop
+      vouchers v2, earlyExitFee: £100.00, contractTerm: 31 august 2024, rank: '9',
+    paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £126.70, isSaving: false}
+  Rank_12: {supplierName: scottishpower, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,532.07', Extras: 'True', isGreen: None,
+    savePerYear: '-237.24', tariffName: fixed price december 2022 m1, earlyExitFee: £60.00,
+    contractTerm: 31 december 2022, rank: '12', paymentMethod: Monthly Direct Debit,
+    monthlyDirectDebit: £127.67, isSaving: false}
+  Rank_23: {supplierName: pure planet, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,635.93', Extras: None, isGreen: 'True',
+    savePerYear: '-341.10', tariffName: 100% green 12m fixed aug21 v1, earlyExitFee: £60.00,
+    contractTerm: 12 months, rank: '23', paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £136.33,
+    isSaving: false}
+  Rank_8: {supplierName: shell energy, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,490.05', Extras: None, isGreen: 'True',
+    savePerYear: '-195.22', tariffName: energy august 2023 v4, earlyExitFee: £60.00,
+    contractTerm: 31 august 2023, rank: '8', paymentMethod: Monthly Direct Debit,
+    monthlyDirectDebit: £124.17, isSaving: false}
+  Rank_15: {supplierName: scottishpower, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,544.03', Extras: None, isGreen: 'True',
+    savePerYear: '-249.19', tariffName: help beat cancer green fixed december 2023
+      cm1, earlyExitFee: none, contractTerm: 31 december 2023, rank: '15', paymentMethod: Monthly
+      Direct Debit, monthlyDirectDebit: £128.67, isSaving: false}
+  Rank_7: {supplierName: pure planet, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,477.55', Extras: None, isGreen: 'True',
+    savePerYear: '-182.72', tariffName: 100% green 24m fixed aug21 v1, earlyExitFee: £60.00,
+    contractTerm: 24 months, rank: '7', paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £123.13,
+    isSaving: false}
+  Rank_14: {supplierName: scottishpower, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,541.75', Extras: 'True', isGreen: None,
+    savePerYear: '-246.92', tariffName: fixed price december 2022 h1, earlyExitFee: £60.00,
+    contractTerm: 31 december 2022, rank: '14', paymentMethod: Monthly Direct Debit,
+    monthlyDirectDebit: £128.48, isSaving: false}
+  Rank_20: {supplierName: good energy, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,589.11', Extras: None, isGreen: 'True',
+    savePerYear: '-294.28', tariffName: good to fix august 2023, earlyExitFee: none,
+    contractTerm: 31 august 2023, rank: '20', paymentMethod: Monthly Direct Debit,
+    monthlyDirectDebit: £132.43, isSaving: false}
+  Rank_5: {supplierName: british gas evolve, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,445.23', Extras: None, isGreen: 'True',
+    savePerYear: '-150.40', tariffName: exclusive energy plus cover v15, earlyExitFee: none,
+    contractTerm: 24 months, rank: '5', paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £120.44,
+    isSaving: false}
+  Rank_4: {supplierName: e.on next, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,429.59', Extras: None, isGreen: 'True',
+    savePerYear: '-134.76', tariffName: next exclusive 2 year v3, earlyExitFee: none,
+    contractTerm: 24 months, rank: '4', paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £119.13,
+    isSaving: false}
+  Rank_11:
+    supplierName: octopus energy
+    comparisonSiteExclusive: 'True'
+    contractType: Fixed rate contract
+    personalProjection: £1,522.33
+    electricity: {supplierName: octopus energy, tariffEndson: 24 months, additionalproductsorservices: not
+        applicable, tariffType: fixed price, discounts: not applicable, tariffName: octopus
+        exclusive 24m fixed august 2021 v2, standingCharge: 26.901p per day, paymentMethod: monthly
+        direct debit, unitRate: 21.808p per kwh (day) && 14.973p per kwh (night),
+      exitfees: not applicable, priceGuaranteedUntil: 24 months}
+    Extras: None
+    isGreen: 'True'
+    savePerYear: '-227.50'
+    tariffName: octopus exclusive 24m fixed august 2021 v2
+    earlyExitFee: none
+    contractTerm: 24 months
+    gas: {supplierName: octopus energy, tariffEndson: 24 months, additionalproductsorservices: not
+        applicable, tariffType: fixed price, discounts: not applicable, tariffName: octopus
+        exclusive 24m fixed august 2021 v2, standingCharge: 26.586p per day, paymentMethod: monthly
+        direct debit, unitRate: 4.431p per kwh, exitfees: not applicable, priceGuaranteedUntil: 24
+        months}
+    rank: '11'
+    paymentMethod: Monthly Direct Debit
+    monthlyDirectDebit: £126.86
+    isSaving: false
+  Rank_3:
+    supplierName: british gas
+    comparisonSiteExclusive: 'True'
+    contractType: Fixed rate contract
+    personalProjection: £1,378.65
+    electricity: {supplierName: british gas, tariffEndson: 31 march 2024, additionalproductsorservices: 'includes
+        central heating breakdown cover (£99 excess), plumbing, drains and electrics
+        cover (£60 excess) valued at £138 per year. this cover is an introductory
+        offer for the first 12 months that will automatically renew at an average
+        cost of £12/month.', tariffType: fixed price, discounts: not applicable, tariffName: energy
+        plus protection mar 2024v9, standingCharge: 24.844p per day, paymentMethod: monthly
+        direct debit, unitRate: 19.068p per kwh (day) && 14.481p per kwh (night),
+      exitfees: £50.00, priceGuaranteedUntil: 31 march 2024}
+    Extras: None
+    isGreen: 'True'
+    savePerYear: '-83.82'
+    tariffName: energy plus protection mar 2024v9
+    earlyExitFee: £100.00
+    contractTerm: 31 march 2024
+    gas: {supplierName: british gas, tariffEndson: 31 march 2024, additionalproductsorservices: 'includes
+        central heating breakdown cover (£99 excess), plumbing, drains and electrics
+        cover (£60 excess) valued at £138 per year. this cover is an introductory
+        offer for the first 12 months that will automatically renew at an average
+        cost of £12/month.', tariffType: fixed price, discounts: not applicable, tariffName: energy
+        plus protection mar 2024v9, standingCharge: 17.406p per day, paymentMethod: monthly
+        direct debit, unitRate: 4.204p per kwh, exitfees: £50.00, priceGuaranteedUntil: 31
+        march 2024}
+    rank: '3'
+    paymentMethod: Monthly Direct Debit
+    monthlyDirectDebit: £114.89
+    isSaving: false
+  Rank_10: {supplierName: ovo energy, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,520.75', Extras: 'True', isGreen: 'True',
+    savePerYear: '-225.92', tariffName: better smart, earlyExitFee: £60.00, contractTerm: 12
+      months, rank: '10', paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £126.73,
+    isSaving: false}
+  Rank_21: {supplierName: shell energy, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,615.66', Extras: None, isGreen: 'True',
+    savePerYear: '-320.83', tariffName: energy september 2022, earlyExitFee: £60.00,
+    contractTerm: 30 september 2022, rank: '21', paymentMethod: Monthly Direct Debit,
+    monthlyDirectDebit: £134.64, isSaving: false}
+  Rank_17: {supplierName: british gas, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,545.89', Extras: None, isGreen: 'True',
+    savePerYear: '-251.06', tariffName: green future oct 2023, earlyExitFee: £80.00,
+    contractTerm: 31 october 2023, rank: '17', paymentMethod: Monthly Direct Debit,
+    monthlyDirectDebit: £128.82, isSaving: false}
+  Rank_16: {supplierName: scottishpower, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,544.03', Extras: None, isGreen: 'True',
+    savePerYear: '-249.19', tariffName: help beat cancer green fixed december 2023
+      cm1 online, earlyExitFee: none, contractTerm: 31 december 2023, rank: '16',
+    paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £128.67, isSaving: false}
+  Rank_19: {supplierName: scottishpower, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,553.71', Extras: None, isGreen: 'True',
+    savePerYear: '-258.88', tariffName: help beat cancer green fixed december 2023
+      ch1 online, earlyExitFee: none, contractTerm: 31 december 2023, rank: '19',
+    paymentMethod: Monthly Direct Debit, monthlyDirectDebit: £129.48, isSaving: false}
+  Rank_18: {supplierName: scottishpower, comparisonSiteExclusive: None, contractType: Fixed
+      rate contract, personalProjection: '£1,553.71', Extras: None, isGreen: 'True',
+    savePerYear: '-258.88', tariffName: help beat cancer green fixed december 2023
+      ch1, earlyExitFee: none, contractTerm: 31 december 2023, rank: '18', paymentMethod: Monthly
+      Direct Debit, monthlyDirectDebit: £129.48, isSaving: false}

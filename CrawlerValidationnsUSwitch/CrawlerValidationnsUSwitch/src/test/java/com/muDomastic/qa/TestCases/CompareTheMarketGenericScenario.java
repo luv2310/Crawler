@@ -21,11 +21,10 @@ import com.muDomastic.qa.base.TestBase;
 import com.muDomastic.qa.base.apiFetchedData;
 import com.muDomastic.qa.base.dataDump;
 import com.muDomastic.qa.page.CompareTheElementPage;
-import com.muDomastic.qa.page.USwitchPage;
 import com.muDomastic.qa.util.TestUtil;
 
 
-public class USwitchGenericScenario extends TestBase {
+public class CompareTheMarketGenericScenario extends TestBase {
 	JSONArray testCasesArray = null;
 	HashMap<String,HashMap<String, Map>> super_getallthedetails = new HashMap<>();
 	int count =1;
@@ -36,7 +35,7 @@ public class USwitchGenericScenario extends TestBase {
 	boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
 
 
-	public  USwitchGenericScenario() {
+	public  CompareTheMarketGenericScenario() {
 		//call the base class constructor to initilize the propt
 		super();
 	}
@@ -57,7 +56,6 @@ public class USwitchGenericScenario extends TestBase {
 			JSONObject obj = new JSONObject(file);
 			testCasesArray = new JSONArray(obj.get("response").toString());			
 		} catch (Exception e) {
-			System.out.println(":: Exception Occured in the setup method of  USwitchGenericScenario's ::");
 			e.printStackTrace();
 		}
 	}
@@ -116,17 +114,16 @@ public class USwitchGenericScenario extends TestBase {
 						supplierName="Not Known";
 					}
 				}
-				
 				//runcrawler now
 				runCrawler();
-				count++;
 			}
 		}
 		catch (Exception e) 
 		{
-			System.out.println(":: Exception occured in Class uSwitchGenericScenario, method name  execute value :: " );
-			e.printStackTrace();
+			System.out.println("Exception occured in Class CompareTheElementGenericScenario, method name execute value :: " + e);
 		}
+
+
 	}
 
 
@@ -136,26 +133,26 @@ public class USwitchGenericScenario extends TestBase {
 		try {		 
 
 			//saving data in yaml file before using post request 
-			System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\USwitch_data.yaml");
+			System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\CompareTheElement_data.yaml");
 			Yaml yaml = new Yaml();	
 			OutputStreamWriter writer = null;
-			writer	= new OutputStreamWriter(new FileOutputStream(System.getProperty("user.dir")+"\\USwitch_data.yaml"), StandardCharsets.UTF_8);
+			writer	= new OutputStreamWriter(new FileOutputStream(System.getProperty("user.dir")+"\\CompareTheElementPageObj_data.yaml"), StandardCharsets.UTF_8);
 			yaml.dump(super_getallthedetails, writer);
 
 			//sending data to db using post request	
 			new dataDump().jsonVariables();	
 
 		}catch (Exception e) {
-			System.out.println(":: Exception occured while running the closeTest method of class USwitchGenericScenario's ::");
-			e.printStackTrace();
+			System.out.println("Exception occured while running the closeTest method of class CompareTheElementGenericScenario ");
 		}
 	}
 
 	public void runCrawler() {
 		try{
-			//running the crawler for uswitch website
-			USwitchPage UswitchPageObj=new USwitchPage();
-			UswitchPageObj.uSwitchJourney(postCode,
+			//running the crawler for compareTheMarket website
+			CompareTheElementPage CompareTheElementPageObj=new CompareTheElementPage();
+			CompareTheElementPageObj.CompareTheElementJourney(
+					postCode,
 					partialAddress,
 					supplierName,
 					paymentMethod,
@@ -171,22 +168,24 @@ public class USwitchGenericScenario extends TestBase {
 					isEconomy7);
 
 			// storing the fetched data for u switch crawler 
-			HashMap<String, Map> sectionData = UswitchPageObj.storedataNew(hasGas,paymentMethod);	
+			HashMap<String, Map> sectionData = CompareTheElementPageObj.storedataNew(hasGas,paymentMethod);	
 			super_getallthedetails.put("Execution-"+requestId, sectionData);
 			driver.close();
 			driver.quit();
 			Thread.sleep(10000);
+			count++;
 			if (!driver.toString().toLowerCase().contains("null"))
 			{
 				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+driver.toString());
 				Thread.sleep(20000);
 				driver.quit();
 			}
+
 		}catch (Exception e) {
-			System.out.println(":: Exception occured in runCrawler method of uSwitchGenericScenario  :: "); 
-			e.printStackTrace();
+			System.out.println("Exception occured in runCrawler method of CompareTheElementGenericScenario  :: "+ e);
 		}
 	}
+
 }
 
 

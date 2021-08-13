@@ -6,7 +6,7 @@
 		/> -->
 	<!-- </listeners> -->
 
-	<test name="electricTC">
+	<test name="USwitch">
 		<classes>
 			<class
 				name="com.muDomastic.qa.TestCases.USwitchGenericScenario"></class>

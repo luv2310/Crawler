@@ -41,35 +41,43 @@ public class TestBase {
 
 	}
 
-	public static WebDriver initialization() {
-		String browserName = propt.getProperty("browser");
-		if (browserName.equals("chrome"))
-		{
-			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\driver\\chromedriver.exe");
-			driver = new ChromeDriver();
-			driver.manage().window().maximize();
-			driver.manage().deleteAllCookies();
-			driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIME, TimeUnit.SECONDS);
-			driver.manage().timeouts().implicitlyWait(TestUtil.ImplicitWait, TimeUnit.SECONDS);
-			driver.get(propt.getProperty("url"));
-		}
+	public static WebDriver initialization(String website) {
+		try {
+			String browserName = propt.getProperty("browser");
+			String url = propt.getProperty(website);
+			if (browserName.equals("chrome"))
+			{
+				System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\driver\\chromedriver.exe");
+				driver = new ChromeDriver();
+				driver.manage().window().maximize();
+				driver.manage().deleteAllCookies();
+				driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIME, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(TestUtil.ImplicitWait, TimeUnit.SECONDS);
+				driver.get(url);
+			}
 
-		if (browserName.equals("opera")) 
-		{
-			DesiredCapabilities capablities=DesiredCapabilities.opera();
-			String opera_profile = "C:\\Users\\luv.mendiratta\\AppData\\Roaming\\Opera Software\\Opera Stable";
-			ChromeOptions chromeOptions = new ChromeOptions();
-			chromeOptions.addArguments("--user-data-dir="+opera_profile);
-			chromeOptions.addArguments("private");
-			chromeOptions.setBinary("C:\\Users\\luv.mendiratta\\AppData\\Local\\Programs\\Opera\\77.0.4054.256\\opera.exe");
-			System.setProperty("webdriver.opera.driver",System.getProperty("user.dir")+"\\driver\\operadriver.exe");
-			capablities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-			driver = new OperaDriver(capablities);
-			driver.manage().window().maximize();
-			driver.manage().deleteAllCookies();
-			driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIME, TimeUnit.SECONDS);
-			driver.manage().timeouts().implicitlyWait(TestUtil.ImplicitWait, TimeUnit.SECONDS);
-			driver.get(propt.getProperty("url"));
+			if (browserName.equals("opera")) 
+			{
+				DesiredCapabilities capablities=DesiredCapabilities.opera();
+				String opera_profile = propt.getProperty("opera_profile");
+				String operaBinary =propt.getProperty("operaBinary");
+				ChromeOptions chromeOptions = new ChromeOptions();
+				chromeOptions.addArguments("--user-data-dir="+opera_profile);
+				chromeOptions.addArguments("private");
+				chromeOptions.setBinary(operaBinary);
+				System.setProperty("webdriver.opera.driver",System.getProperty("user.dir")+"\\driver\\operadriver.exe");
+				capablities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+				driver = new OperaDriver(capablities);
+				driver.manage().window().maximize();
+				driver.manage().deleteAllCookies();
+				driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIME, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(TestUtil.ImplicitWait, TimeUnit.SECONDS);
+				driver.get(url);
+			}
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class TestUtils Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
 		}
 		return driver;
 	}
