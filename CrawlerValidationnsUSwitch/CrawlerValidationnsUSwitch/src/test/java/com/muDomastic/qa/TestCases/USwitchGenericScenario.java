@@ -27,6 +27,7 @@ import com.muDomastic.qa.util.TestUtil;
 
 public class USwitchGenericScenario extends TestBase {
 	JSONArray testCasesArray = null;
+	static int attempt;
 	HashMap<String,HashMap<String, Map>> super_getallthedetails = new HashMap<>();
 	int count =1;
 	TestUtil testUtil = new TestUtil();
@@ -34,7 +35,6 @@ public class USwitchGenericScenario extends TestBase {
 			gasSpendFrequency,electricitySpendFrequency,requestId;
 
 	boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
-
 
 	public  USwitchGenericScenario() {
 		//call the base class constructor to initilize the propt
@@ -61,7 +61,6 @@ public class USwitchGenericScenario extends TestBase {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Test
 	public void executevalue() 
@@ -116,9 +115,13 @@ public class USwitchGenericScenario extends TestBase {
 						supplierName="Not Known";
 					}
 				}
-				
+
+				//attempt given for crawler rerun in case of failure 
+				attempt = 3;
+
 				//runcrawler now
 				runCrawler();
+
 				count++;
 			}
 		}
@@ -153,6 +156,7 @@ public class USwitchGenericScenario extends TestBase {
 
 	public void runCrawler() {
 		try{
+
 			//running the crawler for uswitch website
 			USwitchPage UswitchPageObj=new USwitchPage();
 			UswitchPageObj.uSwitchJourney(postCode,
@@ -172,7 +176,37 @@ public class USwitchGenericScenario extends TestBase {
 
 			// storing the fetched data for u switch crawler 
 			HashMap<String, Map> sectionData = UswitchPageObj.storedataNew(hasGas,paymentMethod);	
+			driverClose();
+			if(sectionData.isEmpty())
+			{
+				crawlerReAttempt();
+			}		
 			super_getallthedetails.put("Execution-"+requestId, sectionData);
+		}catch (Exception e) {
+			System.out.println(":: Exception occured in runCrawler method of uSwitchGenericScenario  :: "); 
+			e.printStackTrace();
+		}
+	}
+
+	public void crawlerReAttempt() 
+	{
+		try {
+			while(attempt>1) 
+			{ 
+				attempt--;			
+				System.out.println("!!!!!! Failed During First Exceution, running again  !!!!!!!!, left attempt :: " + attempt);
+				runCrawler();			
+			}
+		}
+		catch (Exception e) {
+			System.out.println(":: Exception occured in crawlerReAttempt method of uSwitchGenericScenario  :: "); 
+			e.printStackTrace();
+		}	
+	}
+
+	public void driverClose() 
+	{
+		try {
 			driver.close();
 			driver.quit();
 			Thread.sleep(10000);
@@ -182,11 +216,13 @@ public class USwitchGenericScenario extends TestBase {
 				Thread.sleep(20000);
 				driver.quit();
 			}
-		}catch (Exception e) {
-			System.out.println(":: Exception occured in runCrawler method of uSwitchGenericScenario  :: "); 
-			e.printStackTrace();
+		} catch (Exception e) {	System.out.println(":: Exception occured in driverClose method of uSwitchGenericScenario  :: "); 
+		e.printStackTrace();
 		}
 	}
+
 }
+
+
 
 
