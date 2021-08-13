@@ -57,6 +57,7 @@ public class dataDump {
 	electricity_exitfees = "static value entered", 
 	electricity_additionalCharges = "static value entered",
 	electricity_additionalproductsorservices = "static value entered",
+	electricity_isGreen = "static value entered",
 
 	//gas variables
 	gas_supplierName = "static value entered",
@@ -71,6 +72,7 @@ public class dataDump {
 	gas_exitfees = "static value entered",
 	gas_additionalCharges = "static value entered",
 	gas_additionalproductsorservices = "static value entered",
+	gas_isGreen = "static value entered",
 	execution_ID="0000";
 	JSONObject firstJsonOnject ;
 	JSONArray rankJsonArray ;
@@ -161,53 +163,54 @@ public class dataDump {
 	public void setComparisonElements(LinkedHashMap ranks) 
 	{
 		try {
-		if(ranks.containsKey("electricity")) 
-		{
-			LinkedHashMap electricity = (LinkedHashMap) ranks.get("electricity");
-			electricity_supplierName = electricity.get("supplierName").toString();
-			electricity_tariffName = electricity.get("tariffName").toString();
-			electricity_tariffType = electricity.get("tariffType").toString();
-			electricity_paymentMethod = electricity.get("paymentMethod").toString();  
-			electricity_unitRate = electricity.get("unitRate").toString(); 
-			electricity_nightUnitRate = electricity.get("unitRate").toString();  
-			electricity_standingCharge = electricity.get("standingCharge").toString(); 
-			electricity_tariffEndson = electricity.get("tariffEndson").toString();  
-			electricity_priceGuaranteedUntil = electricity.get("priceGuaranteedUntil").toString(); 
-			electricity_exitfees = electricity.get("exitfees").toString();  
-			electricity_additionalCharges = electricity.get("discounts").toString(); 
-			electricity_additionalproductsorservices = electricity.get("additionalproductsorservices").toString(); 		
-		}
-		else {
-			System.out.println("there is no electricity key in rank");
-		}
+			if(ranks.containsKey("electricity")) 
+			{
+				LinkedHashMap electricity = (LinkedHashMap) ranks.get("electricity");
+				electricity_supplierName = electricity.get("supplierName").toString();
+				electricity_tariffName = electricity.get("tariffName").toString();
+				electricity_tariffType = electricity.get("tariffType").toString();
+				electricity_paymentMethod = electricity.get("paymentMethod").toString();  
+				electricity_unitRate = electricity.get("unitRate").toString(); 
+				electricity_nightUnitRate = electricity.get("unitRate").toString();  
+				electricity_standingCharge = electricity.get("standingCharge").toString(); 
+				electricity_tariffEndson = electricity.get("tariffEndson").toString();  
+				electricity_priceGuaranteedUntil = electricity.get("priceGuaranteedUntil").toString(); 
+				electricity_exitfees = electricity.get("exitfees").toString();  
+				electricity_additionalCharges = electricity.get("discounts").toString(); 
+				electricity_additionalproductsorservices = electricity.get("additionalproductsorservices").toString(); 		
+				electricity_isGreen = electricity.get("isGreen").toString(); 	
+			}
+			else {
+				System.out.println("there is no electricity key in rank");
+			}
 
-		if(ranks.containsKey("gas"))
-		{
+			if(ranks.containsKey("gas"))
+			{
 
-			LinkedHashMap gas = (LinkedHashMap) ranks.get("gas");
-			gas_supplierName = gas.get("supplierName").toString();
-			gas_tariffName = gas.get("tariffName").toString();
-			gas_tariffType = gas.get("tariffType").toString();
-			gas_paymentMethod = gas.get("paymentMethod").toString();  
-			gas_unitRate = gas.get("unitRate").toString(); 
-			gas_nightUnitRate = gas.get("unitRate").toString();  
-			gas_standingCharge = gas.get("standingCharge").toString(); 
-			gas_tariffEndson = gas.get("tariffEndson").toString();  
-			gas_priceGuaranteedUntil = gas.get("priceGuaranteedUntil").toString(); 
-			gas_exitfees = gas.get("exitfees").toString();  
-			gas_additionalCharges = gas.get("discounts").toString(); 
-			gas_additionalproductsorservices = gas.get("additionalproductsorservices").toString(); 		
+				LinkedHashMap gas = (LinkedHashMap) ranks.get("gas");
+				gas_supplierName = gas.get("supplierName").toString();
+				gas_tariffName = gas.get("tariffName").toString();
+				gas_tariffType = gas.get("tariffType").toString();
+				gas_paymentMethod = gas.get("paymentMethod").toString();  
+				gas_unitRate = gas.get("unitRate").toString(); 
+				gas_nightUnitRate = gas.get("unitRate").toString();  
+				gas_standingCharge = gas.get("standingCharge").toString(); 
+				gas_tariffEndson = gas.get("tariffEndson").toString();  
+				gas_priceGuaranteedUntil = gas.get("priceGuaranteedUntil").toString(); 
+				gas_exitfees = gas.get("exitfees").toString();  
+				gas_additionalCharges = gas.get("discounts").toString(); 
+				gas_additionalproductsorservices = gas.get("additionalproductsorservices").toString(); 		
+				gas_isGreen = gas.get("isGreen").toString(); 	
+			}
+			else {
+				System.out.println("there is no gas key in rank");
+			}
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class TestUtils Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
 
 		}
-		else {
-			System.out.println("there is no gas key in rank");
-		}
-	}
-	catch (Exception e) {
-		System.out.println(" :: Exception Occured in class TestUtils Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
-		e.printStackTrace();
-
-	}
 
 	}
 
@@ -226,6 +229,7 @@ public class dataDump {
 		electricity_exitfees = null; 
 		electricity_additionalCharges = null;
 		electricity_additionalproductsorservices = null;
+		electricity_isGreen = null;
 
 		//gas variables
 		gas_supplierName = null;
@@ -240,6 +244,7 @@ public class dataDump {
 		gas_exitfees = null;
 		gas_additionalCharges = null;
 		gas_additionalproductsorservices = null ;
+		gas_isGreen = null;
 	}
 
 	public void createJsonBody() 
@@ -277,6 +282,8 @@ public class dataDump {
 			electricityinsideData.put("exitfees", electricity_exitfees);
 			electricityinsideData.put("discounts", electricity_additionalCharges);
 			electricityinsideData.put("additionalproductsorservices", electricity_additionalproductsorservices);
+			electricityinsideData.put("isGreen", electricity_isGreen);
+
 			rankData.put("electricity", electricityinsideData);
 			// gasinsideData data
 			gasinsideData.put("supplierName", gas_supplierName);
@@ -291,6 +298,8 @@ public class dataDump {
 			gasinsideData.put("exitfees", gas_exitfees);
 			gasinsideData.put("discounts", gas_additionalCharges);
 			gasinsideData.put("additionalproductsorservices", gas_additionalproductsorservices);
+			gasinsideData.put("isGreen", gas_isGreen);
+
 			rankData.put("gas", gasinsideData);
 
 			rankJsonArray.put(rankData);

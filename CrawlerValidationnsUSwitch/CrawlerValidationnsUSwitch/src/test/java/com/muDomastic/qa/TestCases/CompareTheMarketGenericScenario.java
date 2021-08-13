@@ -20,7 +20,7 @@ import org.yaml.snakeyaml.Yaml;
 import com.muDomastic.qa.base.TestBase;
 import com.muDomastic.qa.base.apiFetchedData;
 import com.muDomastic.qa.base.dataDump;
-import com.muDomastic.qa.page.CompareTheElementPage;
+import com.muDomastic.qa.page.CompareTheMarketPage;
 import com.muDomastic.qa.util.TestUtil;
 
 
@@ -28,9 +28,10 @@ public class CompareTheMarketGenericScenario extends TestBase {
 	JSONArray testCasesArray = null;
 	HashMap<String,HashMap<String, Map>> super_getallthedetails = new HashMap<>();
 	int count =1;
+	static int attempt ;
 	TestUtil testUtil = new TestUtil();
 	String postCode,partialAddress,supplierName,paymentMethod = null,plan = null,gasusage,eleusage,nightPercent,
-			gasSpendFrequency,electricitySpendFrequency,requestId;
+			gasSpendFrequency,electricitySpendFrequency,requestId,electricitySuppliers,gasSupplier;
 
 	boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
 
@@ -94,6 +95,8 @@ public class CompareTheMarketGenericScenario extends TestBase {
 					supplierName = testCaseJsonObj.get("dualFuelSuppliers").toString();	
 					paymentMethod = testCaseJsonObj.get("dualFuelPaymentMethod").toString();	
 					plan = testCaseJsonObj.get("dualFuelPlan").toString();
+					electricitySuppliers= testCaseJsonObj.get("electricitySuppliers").toString();	
+					gasSupplier= testCaseJsonObj.get("gasSupplier").toString();	
 				}
 				else
 				{
@@ -102,28 +105,36 @@ public class CompareTheMarketGenericScenario extends TestBase {
 						supplierName = testCaseJsonObj.get("gasSupplier").toString();	
 						paymentMethod = testCaseJsonObj.get("gasPaymentMethod").toString();	
 						plan = testCaseJsonObj.get("gasPlan").toString();
+						gasSupplier= testCaseJsonObj.get("gasSupplier").toString();	
+
 					}
 					if(hasElectricity)
 					{
 						supplierName = testCaseJsonObj.get("electricitySuppliers").toString();	
 						paymentMethod = testCaseJsonObj.get("electricityPaymentMethod").toString();	
 						plan = testCaseJsonObj.get("electricityPlan").toString();
+						electricitySuppliers= testCaseJsonObj.get("electricitySuppliers").toString();	
 					}
 					else
 					{
 						supplierName="Not Known";
 					}
 				}
+
+				//attempt given for crawler rerun in case of failure 
+				attempt = 3;
+
 				//runcrawler now
 				runCrawler();
+
+				count++;
 			}
 		}
 		catch (Exception e) 
 		{
-			System.out.println("Exception occured in Class CompareTheElementGenericScenario, method name execute value :: " + e);
+			System.out.println(":: Exception occured in Class compareTheMarketGenericScenario, method name  execute value :: " );
+			e.printStackTrace();
 		}
-
-
 	}
 
 
@@ -131,7 +142,6 @@ public class CompareTheMarketGenericScenario extends TestBase {
 	public void closeTest()
 	{
 		try {		 
-
 			//saving data in yaml file before using post request 
 			System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\CompareTheElement_data.yaml");
 			Yaml yaml = new Yaml();	
@@ -150,8 +160,8 @@ public class CompareTheMarketGenericScenario extends TestBase {
 	public void runCrawler() {
 		try{
 			//running the crawler for compareTheMarket website
-			CompareTheElementPage CompareTheElementPageObj=new CompareTheElementPage();
-			CompareTheElementPageObj.CompareTheElementJourney(
+			CompareTheMarketPage CompareTheMarketPageObj=new CompareTheMarketPage();
+			CompareTheMarketPageObj.CompareTheMarketJourney(
 					postCode,
 					partialAddress,
 					supplierName,
@@ -163,26 +173,55 @@ public class CompareTheMarketGenericScenario extends TestBase {
 					electricitySpendFrequency,
 					nightPercent,
 					requestId,
+					electricitySuppliers,
+					gasSupplier,
 					hasGas,
 					isDualFuel,
 					isEconomy7);
 
 			// storing the fetched data for u switch crawler 
-			HashMap<String, Map> sectionData = CompareTheElementPageObj.storedataNew(hasGas,paymentMethod);	
+			HashMap<String, Map> sectionData = CompareTheMarketPageObj.storedataNew(hasGas,paymentMethod);	
+			driverClose();
+			if(sectionData.isEmpty())
+			{
+				crawlerReAttempt();
+			}		
 			super_getallthedetails.put("Execution-"+requestId, sectionData);
+
+		}catch (Exception e) {
+			System.out.println("Exception occured in runCrawler method of CompareTheElementGenericScenario  :: "+ e);
+		}
+	}
+	public void crawlerReAttempt() 
+	{
+		try {
+			while(attempt>1) 
+			{ 
+				attempt--;			
+				System.out.println("!!!!!! Failed During First Exceution, running again  !!!!!!!!, left attempt :: " + attempt);
+				runCrawler();			
+			}
+		}
+		catch (Exception e) {
+			System.out.println(":: Exception occured in crawlerReAttempt method of compareTheMarketGenericScenario  :: "); 
+			e.printStackTrace();
+		}	
+	}
+
+	public void driverClose() 
+	{
+		try {
 			driver.close();
 			driver.quit();
 			Thread.sleep(10000);
-			count++;
 			if (!driver.toString().toLowerCase().contains("null"))
 			{
 				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+driver.toString());
 				Thread.sleep(20000);
 				driver.quit();
 			}
-
-		}catch (Exception e) {
-			System.out.println("Exception occured in runCrawler method of CompareTheElementGenericScenario  :: "+ e);
+		} catch (Exception e) {	System.out.println(":: Exception occured in driverClose method of compareTheMarketGenericScenario  :: "); 
+		e.printStackTrace();
 		}
 	}
 

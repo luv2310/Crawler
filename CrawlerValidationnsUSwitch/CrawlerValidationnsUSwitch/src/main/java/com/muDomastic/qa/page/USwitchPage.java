@@ -757,6 +757,7 @@ public class USwitchPage  {
 	{		
 		HashMap<String, String> electricityComparisondetails = new HashMap<String, String>();
 		HashMap<String, String> gasComparisondetails = new HashMap<String, String>();
+		String isGreen = rankValue.get("isGreen").toString();
 		try				
 		{
 
@@ -855,6 +856,8 @@ public class USwitchPage  {
 					electricityComparisondetails.put(variable_name, variable_value);	
 				}
 			}
+			electricityComparisondetails.put("isGreen",isGreen);
+
 			rankValue.put("electricity", electricityComparisondetails);
 			if(hasGas)
 			{
@@ -935,14 +938,10 @@ public class USwitchPage  {
 						gasComparisondetails.put(gas_variable_name,gas_variable_value);	
 					}
 				}	
+				gasComparisondetails.put("isGreen",isGreen);
 				rankValue.put("gas",gasComparisondetails);
 			}
 			actions.moveToElement(buttonCancel).click().perform();
-
-
-
-
-
 		}
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");

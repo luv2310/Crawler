@@ -20,7 +20,7 @@ import org.yaml.snakeyaml.Yaml;
 import com.muDomastic.qa.base.TestBase;
 import com.muDomastic.qa.base.apiFetchedData;
 import com.muDomastic.qa.base.dataDump;
-import com.muDomastic.qa.page.CompareTheElementPage;
+import com.muDomastic.qa.page.CompareTheMarketPage;
 import com.muDomastic.qa.page.USwitchPage;
 import com.muDomastic.qa.util.TestUtil;
 
