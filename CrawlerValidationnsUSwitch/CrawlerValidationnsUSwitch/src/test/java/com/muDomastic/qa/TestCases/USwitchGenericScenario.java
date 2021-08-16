@@ -1,5 +1,6 @@
 package com.muDomastic.qa.TestCases;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,11 +8,17 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.NoSuchWindowException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,18 +30,34 @@ import com.muDomastic.qa.base.dataDump;
 import com.muDomastic.qa.page.CompareTheMarketPage;
 import com.muDomastic.qa.page.USwitchPage;
 import com.muDomastic.qa.util.TestUtil;
+import org.apache.commons.io.FileUtils;
 
 
-public class USwitchGenericScenario extends TestBase {
+
+public class USwitchGenericScenario extends TestBase 
+{
+	TestBase testbase = new TestBase();
 	JSONArray testCasesArray = null;
 	static int attempt;
 	HashMap<String,HashMap<String, Map>> super_getallthedetails = new HashMap<>();
 	int count =1;
 	TestUtil testUtil = new TestUtil();
+
+	//..................setting the value to run test as per config file ...................................
+
+
+	String runWithoutFetchingData = testbase.setValuesforexecution().get("runWithoutFetchingData");
+	String specificRequestID = testbase.setValuesforexecution().get("specificRequestID");
+	String requestID = testbase.setValuesforexecution().get("requestID");
+	String runWithoutPostingtheData = testbase.setValuesforexecution().get("runWithoutPostingtheData");
+
+	//......................................................................................................
+
+	//.................. variable used to fetch value using data.json ........................................
 	String postCode,partialAddress,supplierName,paymentMethod = null,plan = null,gasusage,eleusage,nightPercent,
 			gasSpendFrequency,electricitySpendFrequency,requestId;
-
 	boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
+	//.........................................................................................................
 
 	public  USwitchGenericScenario() {
 		//call the base class constructor to initilize the propt
@@ -50,12 +73,45 @@ public class USwitchGenericScenario extends TestBase {
 			testUtil.killOpera();
 
 			//fetch test cases data and create a data.json file.
-			new apiFetchedData().fetchData();
+			if(runWithoutFetchingData.toLowerCase().contains("false"))
+			{
+				new apiFetchedData().fetchData();
+			}
+
 
 			//create test cases array
 			file = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"\\data.json")), StandardCharsets.UTF_8);
 			JSONObject obj = new JSONObject(file);
 			testCasesArray = new JSONArray(obj.get("response").toString());			
+
+			//modify the created test array with the specific request id
+			if(specificRequestID.toLowerCase().contains("true"))
+			{ 
+				List<String> requestIDlist = new ArrayList<String>();
+				int compareCount = 0 ;
+				JSONArray testCasesArraytemp =new JSONArray();
+				if(requestID.contains("-"))
+				{
+					String[] requestIDs = requestID.split("-");
+					requestIDlist = Arrays.asList(requestIDs);
+				}	
+				else {
+					requestIDlist.add(requestID);
+				}
+
+				for (Object testcase : testCasesArray)
+				{	
+					JSONObject testCaseJsonObj = new JSONObject(testcase.toString()); 
+					if(requestIDlist.contains(testCaseJsonObj.get("requestId").toString()))
+					{							
+						testCasesArraytemp.put(compareCount, testcase);		
+						compareCount++;
+					}
+				}
+				testCasesArray = testCasesArraytemp;			
+			}
+
+
 		} catch (Exception e) {
 			System.out.println(":: Exception Occured in the setup method of  USwitchGenericScenario's ::");
 			e.printStackTrace();
@@ -176,13 +232,27 @@ public class USwitchGenericScenario extends TestBase {
 
 			// storing the fetched data for u switch crawler 
 			HashMap<String, Map> sectionData = UswitchPageObj.storedataNew(hasGas,paymentMethod);	
-			driverClose();
 			if(sectionData.isEmpty())
 			{
+				//taking screenshot of the failed error
+				TakesScreenshot scrShot =((TakesScreenshot) driver);
+				File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+				File DestFile=new File(System.getProperty("user.dir")+"\\screenShotResults\\USwitch_"+requestId+"_requestID_"+attempt+"_attemptLeft.png");
+				FileUtils.copyFile(SrcFile, DestFile);		        
+
+				//reattempt
 				crawlerReAttempt();
-			}		
+			}	
+
+			//close driver and add the execution in particluar field
+			driverClose();
 			super_getallthedetails.put("Execution-"+requestId, sectionData);
-		}catch (Exception e) {
+		}
+		catch (NoSuchWindowException e) {
+			System.out.println(" :::::::: Exception occured because browser closed unexpectedly ::::::: "); 
+			System.out.println(e);
+		}
+		catch (Exception e) {
 			System.out.println(":: Exception occured in runCrawler method of uSwitchGenericScenario  :: "); 
 			e.printStackTrace();
 		}
@@ -191,6 +261,7 @@ public class USwitchGenericScenario extends TestBase {
 	public void crawlerReAttempt() 
 	{
 		try {
+			driverClose();
 			while(attempt>1) 
 			{ 
 				attempt--;			

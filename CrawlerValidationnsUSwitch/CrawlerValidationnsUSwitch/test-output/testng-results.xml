@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-08-13T10:25:16Z" name="Test Suite" finished-at="2021-08-13T10:31:26Z" duration-ms="370040">
+  <suite started-at="2021-08-16T15:38:21Z" name="Test Suite" finished-at="2021-08-16T15:46:41Z" duration-ms="499746">
     <groups>
     </groups>
-    <test started-at="2021-08-13T10:25:16Z" name="USwitch" finished-at="2021-08-13T10:31:26Z" duration-ms="370040">
+    <test started-at="2021-08-16T15:38:21Z" name="USwitch" finished-at="2021-08-16T15:46:41Z" duration-ms="499746">
       <class name="com.muDomastic.qa.TestCases.USwitchGenericScenario">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@762ef0ea]" started-at="2021-08-13T11:25:16Z" name="setup" finished-at="2021-08-13T11:25:16Z" duration-ms="53" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@3c0be339]" started-at="2021-08-16T16:38:21Z" name="setup" finished-at="2021-08-16T16:40:02Z" duration-ms="100828" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="executevalue()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@762ef0ea]" started-at="2021-08-13T11:25:16Z" name="executevalue" finished-at="2021-08-13T11:31:25Z" duration-ms="368695" status="PASS">
+        <test-method signature="executevalue()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@3c0be339]" started-at="2021-08-16T16:40:02Z" name="executevalue" finished-at="2021-08-16T16:46:39Z" duration-ms="397016" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- executevalue -->
-        <test-method is-config="true" signature="closeTest()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@762ef0ea]" started-at="2021-08-13T11:31:25Z" name="closeTest" finished-at="2021-08-13T11:31:26Z" duration-ms="1258" status="PASS">
+        <test-method is-config="true" signature="closeTest()[pri:0, instance:com.muDomastic.qa.TestCases.USwitchGenericScenario@3c0be339]" started-at="2021-08-16T16:46:39Z" name="closeTest" finished-at="2021-08-16T16:46:41Z" duration-ms="1858" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeTest -->

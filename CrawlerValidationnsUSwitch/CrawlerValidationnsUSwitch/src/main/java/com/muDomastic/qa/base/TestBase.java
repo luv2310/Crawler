@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -29,18 +30,32 @@ public class TestBase {
 			propt = new Properties();
 			FileInputStream ip = new FileInputStream(
 					path + "\\src\\main\\java\\com\\muDomastic\\qa\\config\\config.properties");
-
 			propt.load(ip);
-		} catch (FileNotFoundException e) {
-
+		} catch (FileNotFoundException e) 
+		{
 			e.printStackTrace();
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
+	public static HashMap<String, String> setValuesforexecution() 
+	{
+		HashMap<String,String> configValue = new HashMap<String,String>();
+		try {	
+		configValue.put("runWithoutFetchingData", propt.getProperty("runWithoutFetchingData"));
+		configValue.put("specificRequestID", propt.getProperty("specificRequestID"));
+		configValue.put("requestID", propt.getProperty("requestID"));
+		configValue.put("runWithoutPostingtheData", propt.getProperty("runWithoutPostingtheData"));
+	}catch (Exception e) {
+		System.out.println(" :: Exception Occured in class TestUtils Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+		e.printStackTrace();
+	}		
+	return configValue;			
+	}
+	
 	public static WebDriver initialization(String website) {
 		try {
 			String browserName = propt.getProperty("browser");

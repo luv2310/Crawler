@@ -90,6 +90,24 @@ public class CompareTheMarketPage  {
 	@FindBy(id="EnergyComparison_YourSupplier_YourCurrentSupplier_IsYourGasAndElectricityFromSameSupplier_no")
 	WebElement sameenergysupplierno;
 
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_WhatElectricityTariffAreYouOn_1785")
+	WebElement electricitytariffvalue;
+
+
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_DoYouHaveAnEconomy7Meter_yes")
+	WebElement economy7yes;
+
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_DoYouHaveAnEconomy7Meter_no")
+	WebElement economy7no;
+	
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_WhatIsYourCurrentElectricityUsage_Unit_Kwh")
+	WebElement currentElectricityUsage;
+	
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_DayTimeElectricityUsed_YourCurrentUsageQuestionKwh")
+	WebElement currentElectricityUsageday;
+	
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_NightTimeElectricityUsed_YourCurrentUsageQuestionKwh")
+	WebElement currentElectricityUsagenight;
 
 	// initialize the Page objects
 	public CompareTheMarketPage() {
@@ -120,28 +138,118 @@ public class CompareTheMarketPage  {
 				",is dual: "+isDualFuel+". is Economy: "+isEconomy7);
 
 		//first page 
-		acceptCookieBanner();
-		action.wait(1);
-		
-		insertAddress(postCode,partialAddress);
-		action.wait(1);
-		knowenergybill();
-		action.wait(1);
-
-		compareWhat(isDualFuel,hasGas);
-		action.wait(1);
-
-		selectSupplierName(supplierName, isDualFuel, hasGas);
-
-		action.wait(2);
-		action.clickVerifiedElement(firstPageNext);
-
+		firstPageValidation(postCode, partialAddress, supplierName, isDualFuel, hasGas);
+		secondPageValidation(isEconomy7,paymentMethod);
 
 		//second page
 
 
+	}
+
+	public void firstPageValidation	(String postCode, String partialAddress, String supplierName, boolean isDualFuel,
+			boolean hasGas)	
+	{		
+		try {
+			acceptCookieBanner();
+			action.wait(1);
+
+			insertAddress(postCode,partialAddress);
+			action.wait(1);
+			knowenergybill();
+			action.wait(1);
+
+			compareWhat(isDualFuel,hasGas);
+			action.wait(1);
+
+			selectSupplierName(supplierName, isDualFuel, hasGas);
+
+			action.wait(2);
+			action.clickWithjavascriptattempt(firstPageNext);
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
+		}
+	}
 
 
+	public void secondPageValidation(boolean isEconomy7,String paymentMethod)
+	{		
+		try {
+
+			action.clickWithjavascriptattempt(electricitytariffvalue);
+			action.clickWithjavascriptattempt(acceptcoockies);
+
+			if(isEconomy7)
+			{
+				action.clickWithjavascriptattempt(economy7yes);
+			}
+			else
+			{
+				action.clickWithjavascriptattempt(economy7no);	
+			}		
+
+			WebElement selectPaymentMethod =driver.findElement(By.xpath("//span[@class=\"ToggleContent\"][contains(text(),'"+paymentMethod+"')]"));			
+			action.clickWithjavascriptattempt(selectPaymentMethod);
+			
+			action.clickWithjavascriptattempt(currentElectricityUsage);
+			
+			//enter daytime electricity usage
+			action.sendText(currentElectricityUsageday, paymentMethod);
+			
+		
+			
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
+		}
+	}
+	//span[@class="ToggleContent"][contains(text(),'Monthly Direct Debit')]
+
+	public void howToPay()
+	{		
+		try {
+			//accept cookies banner handling
+			System.out.println("accept cookie button");
+			action.clickVerifiedElement(acceptcoockies);
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
+		}
+	}
+	public void enterEnergyValuePage(boolean hasGas, boolean isEconomy7, String gasusage, String eleusage, String nightPercentage )
+	{		
+		try {
+			//plan price detail page
+			action.verifyElementPresent(currentElectricityUsageday);
+			if (action.verifyElementPresent(currentElectricityUsageday))
+			{
+				System.out.println("energy spent details page");
+	
+				if(action.verifyElementPresent(currentElectricityUsageday))
+				{			
+					int overallElectricity = Integer.parseInt(eleusage);
+					int percentRequire =(int) (Float.parseFloat(nightPercentage)*100);	
+					int nightUsage =  (overallElectricity*percentRequire)/100;	
+					action.sendText(eleamount, String.valueOf(overallElectricity-nightUsage));
+				}
+
+				if(isEconomy7)
+				{	
+					int overallElectricity = Integer.parseInt(eleusage);
+					int percentRequire =(int)	(Float.parseFloat(nightPercentage)*100);	
+					int nightUsage =  (overallElectricity*percentRequire)/100;
+					action.sendText(elenight,String.valueOf(nightUsage));
+				}
+				action.wait(2);
+			}			
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
+		}
 	}
 
 	public void acceptCookieBanner()
@@ -197,7 +305,7 @@ public class CompareTheMarketPage  {
 	{		
 		try {
 
-			action.clickVerifiedElement(knowenergytrue);
+			action.clickWithjavascriptattempt(knowenergytrue);
 		}
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
@@ -209,16 +317,16 @@ public class CompareTheMarketPage  {
 	{		
 		try {
 			if(isDual){
-				action.clickVerifiedElement(dualenergy);
-				action.clickVerifiedElement(sameenergysupplieryes);
+				action.clickWithjavascriptattempt(dualenergy);
+				action.clickWithjavascriptattempt(sameenergysupplieryes);
 			}
 
 			else if (!hasGas){
-				action.clickVerifiedElement(electricityenergy);
+				action.clickWithjavascriptattempt(electricityenergy);
 			}
 
 			else if(hasGas){
-				action.clickVerifiedElement(gasenergy);
+				action.clickWithjavascriptattempt(gasenergy);
 			}
 		}
 		catch (Exception e) {
