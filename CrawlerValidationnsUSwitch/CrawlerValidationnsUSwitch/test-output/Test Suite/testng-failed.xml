@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Test Suite]" guice-stage="DEVELOPMENT">
-  <test name="electricTC(failed)">
+  <test name="CompareTheMarketGenericScenario(failed)">
     <classes>
-      <class name="com.muDomastic.qa.TestCases.USwitchGenericScenario">
+      <class name="com.muDomastic.qa.TestCases.goCompareGenericScenario">
         <methods>
           <include name="executevalue"/>
-          <include name="setup"/>
           <include name="closeTest"/>
+          <include name="setup"/>
         </methods>
-      </class> <!-- com.muDomastic.qa.TestCases.USwitchGenericScenario -->
+      </class> <!-- com.muDomastic.qa.TestCases.goCompareGenericScenario -->
     </classes>
-  </test> <!-- electricTC(failed) -->
+  </test> <!-- CompareTheMarketGenericScenario(failed) -->
 </suite> <!-- Failed suite [Test Suite] -->

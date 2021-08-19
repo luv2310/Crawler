@@ -1,5 +1,6 @@
 package com.muDomastic.qa.TestCases;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,11 +8,17 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,17 +32,35 @@ import com.muDomastic.qa.util.TestUtil;
 
 
 public class CompareTheMarketGenericScenario extends TestBase {
+
+	TestBase testbase = new TestBase();
 	JSONArray testCasesArray = null;
 	HashMap<String,HashMap<String, Map>> super_getallthedetails = new HashMap<>();
 	int count =1;
 	static int attempt ;
 	TestUtil testUtil = new TestUtil();
+
+	//..................setting the value to run test as per config file ...................................
+
+
+	String runWithoutFetchingData = testbase.setValuesforexecution().get("runWithoutFetchingData");
+	String specificRequestID = testbase.setValuesforexecution().get("specificRequestID");
+	String requestID = testbase.setValuesforexecution().get("requestID");
+	String runWithoutPostingtheData = testbase.setValuesforexecution().get("runWithoutPostingtheData");
+	int setReAttempt = Integer.parseInt(testbase.setValuesforexecution().get("setReAttempt"));
+
+	//..........................................................................................................
+
 	String postCode,partialAddress,supplierName,paymentMethod = null,plan = null,gasusage,eleusage,nightPercent,
 			gasSpendFrequency,electricitySpendFrequency,requestId,electricitySuppliers,gasSupplier;
 
 	boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
+	//...........................................................................................................
+
+	
 
 
+	
 	public  CompareTheMarketGenericScenario() {
 		//call the base class constructor to initilize the propt
 		super();
@@ -45,17 +70,49 @@ public class CompareTheMarketGenericScenario extends TestBase {
 	public void setup() {
 		try {
 			String file = null;		
-
 			//Kill any open Opera browser
 			testUtil.killOpera();
 
 			//fetch test cases data and create a data.json file.
-			new apiFetchedData().fetchData();
+			if(runWithoutFetchingData.toLowerCase().contains("false"))
+			{
+				new apiFetchedData().fetchData();
+			}
+
 
 			//create test cases array
 			file = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"\\data.json")), StandardCharsets.UTF_8);
 			JSONObject obj = new JSONObject(file);
 			testCasesArray = new JSONArray(obj.get("response").toString());			
+
+			//modify the created test array with the specific request id
+			if(specificRequestID.toLowerCase().contains("true"))
+			{ 
+				List<String> requestIDlist = new ArrayList<String>();
+				int compareCount = 0 ;
+				JSONArray testCasesArraytemp =new JSONArray();
+				if(requestID.contains("-"))
+				{
+					String[] requestIDs = requestID.split("-");
+					requestIDlist = Arrays.asList(requestIDs);
+				}	
+				else {
+					requestIDlist.add(requestID);
+				}
+
+				for (Object testcase : testCasesArray)
+				{	
+					JSONObject testCaseJsonObj = new JSONObject(testcase.toString()); 
+					if(requestIDlist.contains(testCaseJsonObj.get("requestId").toString()))
+					{							
+						testCasesArraytemp.put(compareCount, testcase);		
+						compareCount++;
+					}
+				}
+				testCasesArray = testCasesArraytemp;			
+			}
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -122,7 +179,13 @@ public class CompareTheMarketGenericScenario extends TestBase {
 				}
 
 				//attempt given for crawler rerun in case of failure 
-				attempt = 3;
+				try {
+					attempt =setReAttempt;
+				}							
+				catch (Exception e) {
+					attempt = 3;		
+				}
+
 
 				//runcrawler now
 				runCrawler();
@@ -143,14 +206,20 @@ public class CompareTheMarketGenericScenario extends TestBase {
 	{
 		try {		 
 			//saving data in yaml file before using post request 
-			System.out.println("Fetched data is at: "+System.getProperty("user.dir")+"\\CompareTheElement_data.yaml");
+
+			String filepath = System.getProperty("user.dir")+"\\CTM_data.yaml";
+			System.out.println("Fetched data is at: "+filepath);
 			Yaml yaml = new Yaml();	
 			OutputStreamWriter writer = null;
-			writer	= new OutputStreamWriter(new FileOutputStream(System.getProperty("user.dir")+"\\CompareTheElementPageObj_data.yaml"), StandardCharsets.UTF_8);
+			writer	= new OutputStreamWriter(new FileOutputStream(filepath), StandardCharsets.UTF_8);
 			yaml.dump(super_getallthedetails, writer);
 
 			//sending data to db using post request	
-			new dataDump().jsonVariables();	
+			if(runWithoutPostingtheData.contains("false"))
+			{
+				new dataDump().jsonVariables(filepath);	
+
+			}
 
 		}catch (Exception e) {
 			System.out.println("Exception occured while running the closeTest method of class CompareTheElementGenericScenario ");
@@ -181,11 +250,22 @@ public class CompareTheMarketGenericScenario extends TestBase {
 
 			// storing the fetched data for u switch crawler 
 			HashMap<String, Map> sectionData = CompareTheMarketPageObj.storedataNew(hasGas,paymentMethod);	
-			driverClose();
+
 			if(sectionData.isEmpty())
 			{
+				//taking screenshot of the failed error
+				TakesScreenshot scrShot =((TakesScreenshot) driver);
+				File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+				File DestFile=new File(System.getProperty("user.dir")+"\\screenShotResults\\CTM_"+requestId+"_requestID_"+attempt+"_attemptLeft.png");
+				FileUtils.copyFile(SrcFile, DestFile);		        
+
+				//reattempt
 				crawlerReAttempt();
 			}		
+
+			//close driver and add the execution in particluar field
+			driverClose();
+
 			super_getallthedetails.put("Execution-"+requestId, sectionData);
 
 		}catch (Exception e) {
@@ -195,6 +275,7 @@ public class CompareTheMarketGenericScenario extends TestBase {
 	public void crawlerReAttempt() 
 	{
 		try {
+			driverClose();
 			while(attempt>1) 
 			{ 
 				attempt--;			

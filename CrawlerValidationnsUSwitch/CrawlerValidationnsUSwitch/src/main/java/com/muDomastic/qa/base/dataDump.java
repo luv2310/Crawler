@@ -81,13 +81,27 @@ public class dataDump {
 	public static void main(String[] args) throws IOException 
 
 	{
-		new dataDump().jsonVariables();
+
+		//String filepath = System.getProperty("user.dir")+"\\USwitch_data.yaml";
+
+		String filepath = System.getProperty("user.dir")+"\\CTM_data.yaml";
+		new dataDump().jsonVariables(filepath);
 
 	}	
 
-	public void jsonVariables()
+	public void jsonVariables(String filePath)
 	{
-		String filePath = System.getProperty("user.dir")+"\\USwitch_data.yaml";
+		String source = null;
+
+		if(filePath.toLowerCase().contains("uswitch_data"))
+		{
+			source="USwitch";
+		}
+		else if(filePath.toLowerCase().contains("ctm"))
+		{
+			source="CompareTheMarket";
+		}
+
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		mapper.findAndRegisterModules();
 		try {
@@ -115,7 +129,7 @@ public class dataDump {
 					createJsonBody();
 				}
 				firstJsonOnject.put("uswitchresults", rankJsonArray);
-				firstJsonOnject.put("source", "USwitch");
+				firstJsonOnject.put("source", source);
 				System.out.println(firstJsonOnject.toString());
 				String url = "https://api-home-staging.myutilitygenius.co.uk/request/compare/uswitch/request/"+execution_ID;
 				postMethd(url,  firstJsonOnject.toString());

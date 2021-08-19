@@ -35,6 +35,8 @@ import com.muDomastic.qa.util.TestUtil;
 
 public class USwitchPage  {
 
+	String PASS="passed";
+	String FAIL = "failed";
 	//creating action object
 	TestUtil action = new TestUtil();
 
@@ -201,7 +203,7 @@ public class USwitchPage  {
 	@FindBy(xpath = "//h3[@class=\"css-g5tok7\"][1]")
 	WebElement aboutThisPlantable; 
 
-	@FindBy(xpath = "//button[@class=\"css-rvpwdk\"]")
+	@FindBy(xpath = "//button[@class=\"css-orarrm\"]")
 	WebElement alertCancelButton;
 
 	@FindBy(xpath = "//a[contains(text(),'No, use current rates')]")
@@ -237,22 +239,40 @@ public class USwitchPage  {
 			boolean isEconomy7)
 
 	{
-		System.out.println("psotcode: "+postCode+", partial adress: "+partialAddress+
+		System.out.println("requestId: "+requestId+" psotcode: "+postCode+", partial adress: "+partialAddress+
 				", supplier name: "+supplierName+", payment method: "+paymentMethod+", has gas: "+hasGas+
 				",is dual: "+isDualFuel+". is Economy: "+isEconomy7);
 		try {	
-			acceptBanner();
-			insertAddress(postCode,partialAddress);
-			economy7Page(isEconomy7);
-			gasNDualPage(hasGas, isDualFuel);
-			supplierNamePage(supplierName);
-			howToPayPage(paymentMethod);
-			planValuePage(plan);
-			knowEnergyPage();
-			enterEnergyValuePage( hasGas,  isEconomy7,  gasusage,  eleusage,  nightPercentage );
-			emailNfindcheapbuttonpage();
-			landingPageAlert();
-			seeMoreResultPage();
+			String result;
+			result = acceptBanner();
+			
+			result = insertAddress(postCode, partialAddress);
+
+			result = economy7Page(isEconomy7);
+
+			result = gasNDualPage(hasGas, isDualFuel);
+
+
+			result = supplierNamePage(supplierName);
+
+
+			result = howToPayPage(paymentMethod);
+
+
+			result = planValuePage(plan);
+
+
+			result = knowEnergyPage();
+
+
+			result = enterEnergyValuePage( hasGas,  isEconomy7,  gasusage,  eleusage,  nightPercentage );
+
+
+			result = emailNfindcheapbuttonpage();
+			action.wait(5);
+			result = landingPageAlert();
+			result = seeMoreResultPage();
+
 		}
 		catch (Exception e) 
 		{			
@@ -286,19 +306,23 @@ public class USwitchPage  {
 				{   
 					action.clickWithjavascriptattempt(ele);
 					action.wait(2);
-					planInfoGenericTable(rankValue);
-					flagcomparison = planInfoGenericFeaturesAvailable(isGreen, Extras, comparisonSiteExclusive, flagcomparison, rankValue);
-					rankValue.put("rank",String.valueOf(i));
-					rankValue.put("paymentMethod",paymentMethod);	
-					planInfoGenericSavePerYear(rankValue);
-					if(flagcomparison)
+					String result = planInfoGenericTable(rankValue);
+					if(result.contains(PASS))
 					{
-						planInfoComparisonIsTrue(hasGas, rankValue);
-					}				
-					action.wait(2);
-					actions.moveToElement(buttonCancel).click().perform();
-					System.out.println("completed for rank +++ "+i);
-					super_getallthedetails.put("Rank_"+i,rankValue);
+						flagcomparison = planInfoGenericFeaturesAvailable(isGreen, Extras, comparisonSiteExclusive, flagcomparison, rankValue);
+						rankValue.put("rank",String.valueOf(i));
+						rankValue.put("paymentMethod",paymentMethod);	
+						planInfoGenericSavePerYear(rankValue);
+						if(flagcomparison)
+						{
+							planInfoComparisonIsTrue(hasGas, rankValue);
+						}				
+						action.wait(2);
+						actions.moveToElement(buttonCancel).click().perform();
+						System.out.println("completed for rank +++ "+i);
+						super_getallthedetails.put("Rank_"+i,rankValue);
+					}
+
 				}
 			}
 		}
@@ -314,20 +338,23 @@ public class USwitchPage  {
 
 
 
-	public void acceptBanner()
+	public String acceptBanner()
 	{		
 		try {
 			//accept cookies banner handling
 			System.out.println("accept cookie button");
 			action.clickVerifiedElement(acceptcoockies);
+
 		}
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;		
 	}
 
-	public void insertAddress(String postCode,String partialAddress)
+	public String insertAddress(String postCode,String partialAddress)
 	{		
 		try {
 			//postcode page
@@ -359,15 +386,17 @@ public class USwitchPage  {
 				}
 			}	
 			action.clickVerifiedElement(continuebtn);
-			action.wait(2);			
+			action.wait(2);	
 		}
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void economy7Page(boolean isEconomy7)
+	public String economy7Page(boolean isEconomy7)
 	{		
 		try {
 			//economy page
@@ -382,10 +411,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void gasNDualPage(boolean hasGas,boolean isDualFuel)
+	public String gasNDualPage(boolean hasGas,boolean isDualFuel)
 	{		
 		try {
 			//gas page
@@ -423,10 +454,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void supplierNamePage(String supplierName)
+	public String supplierNamePage(String supplierName)
 	{		
 		try {
 			//supplier name page
@@ -447,10 +480,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void howToPayPage(String paymentMethod)
+	public String howToPayPage(String paymentMethod)
 	{		
 		try {
 
@@ -464,10 +499,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void planValuePage(String plan)
+	public String planValuePage(String plan)
 	{		
 		//plan value select page
 		try {
@@ -484,10 +521,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void knowEnergyPage()
+	public String knowEnergyPage()
 	{		
 		try {
 			// do you know how much you spend page 
@@ -507,10 +546,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void enterEnergyValuePage(boolean hasGas, boolean isEconomy7, String gasusage, String eleusage, String nightPercentage )
+	public String enterEnergyValuePage(boolean hasGas, boolean isEconomy7, String gasusage, String eleusage, String nightPercentage )
 	{		
 		try {
 			//plan price detail page
@@ -547,10 +588,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void emailNfindcheapbuttonpage()
+	public String emailNfindcheapbuttonpage()
 	{		
 		try {
 			if(action.verifyElementPresent(Amountcontinuebtn))
@@ -586,10 +629,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
-	public void landingPageAlert()
+	public String landingPageAlert()
 	{		
 		try {
 			if(action.verifyElementPresent(alertHeading))
@@ -604,9 +649,11 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
-	public void seeMoreResultPage()
+	public String seeMoreResultPage()
 	{		
 		try {
 			action.verifyElementPresent(collOnUKPage);
@@ -620,13 +667,15 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
 
 
 
-	public void planInfoGenericTable(HashMap<Object, Object> rankValue) 
+	public String planInfoGenericTable(HashMap<Object, Object> rankValue) 
 	{	
 		try {
 			action.verifyElementPresent(buttonCancel);
@@ -686,7 +735,9 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}
+		return PASS;
 	}
 
 	public boolean planInfoGenericFeaturesAvailable(
@@ -729,7 +780,7 @@ public class USwitchPage  {
 		return flagcomparison;
 	}
 
-	public void planInfoGenericSavePerYear(HashMap<Object, Object> rankValue)
+	public String planInfoGenericSavePerYear(HashMap<Object, Object> rankValue)
 	{
 		try				
 		{
@@ -747,10 +798,12 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}		
+		return PASS;
 	}
 
-	public void planInfoComparisonIsTrue(
+	public String planInfoComparisonIsTrue(
 			boolean hasGas,
 			HashMap<Object, Object> rankValue
 			)
@@ -946,8 +999,9 @@ public class USwitchPage  {
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
+			return FAIL;
 		}		
+		return PASS;
 	}
-
 
 }

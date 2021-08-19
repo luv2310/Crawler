@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.muDomastic.qa.util.TestUtil;
@@ -49,6 +50,7 @@ public class TestBase {
 		configValue.put("specificRequestID", propt.getProperty("specificRequestID"));
 		configValue.put("requestID", propt.getProperty("requestID"));
 		configValue.put("runWithoutPostingtheData", propt.getProperty("runWithoutPostingtheData"));
+		configValue.put("setReAttempt", propt.getProperty("setReAttempt"));
 	}catch (Exception e) {
 		System.out.println(" :: Exception Occured in class TestUtils Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 		e.printStackTrace();
@@ -76,12 +78,14 @@ public class TestBase {
 				DesiredCapabilities capablities=DesiredCapabilities.opera();
 				String opera_profile = propt.getProperty("opera_profile");
 				String operaBinary =propt.getProperty("operaBinary");
-				ChromeOptions chromeOptions = new ChromeOptions();
-				chromeOptions.addArguments("--user-data-dir="+opera_profile);
-				chromeOptions.addArguments("private");
-				chromeOptions.setBinary(operaBinary);
+				OperaOptions operaoptions = new OperaOptions();
+			//	ChromeOptions chromeOptions = new ChromeOptions();
+				operaoptions.addArguments("--user-data-dir="+opera_profile);
+				operaoptions.addArguments("--disable-blink-features=AutomationControlled");
+				operaoptions.addArguments("private");
+				operaoptions.setBinary(operaBinary);
 				System.setProperty("webdriver.opera.driver",System.getProperty("user.dir")+"\\driver\\operadriver.exe");
-				capablities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+				capablities.setCapability(ChromeOptions.CAPABILITY, operaoptions);
 				driver = new OperaDriver(capablities);
 				driver.manage().window().maximize();
 				driver.manage().deleteAllCookies();

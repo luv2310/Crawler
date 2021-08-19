@@ -93,21 +93,57 @@ public class CompareTheMarketPage  {
 	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_WhatElectricityTariffAreYouOn_1785")
 	WebElement electricitytariffvalue;
 
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourGas_WhatGasTariffAreYouOn_1785")
+	WebElement gastariffvalue; 
 
 	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_DoYouHaveAnEconomy7Meter_yes")
 	WebElement economy7yes;
 
 	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_DoYouHaveAnEconomy7Meter_no")
 	WebElement economy7no;
-	
+
 	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_WhatIsYourCurrentElectricityUsage_Unit_Kwh")
-	WebElement currentElectricityUsage;
-	
+	WebElement currentElectricityUsageKWH;
+
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourGas_WhatIsYourCurrentGasUsage_Unit_Kwh")
+	WebElement currentGasUsageKWH;
+
+	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_WhatIsYourCurrentElectricityUsage_YourCurrentUsageQuestionKwh")
+	WebElement currentElectricityUsageday_1;
+
 	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_DayTimeElectricityUsed_YourCurrentUsageQuestionKwh")
 	WebElement currentElectricityUsageday;
-	
+
+	@FindBy(id=	"EnergyComparison_HaveBill_YourEnergy_YourGas_WhatIsYourCurrentGasUsage_YourCurrentUsageQuestionKwh")
+	WebElement currentgasUsage;
+
 	@FindBy(id="EnergyComparison_HaveBill_YourEnergy_YourElectricity_NightTimeElectricityUsed_YourCurrentUsageQuestionKwh")
 	WebElement currentElectricityUsagenight;
+
+	@FindBy(id=	"EnergyComparison_HaveBill_YourEnergy_YourElectricity_DayTimeElectricityUsed_Kwh_Period")
+	WebElement currentElectricityUsageperiod;
+
+	@FindBy(id=	"EnergyComparison_HaveBill_YourEnergy_YourGas_WhatIsYourCurrentGasUsage_Kwh_Period")
+	WebElement currentGasUsageperiod; 
+
+	@FindBy(id=	"EnergyComparison_HaveBill_YourEnergy_YourElectricity_WhatIsYourCurrentElectricityUsage_Kwh_Period")
+	WebElement currentElectricityUsageperiod_1;
+
+	@FindBy(xpath = "//span[@class=\"Button__icon Button__icon--right\"]")
+	WebElement nextButtonCommon;
+
+	@FindBy(id="EnergyComparison_YourDetails_YourPreferences_WhatTariffAreYouInterestedIn_allTariffs")
+	WebElement allTariifs;
+
+
+	@FindBy(id="EnergyComparison_YourDetails_YourContactDetails_LetUsKeepYouUpToDate_doNotContact")
+	WebElement doNotContact;
+
+
+	@FindBy(id="EnergyComparison_YourDetails_YourContactDetails_WhatIsYourEmailAddress")
+	WebElement enterEmail;
+
+
 
 	// initialize the Page objects
 	public CompareTheMarketPage() {
@@ -133,15 +169,23 @@ public class CompareTheMarketPage  {
 			boolean isDualFuel,
 			boolean isEconomy7)
 	{
-		System.out.println("psotcode: "+postCode+", partial adress: "+partialAddress+
+		System.out.println("requestId: "+requestId+" psotcode: "+postCode+", partial adress: "+partialAddress+
 				", supplier name: "+supplierName+", payment method: "+paymentMethod+", has gas: "+hasGas+
 				",is dual: "+isDualFuel+". is Economy: "+isEconomy7);
 
-		//first page 
+		//First page 
 		firstPageValidation(postCode, partialAddress, supplierName, isDualFuel, hasGas);
-		secondPageValidation(isEconomy7,paymentMethod);
 
-		//second page
+		//Second page
+		secondPageValidation(hasGas, isEconomy7, electricitySpendFrequency, paymentMethod, gasusage, eleusage, nightPercentage);
+
+		//Third Page
+		if(hasGas)
+		{
+			thirdPage(gasSpendFrequency, gasusage);
+		}
+		//fourth Page
+		fourthPage(paymentMethod);
 
 
 	}
@@ -173,13 +217,11 @@ public class CompareTheMarketPage  {
 	}
 
 
-	public void secondPageValidation(boolean isEconomy7,String paymentMethod)
+	public void secondPageValidation(boolean hasGas, boolean isEconomy7,String electricitySpendFrequency, String paymentMethod, String gasusage, String eleusage, String nightPercentage)
 	{		
 		try {
 
 			action.clickWithjavascriptattempt(electricitytariffvalue);
-			action.clickWithjavascriptattempt(acceptcoockies);
-
 			if(isEconomy7)
 			{
 				action.clickWithjavascriptattempt(economy7yes);
@@ -191,21 +233,91 @@ public class CompareTheMarketPage  {
 
 			WebElement selectPaymentMethod =driver.findElement(By.xpath("//span[@class=\"ToggleContent\"][contains(text(),'"+paymentMethod+"')]"));			
 			action.clickWithjavascriptattempt(selectPaymentMethod);
-			
-			action.clickWithjavascriptattempt(currentElectricityUsage);
-			
+
+			action.clickWithjavascriptattempt(currentElectricityUsageKWH);
+
 			//enter daytime electricity usage
-			action.sendText(currentElectricityUsageday, paymentMethod);
-			
-		
-			
+			enterEnergyValuePage(isEconomy7, electricitySpendFrequency, eleusage, nightPercentage);
+			action.wait(2);
+			action.clickWithAttemptActions(nextButtonCommon);
 		}
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
 		}
 	}
-	//span[@class="ToggleContent"][contains(text(),'Monthly Direct Debit')]
+
+	public void thirdPage(String gasSpendFrequency,String gasusage)
+	{		
+		try {
+			action.clickWithjavascriptattempt(gastariffvalue);
+
+
+
+			//			WebElement selectPaymentMethod =driver.findElement(By.xpath("//span[@class=\"ToggleContent\"][contains(text(),'"+paymentMethod+"')]"));			
+			//			action.clickWithjavascriptattempt(selectPaymentMethod);
+
+			action.clickWithjavascriptattempt(currentGasUsageKWH);
+
+			String periodValue = gasSpendFrequency.replaceAll(" ", "").toLowerCase();
+			switch (periodValue) 		
+			{
+			case "year":
+				periodValue ="Annually" ;
+				break;
+			case "month":
+				periodValue ="Monthly" ;
+				break;
+			case "quarter":
+				periodValue ="Quarterly" ;
+				break;											
+			default:
+				System.out.println("error occured setting default value to annually");
+				periodValue ="Annually" ;
+			}
+
+			//plan price detail page	
+			System.out.println("gas spent details page");		
+
+			action.sendText(currentgasUsage,gasusage);
+			action.selectDropDownByVisibleText(currentGasUsageperiod, periodValue);
+
+
+			action.wait(2);
+			action.clickWithAttemptActions(nextButtonCommon);
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
+		}
+	}
+
+	public void fourthPage(String paymentMethod)
+	{		
+		try {
+			//click on intrested in all tariff 
+			action.clickWithjavascriptattempt(allTariifs);
+
+			//select payment method
+			WebElement selectPaymentMethod =driver.findElement(By.xpath("//span[@class=\"ToggleContent\"][contains(text(),'"+paymentMethod+"')]"));			
+			action.clickWithjavascriptattempt(selectPaymentMethod);
+
+			//enter email id
+			String Email = action.randomEmailGenerator();
+			action.sendText(enterEmail,Email);
+			action.wait(1);
+
+			action.clickWithjavascriptattempt(doNotContact);	
+			action.clickWithAttemptActions(nextButtonCommon);
+
+
+		}
+		catch (Exception e) {
+			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
+			e.printStackTrace();
+		}
+	}
+
 
 	public void howToPay()
 	{		
@@ -219,32 +331,51 @@ public class CompareTheMarketPage  {
 			e.printStackTrace();
 		}
 	}
-	public void enterEnergyValuePage(boolean hasGas, boolean isEconomy7, String gasusage, String eleusage, String nightPercentage )
+
+	public void enterEnergyValuePage(boolean isEconomy7, String electricitySpendFrequency, 
+			String eleusage, String nightPercentage )
 	{		
 		try {
-			//plan price detail page
-			action.verifyElementPresent(currentElectricityUsageday);
-			if (action.verifyElementPresent(currentElectricityUsageday))
-			{
-				System.out.println("energy spent details page");
-	
-				if(action.verifyElementPresent(currentElectricityUsageday))
-				{			
-					int overallElectricity = Integer.parseInt(eleusage);
-					int percentRequire =(int) (Float.parseFloat(nightPercentage)*100);	
-					int nightUsage =  (overallElectricity*percentRequire)/100;	
-					action.sendText(eleamount, String.valueOf(overallElectricity-nightUsage));
-				}
 
-				if(isEconomy7)
-				{	
-					int overallElectricity = Integer.parseInt(eleusage);
-					int percentRequire =(int)	(Float.parseFloat(nightPercentage)*100);	
-					int nightUsage =  (overallElectricity*percentRequire)/100;
-					action.sendText(elenight,String.valueOf(nightUsage));
-				}
-				action.wait(2);
-			}			
+			String periodValue = electricitySpendFrequency.replaceAll(" ", "").toLowerCase();
+
+			switch (periodValue) 		
+			{
+			case "year":
+				periodValue ="Annually" ;
+				break;
+			case "month":
+				periodValue ="Monthly" ;
+				break;
+			case "quarter":
+				periodValue ="Quarterly" ;
+				break;											
+			default:
+				System.out.println("error occured setting default value to annually");
+				periodValue ="Annually" ;
+			}
+
+			//plan price detail page	
+			System.out.println("energy spent details page");				
+			if(isEconomy7)					
+			{	
+				int overallElectricity = Integer.parseInt(eleusage);
+				int percentRequire =(int)	(Float.parseFloat(nightPercentage)*100);	
+				int nightUsage =  (overallElectricity*percentRequire)/100;
+				action.sendText(currentElectricityUsageday, String.valueOf(overallElectricity-nightUsage));
+				action.selectDropDownByVisibleText(currentElectricityUsageperiod, periodValue);
+				action.sendText(currentElectricityUsagenight,String.valueOf(nightUsage));
+			}
+			else 					
+			{			
+				int overallElectricity = Integer.parseInt(eleusage);
+				int percentRequire =(int) (Float.parseFloat(nightPercentage)*100);	
+				int nightUsage =  (overallElectricity*percentRequire)/100;	
+				action.sendText(currentElectricityUsageday_1, String.valueOf(overallElectricity-nightUsage));
+				action.selectDropDownByVisibleText(currentElectricityUsageperiod_1, periodValue);
+			}			 
+			action.wait(2);
+
 		}
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
@@ -282,10 +413,10 @@ public class CompareTheMarketPage  {
 				{
 					String first = dropdownItem.getText(), Second = partialAddress;
 					first=first.replaceAll(",", " ");
+					first=first.replace(".", " ");
 					first=first.replaceAll(" ", "");
 					Second=Second.replaceAll(",", " ");
 					Second=Second.replaceAll(" ", "");				
-
 					if(first.equalsIgnoreCase(Second))
 					{
 						action.selectDropDownByVisibleText(selectaddress,dropdownItem.getText());
@@ -363,21 +494,97 @@ public class CompareTheMarketPage  {
 		}
 	}
 
+	public HashMap<String, Map> storedataNew(boolean hasGas,String paymentMethod) 
+	{
 
-	public void name()
-	{		
+		HashMap<String, Map> super_getallthedetails = new HashMap<String, Map>();
+
+
 		try {
+
+			String resultlistxpath = "//div[@class=\"Table_Table__2DxTv\"]//div[@class=\"TariffProperties_TariffPropertiesWrapper__3SF5G\"]";
+			String suppliernameXpath = "//div//img[@class=\"BrandLogo__image\"]";
+			String tariffNameXpath = "//p[@class=\"TariffSummary_TariffName__1gGda\"]";
+			String ExtrasXpath = "//div[@class=\"TableRow_Wrapper__2Zact\"]";
+
+			// the below line code is to make driver wait till the time it finds the result page
+			driver.findElement(By.xpath(resultlistxpath));
+
+			/*there is no list in the result page so we fetching all the webelements with the same class and 
+			inserting them in list*/
+
+			List<WebElement> resultlist = driver.findElements(By.xpath(resultlistxpath));
+			List<WebElement> susuppliernameList = driver.findElements(By.xpath(suppliernameXpath));
+			List<WebElement> tariffNameList = driver.findElements(By.xpath(tariffNameXpath));
+			List<WebElement> ExtrasList = driver.findElements(By.xpath(ExtrasXpath));
+			for(int i =0 ; i<resultlist.size() ; i++ )
+			{
+				HashMap<Object, Object> rankValue = new HashMap<>() ;
+
+				String supplierName, contractType, personalProjection, isGreen ="None", tariffName, contractTerm, rank, paymentMethodvalue, monthlyDirectDebit,earlyExitFee,offers,none="None";
+
+				//not getting anyvalue just saving as none to maintain the json structure
+				rankValue.put("comparisonSiteExclusive", none);
+				rankValue.put("Extras", none);
+				rankValue.put("savePerYear", none);
+				rankValue.put("isSaving", false);
+
+
+
+
+				//supplier name 
+				supplierName = susuppliernameList.get(i).getAttribute("alt");	
+				rankValue.put("supplierName", supplierName);
+
+				//tariif name
+				tariffName = tariffNameList.get(i).getText();			
+				rankValue.put("tariffName", tariffName);
+
+				//check if the tariff is green or not
+				offers = ExtrasList.get(i).getText();		
+				if(offers.toLowerCase().contains("100% renewable electricity"))
+				{
+					isGreen = "True";
+				} 				
+				rankValue.put("isGreen", isGreen);
+
+				//inout upper header main data.
+				String[] resultarray=	resultlist.get(i).getText().split("\\r?\\n");
+
+				contractType = resultarray[7];
+				rankValue.put("contractType", contractType);
+
+				personalProjection = resultarray[4];
+				rankValue.put("personalProjection", personalProjection);
+
+				contractTerm = resultarray[7];
+				rankValue.put("contractTerm", contractTerm);
+
+				rank = String.valueOf(i+1);
+				rankValue.put("rank", rank);
+
+				paymentMethodvalue = resultarray[8]; 
+				rankValue.put("paymentMethod", paymentMethodvalue);
+
+				monthlyDirectDebit = resultarray[2]; 
+				rankValue.put("monthlyDirectDebit", monthlyDirectDebit);
+
+				earlyExitFee =  resultarray[6]; 
+				rankValue.put("earlyExitFee", earlyExitFee);
+
+
+
+				//put in main hashmap
+				super_getallthedetails.put("Rank_"+rank,rankValue);						
+			}
 
 		}
 		catch (Exception e) {
 			System.out.println(" :: Exception Occured in class USwitch Page, method name "+new Object(){}.getClass().getEnclosingMethod().getName()+" ::");
 			e.printStackTrace();
 		}
-	}
 
-	public HashMap<String, Map> storedataNew(boolean hasGas,String paymentMethod) 
-	{
-		return null;
+		return super_getallthedetails;
 
 	}
 }

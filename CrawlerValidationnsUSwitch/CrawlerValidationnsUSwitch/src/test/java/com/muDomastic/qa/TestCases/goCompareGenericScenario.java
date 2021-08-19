@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.AfterMethod;
@@ -27,20 +27,17 @@ import org.yaml.snakeyaml.Yaml;
 import com.muDomastic.qa.base.TestBase;
 import com.muDomastic.qa.base.apiFetchedData;
 import com.muDomastic.qa.base.dataDump;
-import com.muDomastic.qa.page.CompareTheMarketPage;
-import com.muDomastic.qa.page.USwitchPage;
+import com.muDomastic.qa.page.goComparePage;
 import com.muDomastic.qa.util.TestUtil;
-import org.apache.commons.io.FileUtils;
 
 
+public class goCompareGenericScenario extends TestBase {
 
-public class USwitchGenericScenario extends TestBase 
-{
 	TestBase testbase = new TestBase();
 	JSONArray testCasesArray = null;
-	static int attempt;
 	HashMap<String,HashMap<String, Map>> super_getallthedetails = new HashMap<>();
 	int count =1;
+	static int attempt ;
 	TestUtil testUtil = new TestUtil();
 
 	//..................setting the value to run test as per config file ...................................
@@ -52,15 +49,19 @@ public class USwitchGenericScenario extends TestBase
 	String runWithoutPostingtheData = testbase.setValuesforexecution().get("runWithoutPostingtheData");
 	int setReAttempt = Integer.parseInt(testbase.setValuesforexecution().get("setReAttempt"));
 
-	//......................................................................................................
+	//..........................................................................................................
 
-	//.................. variable used to fetch value using data.json ........................................
 	String postCode,partialAddress,supplierName,paymentMethod = null,plan = null,gasusage,eleusage,nightPercent,
-			gasSpendFrequency,electricitySpendFrequency,requestId;
-	boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
-	//.........................................................................................................
+			gasSpendFrequency,electricitySpendFrequency,requestId,electricitySuppliers,gasSupplier;
 
-	public  USwitchGenericScenario() {
+	boolean hasGas,isDualFuel,hasElectricity,isEconomy7;
+	//...........................................................................................................
+
+	
+
+
+	
+	public  goCompareGenericScenario() {
 		//call the base class constructor to initilize the propt
 		super();
 	}
@@ -69,7 +70,6 @@ public class USwitchGenericScenario extends TestBase
 	public void setup() {
 		try {
 			String file = null;		
-			
 			//Kill any open Opera browser
 			testUtil.killOpera();
 
@@ -114,10 +114,10 @@ public class USwitchGenericScenario extends TestBase
 
 
 		} catch (Exception e) {
-			System.out.println(":: Exception Occured in the setup method of  USwitchGenericScenario's ::");
 			e.printStackTrace();
 		}
 	}
+
 
 	@Test
 	public void executevalue() 
@@ -152,6 +152,8 @@ public class USwitchGenericScenario extends TestBase
 					supplierName = testCaseJsonObj.get("dualFuelSuppliers").toString();	
 					paymentMethod = testCaseJsonObj.get("dualFuelPaymentMethod").toString();	
 					plan = testCaseJsonObj.get("dualFuelPlan").toString();
+					electricitySuppliers= testCaseJsonObj.get("electricitySuppliers").toString();	
+					gasSupplier= testCaseJsonObj.get("gasSupplier").toString();	
 				}
 				else
 				{
@@ -160,12 +162,15 @@ public class USwitchGenericScenario extends TestBase
 						supplierName = testCaseJsonObj.get("gasSupplier").toString();	
 						paymentMethod = testCaseJsonObj.get("gasPaymentMethod").toString();	
 						plan = testCaseJsonObj.get("gasPlan").toString();
+						gasSupplier= testCaseJsonObj.get("gasSupplier").toString();	
+
 					}
 					if(hasElectricity)
 					{
 						supplierName = testCaseJsonObj.get("electricitySuppliers").toString();	
 						paymentMethod = testCaseJsonObj.get("electricityPaymentMethod").toString();	
 						plan = testCaseJsonObj.get("electricityPlan").toString();
+						electricitySuppliers= testCaseJsonObj.get("electricitySuppliers").toString();	
 					}
 					else
 					{
@@ -181,6 +186,7 @@ public class USwitchGenericScenario extends TestBase
 					attempt = 3;		
 				}
 
+
 				//runcrawler now
 				runCrawler();
 
@@ -189,7 +195,7 @@ public class USwitchGenericScenario extends TestBase
 		}
 		catch (Exception e) 
 		{
-			System.out.println(":: Exception occured in Class uSwitchGenericScenario, method name  execute value :: " );
+			System.out.println(":: Exception occured in Class goCompareGenericScenario, method name  execute value :: " );
 			e.printStackTrace();
 		}
 	}
@@ -199,33 +205,33 @@ public class USwitchGenericScenario extends TestBase
 	public void closeTest()
 	{
 		try {		 
-			String filePath = System.getProperty("user.dir")+"\\USwitch_data.yaml";
 			//saving data in yaml file before using post request 
-			System.out.println("Fetched data is at: "+filePath);
+
+			String filepath = System.getProperty("user.dir")+"\\goCompare_data.yaml";
+			System.out.println("Fetched data is at: "+filepath);
 			Yaml yaml = new Yaml();	
 			OutputStreamWriter writer = null;
-			writer	= new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8);
+			writer	= new OutputStreamWriter(new FileOutputStream(filepath), StandardCharsets.UTF_8);
 			yaml.dump(super_getallthedetails, writer);
 
 			//sending data to db using post request	
 			if(runWithoutPostingtheData.contains("false"))
 			{
-				new dataDump().jsonVariables(filePath);	
+				new dataDump().jsonVariables(filepath);	
 
 			}
 
 		}catch (Exception e) {
-			System.out.println(":: Exception occured while running the closeTest method of class USwitchGenericScenario's ::");
-			e.printStackTrace();
+			System.out.println("Exception occured while running the closeTest method of class CompareTheElementGenericScenario ");
 		}
 	}
 
 	public void runCrawler() {
 		try{
-
-			//running the crawler for uswitch website
-			USwitchPage UswitchPageObj=new USwitchPage();
-			UswitchPageObj.uSwitchJourney(postCode,
+			//running the crawler for goCompare website
+			goComparePage goComparePageObj=new goComparePage();
+			goComparePageObj.goCompareJourney(
+					postCode,
 					partialAddress,
 					supplierName,
 					paymentMethod,
@@ -236,40 +242,37 @@ public class USwitchGenericScenario extends TestBase
 					electricitySpendFrequency,
 					nightPercent,
 					requestId,
+					electricitySuppliers,
+					gasSupplier,
+					hasElectricity,
 					hasGas,
 					isDualFuel,
 					isEconomy7);
 
 			// storing the fetched data for u switch crawler 
-			HashMap<String, Map> sectionData = UswitchPageObj.storedataNew(hasGas,paymentMethod);	
-			sectionData.put(electricitySpendFrequency, sectionData);
+			HashMap<String, Map> sectionData = goComparePageObj.storedataNew(hasGas,paymentMethod);	
+
 			if(sectionData.isEmpty())
 			{
 				//taking screenshot of the failed error
 				TakesScreenshot scrShot =((TakesScreenshot) driver);
 				File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
-				File DestFile=new File(System.getProperty("user.dir")+"\\screenShotResults\\USwitch_"+requestId+"_requestID_"+attempt+"_attemptLeft.png");
+				File DestFile=new File(System.getProperty("user.dir")+"\\screenShotResults\\goCompare_"+requestId+"_requestID_"+attempt+"_attemptLeft.png");
 				FileUtils.copyFile(SrcFile, DestFile);		        
 
 				//reattempt
 				crawlerReAttempt();
-			}	
+			}		
 
 			//close driver and add the execution in particluar field
 			driverClose();
+
 			super_getallthedetails.put("Execution-"+requestId, sectionData);
-		}
-		catch (NoSuchWindowException e) {
-			System.out.println(" :::::::: Exception occured because browser closed unexpectedly ::::::: "); 
-			System.out.println(e);
-			runCrawler();
-		}
-		catch (Exception e) {
-			System.out.println(":: Exception occured in runCrawler method of uSwitchGenericScenario  :: "); 
-			e.printStackTrace();
+
+		}catch (Exception e) {
+			System.out.println("Exception occured in runCrawler method of CompareTheElementGenericScenario  :: "+ e);
 		}
 	}
-
 	public void crawlerReAttempt() 
 	{
 		try {
@@ -282,7 +285,7 @@ public class USwitchGenericScenario extends TestBase
 			}
 		}
 		catch (Exception e) {
-			System.out.println(":: Exception occured in crawlerReAttempt method of uSwitchGenericScenario  :: "); 
+			System.out.println(":: Exception occured in crawlerReAttempt method of goCompareGenericScenario  :: "); 
 			e.printStackTrace();
 		}	
 	}
@@ -299,13 +302,11 @@ public class USwitchGenericScenario extends TestBase
 				Thread.sleep(20000);
 				driver.quit();
 			}
-		} catch (Exception e) {	System.out.println(":: Exception occured in driverClose method of uSwitchGenericScenario  :: "); 
+		} catch (Exception e) {	System.out.println(":: Exception occured in driverClose method of goCompareGenericScenario  :: "); 
 		e.printStackTrace();
 		}
 	}
 
 }
-
-
 
 
