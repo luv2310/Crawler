@@ -1,0 +1,144 @@
+Execution-6069:
+  Rank_2: {supplierName: Pure Planet, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1268, Extras: None, isGreen: 'True', savePerYear: -£143,
+    earlyExitFee: £60, tariffName: 100% Green 24m Fixed Sep21 v1, contractTerm: This
+      Fixed Rate tariff ends 24 months from supply start date., rank: '2', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £105, isSaving: false}
+  Rank_1: {supplierName: E.ON Next, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1260, Extras: None, isGreen: None, savePerYear: -£135,
+    earlyExitFee: £0, tariffName: Next Exclusive 2 Year v6, contractTerm: This Fixed
+      Rate tariff ends 24 months from supply start date., rank: '1', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £105, isSaving: false}
+  Rank_13: {supplierName: Octopus Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1356, Extras: None, isGreen: None, savePerYear: -£231,
+    earlyExitFee: £0, tariffName: Octopus Exclusive 24M Fixed August 2021 v4, contractTerm: This
+      Fixed Rate tariff ends 24 months from supply start date., rank: '13', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £113, isSaving: false}
+  Rank_24: {supplierName: ScottishPower, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1593, Extras: None, isGreen: 'True', savePerYear: -£468,
+    earlyExitFee: £0, tariffName: Help Beat Cancer Green Fixed December 2023 CH2 Online,
+    contractTerm: This Fixed Rate tariff ends on 31/12/2023., rank: '24', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £132, isSaving: false}
+  Rank_9: {supplierName: British Gas, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1319, Extras: None, isGreen: None, savePerYear: -£195,
+    earlyExitFee: £80, tariffName: Online Fixed Sep 2023v2, contractTerm: This Fixed
+      Rate tariff ends on 30/09/2023., rank: '9', paymentMethod: Fixed Direct Debit,
+    monthlyDirectDebit: £109, isSaving: false}
+  Rank_12: {supplierName: Green, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1354, Extras: None, isGreen: None, savePerYear: -£229,
+    earlyExitFee: £144, tariffName: Banks, contractTerm: This Fixed Rate tariff ends
+      36 months from supply start date., rank: '12', paymentMethod: Fixed Direct Debit,
+    monthlyDirectDebit: £112, isSaving: false}
+  Rank_23: {supplierName: ScottishPower, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1593, Extras: None, isGreen: 'True', savePerYear: -£468,
+    earlyExitFee: £0, tariffName: Help Beat Cancer Green Fixed December 2023 CH2,
+    contractTerm: This Fixed Rate tariff ends on 31/12/2023., rank: '23', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £132, isSaving: false}
+  Rank_8: {supplierName: The People's Energy Company, comparisonSiteExclusive: 'False',
+    contractType: Fixed tariff, personalProjection: £1308, Extras: None, isGreen: None,
+    savePerYear: -£183, earlyExitFee: £60, tariffName: People's Energy Fixed Tariff
+      July 21, contractTerm: This Fixed Rate tariff ends 12 months from supply start
+      date., rank: '8', paymentMethod: Fixed Direct Debit, monthlyDirectDebit: £109,
+    isSaving: false}
+  Rank_15: {supplierName: Shell Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1453, Extras: None, isGreen: None, savePerYear: -£329,
+    earlyExitFee: £100, tariffName: Go Further August 2024 plus Shop Voucher, contractTerm: This
+      Fixed Rate tariff ends on 31/08/2024., rank: '15', paymentMethod: Fixed Direct
+      Debit, monthlyDirectDebit: £121, isSaving: false}
+  Rank_7: {supplierName: British Gas, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1304, Extras: None, isGreen: 'True', savePerYear: -£180,
+    earlyExitFee: £80, tariffName: Green Future Oct 2023, contractTerm: This Fixed
+      Rate tariff ends on 31/10/2023., rank: '7', paymentMethod: Fixed Direct Debit,
+    monthlyDirectDebit: £108, isSaving: false}
+  Rank_14: {supplierName: So Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1419, Extras: None, isGreen: 'True', savePerYear: -£295,
+    earlyExitFee: £60, tariffName: So Cinnamon Two Year - Green, contractTerm: This
+      Fixed Rate tariff ends 24 months from supply start date., rank: '14', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £118, isSaving: false}
+  Rank_6: {supplierName: Green, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1279, Extras: None, isGreen: None, savePerYear: -£154,
+    earlyExitFee: £144, tariffName: Finetti, contractTerm: This Fixed Rate tariff
+      ends 24 months from supply start date., rank: '6', paymentMethod: Fixed Direct
+      Debit, monthlyDirectDebit: £106, isSaving: false}
+  Rank_20: {supplierName: ScottishPower, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1581, Extras: None, isGreen: None, savePerYear: -£456,
+    earlyExitFee: £60, tariffName: Fixed Price December 2022 H2, contractTerm: This
+      Fixed Rate tariff ends on 31/12/2022., rank: '20', paymentMethod: Fixed Direct
+      Debit, monthlyDirectDebit: £131, isSaving: false}
+  Rank_5:
+    supplierName: Outfox the Market
+    comparisonSiteExclusive: 'true'
+    contractType: Fixed tariff
+    personalProjection: £1276
+    electricity: {supplierName: Outfox the Market, isGreen: None, tariffEndson: This
+        Fixed Rate tariff ends 12 months from supply start date., additionalproductsorservices: Not
+        applicable, tariffType: Fixed tariff, discounts: not applicable, tariffName: Fix'd
+        12m Sep21 v1, standingCharge: 25.63p, paymentMethod: Fixed Direct Debit, unitRate: 20.70p,
+      exitfees: £30, priceGuaranteedUntil: This Fixed Rate tariff ends 12 months from
+        supply start date.}
+    Extras: None
+    isGreen: None
+    savePerYear: -£151
+    earlyExitFee: £60
+    tariffName: Fix'd 12m Sep21 v1
+    contractTerm: This Fixed Rate tariff ends 12 months from supply start date.
+    gas: {supplierName: Outfox the Market, isGreen: None, tariffEndson: This Fixed
+        Rate tariff ends 12 months from supply start date., additionalproductsorservices: Not
+        applicable, tariffType: Fixed tariff, discounts: not applicable, tariffName: Fix'd
+        12m Sep21 v1, standingCharge: 30.66p, paymentMethod: Fixed Direct Debit, unitRate: 3.92p,
+      exitfees: 30.66p, priceGuaranteedUntil: This Fixed Rate tariff ends 12 months
+        from supply start date.}
+    rank: '5'
+    paymentMethod: Fixed Direct Debit
+    monthlyDirectDebit: £106
+    isSaving: false
+  Rank_4: {supplierName: EDF Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1270, Extras: None, isGreen: None, savePerYear: -£145,
+    earlyExitFee: £70, tariffName: Simply Online Sep24v2, contractTerm: This Fixed
+      Rate tariff ends on 30/09/2024., rank: '4', paymentMethod: Fixed Direct Debit,
+    monthlyDirectDebit: £105, isSaving: false}
+  Rank_11: {supplierName: British Gas Evolve, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1341, Extras: None, isGreen: None, savePerYear: -£216,
+    earlyExitFee: £0, tariffName: Exclusive Energy v15, contractTerm: This Fixed Rate
+      tariff ends 24 months from supply start date., rank: '11', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £111, isSaving: false}
+  Rank_22: {supplierName: ScottishPower, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1581, Extras: None, isGreen: 'True', savePerYear: -£457,
+    earlyExitFee: £0, tariffName: Help Beat Cancer Green Fixed December 2023 CM2 Online,
+    contractTerm: This Fixed Rate tariff ends on 31/12/2023., rank: '22', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £131, isSaving: false}
+  Rank_3: {supplierName: Green, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1270, Extras: None, isGreen: None, savePerYear: -£145,
+    earlyExitFee: £72, tariffName: Bachman, contractTerm: This Fixed Rate tariff ends
+      12 months from supply start date., rank: '3', paymentMethod: Fixed Direct Debit,
+    monthlyDirectDebit: £105, isSaving: false}
+  Rank_10: {supplierName: OVO Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1333, Extras: None, isGreen: None, savePerYear: -£209,
+    earlyExitFee: £60, tariffName: Better Smart 13 August 2021, contractTerm: This
+      Fixed Rate tariff ends 12 months from supply start date., rank: '10', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £111, isSaving: false}
+  Rank_21: {supplierName: ScottishPower, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1581, Extras: None, isGreen: 'True', savePerYear: -£457,
+    earlyExitFee: £0, tariffName: Help Beat Cancer Green Fixed December 2023 CM2,
+    contractTerm: This Fixed Rate tariff ends on 31/12/2023., rank: '21', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £131, isSaving: false}
+  Rank_17: {supplierName: Shell Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1529, Extras: None, isGreen: None, savePerYear: -£404,
+    earlyExitFee: £100, tariffName: Smart Energy October 2022 plus Shop Voucher, contractTerm: This
+      Fixed Rate tariff ends on 31/10/2022., rank: '17', paymentMethod: Fixed Direct
+      Debit, monthlyDirectDebit: £127, isSaving: false}
+  Rank_16: {supplierName: Shell Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1492, Extras: None, isGreen: None, savePerYear: -£367,
+    earlyExitFee: £100, tariffName: Smart Energy September 2023 plus Shop Voucher,
+    contractTerm: This Fixed Rate tariff ends on 30/09/2023., rank: '16', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £124, isSaving: false}
+  Rank_19: {supplierName: So Energy, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1575, Extras: None, isGreen: 'True', savePerYear: -£451,
+    earlyExitFee: £20, tariffName: So Cinnamon One Year - Green, contractTerm: This
+      Fixed Rate tariff ends 12 months from supply start date., rank: '19', paymentMethod: Fixed
+      Direct Debit, monthlyDirectDebit: £131, isSaving: false}
+  Rank_18: {supplierName: ScottishPower, comparisonSiteExclusive: 'False', contractType: Fixed
+      tariff, personalProjection: £1569, Extras: None, isGreen: None, savePerYear: -£445,
+    earlyExitFee: £60, tariffName: Fixed Price December 2022 M2, contractTerm: This
+      Fixed Rate tariff ends on 31/12/2022., rank: '18', paymentMethod: Fixed Direct
+      Debit, monthlyDirectDebit: £130, isSaving: false}

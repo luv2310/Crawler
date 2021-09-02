@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestSuite">
+	<test name="allTest's">
+		<classes>
+			<class
+				name="com.muDomastic.qa.TestCases.USwitchGenericScenario" />
+			<class
+				name="com.muDomastic.qa.TestCases.CompareTheMarketGenericScenario" />
+			<class
+				name="com.muDomastic.qa.TestCases.goCompareGenericScenario" />
+			<class
+				name="com.muDomastic.qa.TestCases.MoneySuperMarketGenericScenario" />
+			<class
+				name="com.muDomastic.qa.TestCases.EnergyLinxGenericScenario" />
+			<class
+				name="com.muDomastic.qa.TestCases.EnergyHelplineGenericScenario" />
+		</classes>
+	</test>
+</suite>
